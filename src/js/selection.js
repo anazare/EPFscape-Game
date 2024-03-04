@@ -3,6 +3,7 @@ import * as fct from "/src/js/fonctions.js";
 const SKY_IMAGE_KEY = "img_ciel";
 const BOOK_IMAGE_KEY = "img_livre";
 
+
 var clavier;
 var livreTexte;
 
@@ -14,7 +15,8 @@ export default class selection extends Phaser.Scene {
   preload() {
     this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
     this.load.image(BOOK_IMAGE_KEY, "src/assets/book.png");
-    this.load.image(Bouton_Start, "src/assets/start.jpg");
+    this.load.image("Start", "src/assets/bouton-start.png");
+    this.load.image("campus", "src/assets/campus_montpellier_2022.png");
   }
 
   create() {
@@ -22,8 +24,9 @@ export default class selection extends Phaser.Scene {
     fct.doAlsoNothing();
 
     this.add.image(400, 300, SKY_IMAGE_KEY);
+    this.add.image(585, 190, "campus").setDepth(1).setDisplaySize(250, 170) ; 
     //creation d'un bouton play pour passer à la 
-    var bouton_play = this.add.image(290,250, Bouton_Start).setDepth(1).setDisplaySize(50, 50); 
+    var bouton_play = this.add.image(580, 490, "Start").setDepth(1).setDisplaySize(100, 70); 
     //rendre le bouton interactif 
     bouton_play.setInteractive();
     //Cas ou la souris passe sur le bouton play
@@ -58,13 +61,29 @@ export default class selection extends Phaser.Scene {
     );
 
     // Ajout de la fonctionnalité d'affichage lettre par lettre
-    this.time.delayedCall(100, this.fct.afficherTexteLettreParLettre, [], this);
+    this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
   }
 
   update() {
     // Vous pouvez ajouter ici des logiques de mise à jour si nécessaire
   }
 
+   afficherTexteLettreParLettre() {
+    const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n                                                                                                  Bonne chance !!!";
+    let textePartiel = "";
+    let indexLettre = 0;
+
+    this.time.addEvent({
+        repeat: texteComplet.length - 1,
+        delay: 50,
+        callback: function () {
+            textePartiel += texteComplet[indexLettre];
+            livreTexte.setText(textePartiel);
+            indexLettre++;
+        },
+        callbackScope: this,
+    });
+  }
 }
 
   
