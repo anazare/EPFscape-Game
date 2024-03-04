@@ -22,6 +22,7 @@ export default class selection extends Phaser.Scene {
     fct.doAlsoNothing();
 
     this.add.image(400, 300, SKY_IMAGE_KEY);
+    this.add.image(290,250, Bouton_Start); 
 
     // Ajout de l'image du livre
     const livreImage = this.add.image(400, 300, BOOK_IMAGE_KEY);
