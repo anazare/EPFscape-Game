@@ -4,6 +4,7 @@ import niveauDarties from "/src/js/niveauDarties.js";
 import niveauMeyer from "/src/js/niveauMeyer.js";
 import niveauJousset from "/src/js/niveauJousset.js";
 import niveauAbdellah from "/src/js/niveauAbdellah.js";
+import principal from "/src/js/principal.js";
 
 // configuration générale du jeu
 var config = {
@@ -26,7 +27,7 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
-  scene: [selection, niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+  scene: [selection, principal, niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
   
 };
 
