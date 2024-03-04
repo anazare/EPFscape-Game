@@ -1,6 +1,6 @@
 import * as fct from "/src/js/fonctions.js";
 
-export default class niveau1 extends Phaser.Scene {
+export default class niveauMeyer extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({

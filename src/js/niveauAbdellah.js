@@ -1,5 +1,5 @@
 
-export default class niveau3 extends Phaser.Scene {
+export default class niveauAbdellah extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({

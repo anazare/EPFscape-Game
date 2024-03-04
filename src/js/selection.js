@@ -22,7 +22,25 @@ export default class selection extends Phaser.Scene {
     fct.doAlsoNothing();
 
     this.add.image(400, 300, SKY_IMAGE_KEY);
-    this.add.image(290,250, Bouton_Start); 
+    //creation d'un bouton play pour passer à la 
+    var bouton_play = this.add.image(290,250, Bouton_Start).setDepth(1).setDisplaySize(50, 50); 
+    //rendre le bouton interactif 
+    bouton_play.setInteractive();
+    //Cas ou la souris passe sur le bouton play
+    bouton_play.on("pointerover", () => {
+      
+      bouton_play.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    bouton_play.on("pointerout", () => {
+      // a remplir
+      bouton_play.clearTint();
+    });
+    //Cas ou la sourris clique sur le bouton play :
+    // on lance le niveau 1
+    bouton_play.on("pointerup", () => {
+      this.scene.start("selection");
+    });
 
     // Ajout de l'image du livre
     const livreImage = this.add.image(400, 300, BOOK_IMAGE_KEY);
