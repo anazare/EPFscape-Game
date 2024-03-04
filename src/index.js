@@ -27,12 +27,12 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
-  scene: [selection, principal, niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+  scene: [principal, selection,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
   
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start("selection");
+game.scene.start("principal");
 
 
