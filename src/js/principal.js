@@ -22,7 +22,7 @@ export default class principal extends Phaser.Scene {
  this.load.spritesheet("dude", "src/assets/modern-men.png", {frameWidth: 32, frameHeight: 48}); 
 
  // chargement tuiles de jeu
- this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png");
+ this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_final.png");
  this.load.image("Phaser_tuilesdejeuu", "src/assets/car_red_1.png");
  this.load.image("Phaser_tuilesdejeuuu", "src/assets/car_black_3.png");
  
