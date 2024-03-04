@@ -3,10 +3,11 @@ import * as fct from "/src/js/fonctions.js";
 const SKY_IMAGE_KEY = "img_ciel";
 const BOOK_IMAGE_KEY = "img_livre";
 
-
 var clavier;
 var livreTexte;
 var musique_de_fond;
+var bouton_play;
+var campus_img;
 
 export default class selection extends Phaser.Scene {
   constructor() {
@@ -28,31 +29,9 @@ export default class selection extends Phaser.Scene {
     musique_de_fond.play();
 
     this.add.image(400, 300, SKY_IMAGE_KEY);
-    this.add.image(585, 190, "campus").setDepth(1).setDisplaySize(250, 170) ; 
-    //creation d'un bouton play pour passer à la 
-    var bouton_play = this.add.image(580, 490, "Start").setDepth(1).setDisplaySize(100, 70); 
-    //rendre le bouton interactif 
-    bouton_play.setInteractive();
-    //Cas ou la souris passe sur le bouton play
-    bouton_play.on("pointerover", () => {
-      
-      bouton_play.setTint(0xC0C0C0);
-    });
-    //Cas ou la souris ne passe plus sur le bouton play
-    bouton_play.on("pointerout", () => {
-      // a remplir
-      bouton_play.clearTint();
-    });
-    //Cas ou la sourris clique sur le bouton play :
-    // on lance le niveau 1
-    bouton_play.on("pointerup", () => {
-      this.scene.start("principal");
-    });
 
-    // Ajout de l'image du livre
     const livreImage = this.add.image(400, 300, BOOK_IMAGE_KEY);
 
-    // Ajout du texte sur l'image du livre
     livreTexte = this.add.text(
       livreImage.x - livreImage.width / 2 + 70,
       livreImage.y - livreImage.height / 2 + 80,
@@ -66,30 +45,47 @@ export default class selection extends Phaser.Scene {
 
     // Ajout de la fonctionnalité d'affichage lettre par lettre
     this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
+
+    // Ajouter le bouton "Start" et l'image du campus avec un délai de 20 secondes
+    this.time.delayedCall(20000, this.afficherCampusEtBouton, [], this);
   }
-  
 
   update() {
-    // Vous pouvez ajouter ici des logiques de mise à jour si nécessaire
+    // Ajouter ici des logiques de mise à jour si nécessaire
   }
 
-   afficherTexteLettreParLettre() {
+  afficherTexteLettreParLettre() {
     const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n                                                                                                  Bonne chance !!!";
     let textePartiel = "";
     let indexLettre = 0;
 
     this.time.addEvent({
-        repeat: texteComplet.length - 1,
-        delay: 50,
-        callback: function () {
-            textePartiel += texteComplet[indexLettre];
-            livreTexte.setText(textePartiel);
-            indexLettre++;
-        },
-        callbackScope: this,
+      repeat: texteComplet.length - 1,
+      delay: 50,
+      callback: function () {
+        textePartiel += texteComplet[indexLettre];
+        livreTexte.setText(textePartiel);
+        indexLettre++;
+      },
+      callbackScope: this,
+    });
+  }
+
+  afficherCampusEtBouton() {
+    campus_img = this.add.image(585, 190, "campus").setDepth(1).setDisplaySize(250, 170);
+    bouton_play = this.add.image(580, 490, "Start").setDepth(1).setDisplaySize(100, 70);
+    bouton_play.setInteractive();
+
+    bouton_play.on("pointerover", () => {
+      bouton_play.setTint(0xC0C0C0);
+    });
+
+    bouton_play.on("pointerout", () => {
+      bouton_play.clearTint();
+    });
+
+    bouton_play.on("pointerup", () => {
+      this.scene.start("principal");
     });
   }
 }
-
-  
-
