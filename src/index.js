@@ -25,7 +25,7 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
-  scene: [selection, niveau1, niveau2, niveau3]
+  scene: [selection, niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
   
 };
 
