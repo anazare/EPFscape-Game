@@ -6,6 +6,7 @@ const BOOK_IMAGE_KEY = "img_livre";
 
 var clavier;
 var livreTexte;
+var musique_de_fond;
 
 export default class selection extends Phaser.Scene {
   constructor() {
@@ -17,11 +18,14 @@ export default class selection extends Phaser.Scene {
     this.load.image(BOOK_IMAGE_KEY, "src/assets/book.png");
     this.load.image("Start", "src/assets/bouton-start.png");
     this.load.image("campus", "src/assets/campus_montpellier_2022.png");
+    this.load.audio('background', 'src/assets/soncrayon.mp3');
   }
 
   create() {
     fct.doNothing();
     fct.doAlsoNothing();
+    musique_de_fond = this.sound.add('background');
+    musique_de_fond.play();
 
     this.add.image(400, 300, SKY_IMAGE_KEY);
     this.add.image(585, 190, "campus").setDepth(1).setDisplaySize(250, 170) ; 
@@ -42,7 +46,7 @@ export default class selection extends Phaser.Scene {
     //Cas ou la sourris clique sur le bouton play :
     // on lance le niveau 1
     bouton_play.on("pointerup", () => {
-      this.scene.start("selection");
+      this.scene.start("principal");
     });
 
     // Ajout de l'image du livre
@@ -63,6 +67,7 @@ export default class selection extends Phaser.Scene {
     // Ajout de la fonctionnalité d'affichage lettre par lettre
     this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
   }
+  
 
   update() {
     // Vous pouvez ajouter ici des logiques de mise à jour si nécessaire
