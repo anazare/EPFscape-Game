@@ -22,9 +22,8 @@ export default class principal extends Phaser.Scene {
  this.load.spritesheet("dude", "src/assets/modern-men.png", {frameWidth: 32, frameHeight: 48}); 
 
  // chargement tuiles de jeu
- this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_final.png");
- this.load.image("Phaser_tuilesdejeuu", "src/assets/car_red_1.png");
- this.load.image("Phaser_tuilesdejeuuu", "src/assets/car_black_3.png");
+ this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png");
+ 
  
  // chargement de la carte
  this.load.tilemapTiledJSON("carte", "src/assets/map_principale.json");  
@@ -32,6 +31,31 @@ export default class principal extends Phaser.Scene {
 
   create() {
    
+    
+// chargement de la carte
+const carteDuNiveau = this.add.tilemap("carte"); 
+
+// chargement du jeu de tuiles
+const tileset = carteDuNiveau.addTilesetImage(
+          "tuiles1","Phaser_tuilesdejeu"
+        ); 
+
+// chargement du calque calque_background
+const calque_background = carteDuNiveau.createLayer(
+  "Calque de Tuiles 1",
+  tileset
+);
+
+// chargement du calque calque_background2
+const calque_background2 = carteDuNiveau.createLayer(
+  "Bordures",
+  tileset
+); 
+
+// définition des tuiles de plateformes qui sont solides
+// utilisation de la propriété estSolide
+calque_background2.setCollisionByProperty({ estSolide: true }); 
+
    // création du personnage de jeu et positionnement
    player = this.physics.add.sprite(100, 400, "dude");
    player.setBounce(0.2);
@@ -72,48 +96,22 @@ export default class principal extends Phaser.Scene {
     player.setCollideWorldBounds(true);
 
 
-    
-// chargement de la carte
-const carteDuNiveau = this.add.tilemap("carte"); 
-
-// chargement du jeu de tuiles
-const tileset = carteDuNiveau.addTilesetImage(
-          "Phaser_tuilesdejeu",
-          "Phaser_tuilesdejeuu",
-          "Phaser_tuilesdejeuuu"
-        ); 
-
-// chargement du calque calque_background
-const calque_background = carteDuNiveau.createLayer(
-  "Calque de Tuiles 1",
-  tileset
-);
-
-// chargement du calque calque_background2
-const calque_background2 = carteDuNiveau.createLayer(
-  "Bordures",
-  tileset
-); 
-
-// définition des tuiles de plateformes qui sont solides
-// utilisation de la propriété estSolide
-calque_background2.setCollisionByProperty({ estSolide: true }); 
   }
 
   update() {
-   // if (this.clavier.left.isDown) {
-    //  this.player.setVelocityX(-160);
-      //this.player.anims.play("anim_tourne_gauche", true);
-    //} else if (this.clavier.right.isDown) {
-      //this.player.setVelocityX(160);
-      //this.player.anims.play("anim_tourne_droite", true);
-    //} else {
-    //  this.player.setVelocityX(0);
-    //  this.player.anims.play("anim_face");
-    //}
-    //if (this.clavier.up.isDown && this.player.body.touching.down) {
-     // this.player.setVelocityY(-330);
-    //}
+    if (this.clavier.left.isDown) {
+      this.player.setVelocityX(-160);
+      this.player.anims.play("anim_tourne_gauche", true);
+    } else if (this.clavier.right.isDown) {
+      this.player.setVelocityX(160);
+      this.player.anims.play("anim_tourne_droite", true);
+    } else {
+      this.player.setVelocityX(0);
+      this.player.anims.play("anim_face");
+    }
+    if (this.clavier.up.isDown && this.player.body.touching.down) {
+     this.player.setVelocityY(-330);
+    }
 
     if (cursors.space.isDown) {
         this.scene.switch("niveauAbdellah");
