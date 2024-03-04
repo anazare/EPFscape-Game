@@ -46,8 +46,8 @@ export default class selection extends Phaser.Scene {
   // Ajout de la fonctionnalité d'affichage lettre par lettre
   this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
 
-  // Ajouter le bouton "Start" et l'image du campus avec un délai de 20 secondes
-  this.time.delayedCall(20000, this.afficherCampusEtBouton, [], this);
+  // Ajouter le bouton "Start" et l'image du campus avec un délai de 18 secondes
+  this.time.delayedCall(18700, this.afficherCampusEtBouton, [], this);
 }
 
   update() {
