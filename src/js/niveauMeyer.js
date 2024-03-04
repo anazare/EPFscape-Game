@@ -48,7 +48,7 @@ export default class niveauMeyer extends Phaser.Scene {
     
   
    // création du personnage de jeu et positionnement
-   player = this.physics.add.sprite(100, 400, "dude");
+   player = this.physics.add.sprite(100, 400, "dude").setScale(4.5);;
    player.setBounce(0.2);
  
  
@@ -81,9 +81,9 @@ export default class niveauMeyer extends Phaser.Scene {
     // ajout du modèle de collision entre le personnage et le monde
     player.setCollideWorldBounds(true);
 
-    this.physics.world.setBounds(0, 0, 3200, 640);
+    this.physics.world.setBounds(0, 0, 800, 640);
     //  ajout du champs de la caméra de taille identique à celle du monde
-    this.cameras.main.setBounds(0, 0, 3200, 640);
+    this.cameras.main.setBounds(0, 0, 800, 640);
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player);
 
