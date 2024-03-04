@@ -22,14 +22,16 @@ export default class principal extends Phaser.Scene {
     this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
 
     // chargement tuiles de jeu
-    this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png");
+    this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png", {frameWidth: 4416, frameHeight: 6400});
 
 
     // chargement de la carte
-    this.load.tilemapTiledJSON("carte", "src/assets/map_principale.json");
+    this.load.tilemapTiledJSON("carte", "src/assets/map_principale2.json");
   }
 
   create() {
+
+
     // chargement de la carte
     const carteDuNiveau = this.add.tilemap("carte");
 
@@ -55,7 +57,7 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(100, 400, "dude").setScale(3);
+    player = this.physics.add.sprite(2656, 6368, "dude").setScale(4.5);
     player.setBounce(0.2);
 
     // animation pour tourner à gauche
