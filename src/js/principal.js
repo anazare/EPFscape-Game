@@ -57,7 +57,7 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(2656, 6368, "dude").setScale(4.5);
+    player = this.physics.add.sprite(2656, 6240, "dude").setScale(4.5);
     player.setBounce(0.2);
 
     // animation pour tourner à gauche
