@@ -19,43 +19,43 @@ export default class selection extends Phaser.Scene {
     this.load.image(BOOK_IMAGE_KEY, "src/assets/book.png");
     this.load.image("Start", "src/assets/bouton-start.png");
     this.load.image("campus", "src/assets/campus_montpellier_2022.png");
-    this.load.audio('background', 'src/assets/soncrayon.mp3');
+    this.load.audio('background', 'src/assets/sonambiance.mp3');
   }
 
   create() {
     fct.doNothing();
     fct.doAlsoNothing();
     musique_de_fond = this.sound.add('background');
-    musique_de_fond.play();
+  musique_de_fond.play();
 
-    this.add.image(400, 300, SKY_IMAGE_KEY);
+  this.add.image(400, 300, SKY_IMAGE_KEY);
 
-    const livreImage = this.add.image(400, 300, BOOK_IMAGE_KEY);
+  const imageLivre = this.add.image(400, 300, BOOK_IMAGE_KEY);
 
-    livreTexte = this.add.text(
-      livreImage.x - livreImage.width / 2 + 70,
-      livreImage.y - livreImage.height / 2 + 80,
-      "",
-      {
-        fontFamily: "Arial",
-        fontSize: "17px",
-        color: "#000000",
-      }
-    );
+  livreTexte = this.add.text(
+    imageLivre.x - imageLivre.width / 2 + 70,
+    imageLivre.y - imageLivre.height / 2 + 80,
+    "",
+    {
+      fontFamily: "Caveat", // Changer la police à "Caveat"
+      fontSize: "17px",
+      color: "#000000",
+    }
+  );
 
-    // Ajout de la fonctionnalité d'affichage lettre par lettre
-    this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
+  // Ajout de la fonctionnalité d'affichage lettre par lettre
+  this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
 
-    // Ajouter le bouton "Start" et l'image du campus avec un délai de 20 secondes
-    this.time.delayedCall(20000, this.afficherCampusEtBouton, [], this);
-  }
+  // Ajouter le bouton "Start" et l'image du campus avec un délai de 20 secondes
+  this.time.delayedCall(20000, this.afficherCampusEtBouton, [], this);
+}
 
   update() {
     // Ajouter ici des logiques de mise à jour si nécessaire
   }
 
   afficherTexteLettreParLettre() {
-    const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n                                                                                                  Bonne chance !!!";
+    const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n                                                                                                            Bonne chance !!!";
     let textePartiel = "";
     let indexLettre = 0;
 
