@@ -7,7 +7,7 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
   }
   preload() {}
-
+ 
   create() {
     this.add.image(400, 300, "img_ciel");
     this.groupe_plateformes = this.physics.add.staticGroup();

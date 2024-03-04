@@ -30,8 +30,6 @@ export default class principal extends Phaser.Scene {
   }
 
   create() {
-
-
     // chargement de la carte
     const carteDuNiveau = this.add.tilemap("carte");
 
