@@ -16,7 +16,7 @@ export default class niveauMeyer extends Phaser.Scene {
     this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
 
     // chargement tuiles de jeu
-    this.load.image("tuiles1", "src/assets/tilesheet_complete.png");
+    this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
 
 
     // chargement de la carte
@@ -26,7 +26,10 @@ export default class niveauMeyer extends Phaser.Scene {
   create() {
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
-    const tileset = CarteDeLaClasse.addTilesetImage("tilesheet_complete","tuiles1");
+    const tileset = CarteDeLaClasse.addTilesetImage(
+      "tuiles2",
+      "tuiles1"
+      );
     // chargement des calques qui constituent le background de la pièce
     const calque_background = CarteDeLaClasse.createLayer(
       "Calque de Tuiles 1",
