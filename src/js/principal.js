@@ -19,7 +19,7 @@ export default class principal extends Phaser.Scene {
   }
   preload() {
     // ajout perso
-    this.load.spritesheet("dude", "src/assets/modern-men.png", { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
 
     // chargement tuiles de jeu
     this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png");
@@ -78,7 +78,7 @@ export default class principal extends Phaser.Scene {
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dude", { start: 12*7, end:12*9}),
+      frames: this.anims.generateFrameNumbers("dude", { start: 5, end:8}),
       frameRate: 10,
       repeat: -1
     });
@@ -91,6 +91,7 @@ export default class principal extends Phaser.Scene {
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player);
     this.cameras.main.setZoom(0.2);
+    
 
 
     // ajout du modèle de collision entre le personnage et le monde
@@ -100,12 +101,15 @@ export default class principal extends Phaser.Scene {
   }
 
   update() {
+
+     player.setVelocity(0);
+
     if (cursors.up.isDown) {
-      player.setVelocityY(-160);
+      player.setVelocityY(-300);
       // à droite
     } else if (cursors.down.isDown) {
 
-      player.setVelocityY(160);
+      player.setVelocityY(300);
 
     }
 
@@ -115,7 +119,7 @@ export default class principal extends Phaser.Scene {
 
     if (cursors.left.isDown) {
 
-      player.setVelocityX(-160);
+      player.setVelocityX(-300);
 
       player.anims.play("left", true);
 
@@ -125,7 +129,7 @@ export default class principal extends Phaser.Scene {
 
     } else if (cursors.right.isDown) {
 
-      player.setVelocityX(160);
+      player.setVelocityX(300);
 
       player.anims.play("right", true);
 
@@ -138,6 +142,7 @@ export default class principal extends Phaser.Scene {
       player.setVelocityX(0);
 
       player.anims.play("turn");
+      player.setGravity(0); // Remove gravity from the player
 
     }
   }
