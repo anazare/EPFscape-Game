@@ -1,8 +1,9 @@
 // chargement des librairies
 import selection from "/src/js/selection.js";
-import niveau1 from "/src/js/niveau1.js";
-import niveau2 from "/src/js/niveau2.js";
-import niveau3 from "/src/js/niveau3.js";
+import niveauDarties from "/src/js/niveauDarties.js";
+import niveauMeyer from "/src/js/niveauMeyer.js";
+import niveauJousset from "/src/js/niveauJousset.js";
+import niveauAbdellah from "/src/js/niveauAbdellah.js";
 
 // configuration générale du jeu
 var config = {
