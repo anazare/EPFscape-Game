@@ -57,7 +57,7 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(100, 400, "dude");
+    player = this.physics.add.sprite(100, 400, "dude").setScale(3);
     player.setBounce(0.2);
 
     // animation pour tourner à gauche
@@ -90,6 +90,7 @@ export default class principal extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, 4416, 6400);
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player);
+    this.cameras.main.setZoom(0.2);
 
 
     // ajout du modèle de collision entre le personnage et le monde
