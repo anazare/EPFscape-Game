@@ -1,3 +1,14 @@
+// chargement des librairies
+
+
+/***********************************************************************/
+/** VARIABLES GLOBALES 
+/***********************************************************************/
+
+var player; // désigne le sprite du joueur
+var clavier; // pour la gestion du clavier
+// mise en place d'une variable groupeCibles
+var musique_de_fond;
 
 export default class principal extends Phaser.Scene {
   // constructeur de la classe
@@ -6,27 +17,46 @@ export default class principal extends Phaser.Scene {
       key: "principal" //  ici on précise le nom de la classe en tant qu'identifiant
     });
   }
-  preload() {}
+  preload() {
+    // ajout perso
+ this.load.spritesheet("dude", "src/assets/modern-men.png", {frameWidth: 32, frameHeight: 48}); 
+
+ // chargement tuiles de jeu
+ this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png");
+ this.load.image("Phaser_tuilesdejeuu", "src/assets/car_red_1.png");
+ this.load.image("Phaser_tuilesdejeuuu", "src/assets/car_black_3.png");
+ 
+ // chargement de la carte
+ this.load.tilemapTiledJSON("carte", "src/assets/map_principale.json");  
+}
 
   create() {
-    this.add.image(400, 300, "img_ciel");
-    this.groupe_plateformes = this.physics.add.staticGroup();
-    this.groupe_plateformes.create(200, 584, "img_plateforme");
-    this.groupe_plateformes.create(600, 584, "img_plateforme");
-    // ajout d'un texte distintcif  du niveau
-    this.add.text(400, 100, "Vous êtes dans le niveau 3", {
-      fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif',
-      fontSize: "22pt"
-    });
+    
+// chargement de la carte
+const carteDuNiveau = this.add.tilemap("carte"); 
 
-    this.porte_retour = this.physics.add.staticSprite(100, 550, "img_porte3");
+// chargement du jeu de tuiles
+const tileset = carteDuNiveau.addTilesetImage(
+          "Phaser_tuilesdejeu",
+          "Phaser_tuilesdejeuu",
+          "Phaser_tuilesdejeuuu"
+        ); 
 
-    this.player = this.physics.add.sprite(100, 450, "img_perso");
-    this.player.refreshBody();
-    this.player.setBounce(0.2);
-    this.player.setCollideWorldBounds(true);
-    this.clavier = this.input.keyboard.createCursorKeys();
-    this.physics.add.collider(this.player, this.groupe_plateformes);
+// chargement du calque calque_background
+const calque_background = carteDuNiveau.createLayer(
+  "Calque de Tuiles 1",
+  tileset
+);
+
+// chargement du calque calque_background2
+const calque_background2 = carteDuNiveau.createLayer(
+  "Bordures",
+  tileset
+); 
+
+// définition des tuiles de plateformes qui sont solides
+// utilisation de la propriété estSolide
+Bordures.setCollisionByProperty({ estSolide: true }); 
   }
 
   update() {
@@ -45,10 +75,7 @@ export default class principal extends Phaser.Scene {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.clavier.space) == true) {
-      if (this.physics.overlap(this.player, this.porte_retour)) {
-        console.log("niveau 3 : retour vers selection");
-        this.scene.switch("selection");
+        this.scene.switch("niveauAbdellah");
       }
-    }
   }
 }
