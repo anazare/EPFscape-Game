@@ -48,7 +48,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
       frameHeight: 48
     });
     // chargement de l'image balle.png
-    this.load.image("bullet", "src/assets/balle.png");
+    this.load.image("bullet", "src/assets/oldballe.png");
     // chargement de l'image cible.png
     this.load.image("cible", "src/assets/cible.png");
     // on charge deux fichiers audio avec les identifiants coupDeFeu et background
@@ -339,6 +339,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
+          this.scene.stop("MiniJeuDarties");
+          this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -362,6 +364,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
+          this.scene.stop("MiniJeuDarties");
+          this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -384,6 +388,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
+          this.scene.stop("MiniJeuDarties");
+          this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -406,6 +412,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
+          this.scene.stop("MiniJeuDarties");
+          this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -443,12 +451,16 @@ export default class MiniJeuDarties extends Phaser.Scene {
     bouton_restart.on("pointerover", () => {
       bouton_restart.setTint(0xC0C0C0);
     });
-    //Cas ou la souris ne passe plus sur le bouton play
+    //Cas ou la souris ne passe plus sur le restart
     bouton_restart.on("pointerout", () => {
       bouton_restart.clearTint();
     });
-    //Cas ou la souris clique sur le bouton play :
+    //Cas ou la souris clique sur le bouton restart :
     bouton_restart.on("pointerup", () => {
+      codeSecret.destroy();
+      CodeDecrypte.destroy();
+      monArrayList.destroy();
+      ListParcoursAleatoire.destroy();
       this.scene.stop("MiniJeuDarties");
       this.scene.start("principal");
     });
