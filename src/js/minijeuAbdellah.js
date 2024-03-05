@@ -11,6 +11,7 @@ var multiplicande;
 var CodeDecrypte;
 var resultat;
 var questionText;
+var bouton_restart;
 var monArrayList = [];
 var ListParcoursAleatoire = [];
 var groupeBalloon; // Groupe de ballons
@@ -31,6 +32,8 @@ export default class minijeuAbdellah extends Phaser.Scene {
     this.load.image("bouton_reglement", "src/assets/info.png");
     this.load.image("livre", "src/assets/book.png");
     this.load.image("retour", "src/assets/retour.png");
+    this.load.image("restart", "src/assets/restart.png");
+
   }
 
   create() {
@@ -141,9 +144,9 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
   // Fonction pour créer les ballons
   createBalloons() {
-    CodeDecrypte = multiplicande*multiplicateur; //réponse correcte 
+    CodeDecrypte = resultat; //réponse correcte 
     //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
-    monArrayList.push(CodeDecrypte);
+    monArrayList.push(resultat);
     for (var pas = 0; pas < 3; pas++) {
       const nbA = Phaser.Math.Between(80, 300);
       if (!monArrayList.includes(nbA)) {
@@ -186,6 +189,69 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
     });
   }
+  ajout_bouton_restart() {
+    this.add.text(470, 500, "Vous avez Perdu !", {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(3);
+    //creation btn restart
+    bouton_restart = this.add.image(400, 300, "restart").setDepth(3).setScale(0.05);
+
+    bouton_restart.setInteractive();
+    bouton_restart.on("pointerover", () => {
+      bouton_restart.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    bouton_restart.on("pointerout", () => {
+      bouton_restart.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    bouton_restart.on("pointerup", () => {
+      this.scene.stop("minijeuAbdellah");
+      this.scene.start("minijeuAbdellah");
+    for (var pas = 0; pas < 3; pas++) {
+      const nbA = Phaser.Math.Between(80, 300);
+      if (!monArrayList.includes(nbA)) {
+        monArrayList.push(nbA);
+      }
+    }
+    //génération de positions random et rangement dans une list 
+    while (ListParcoursAleatoire.length !== 4) {
+      const nbA = Phaser.Math.Between(0, 3);
+      if (!ListParcoursAleatoire.includes(nbA)) {
+        ListParcoursAleatoire.push(nbA);
+      }
+    }
+    balloonData = [
+      { x: 750, y: 160, answer: monArrayList[ListParcoursAleatoire[0]] },
+      { x: 600, y: 270, answer: monArrayList[ListParcoursAleatoire[1]] },
+      { x: 720, y: 390, answer: monArrayList[ListParcoursAleatoire[2]] },
+      { x: 440, y: 410, answer: monArrayList[ListParcoursAleatoire[3]] }
+    ];
+
+    balloonData.forEach(data => {
+      
+      let balloonText = this.add.text(data.x, data.y, data.answer, {
+        fontSize: '25px',
+        fill: '#000000',
+        wordWrap: { width: 300, useAdvancedWrap: true },
+        align: 'center'
+      }).setOrigin(0.5).setDepth(2);
+
+      groupeBalloon.add(balloonText);
+
+      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.05);
+      balloon.pointsVie =1;
+      balloon.chiffreAssocie =balloonText;
+      groupeBalloon.add(balloon, true);
+      
+      balloon.body.allowGravity = false;
+    });
+      
+    });
+  }
 
   // Fonction pour tirer une balle
   tirer(cannon) {
@@ -213,6 +279,15 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
       if (groupeBalloon.chiffreAssocie.text === strCodeDecrypte) {
         this.scene.switch("videoggP");
+      }
+      else {
+        questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
+        monArrayList = [];
+        ListParcoursAleatoire = [];
+        multiplicateur = Phaser.Math.Between(12, 23);
+        multiplicande = Phaser.Math.Between(8, 16);
+        monArrayList.push(multiplicateur * multiplicande);
+        this.ajout_bouton_restart();
       }
     }
 

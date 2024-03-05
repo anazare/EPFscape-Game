@@ -269,5 +269,6 @@ button3.on("pointerup", () => {
     player.setVelocityY(-200);
   }
   }
+
 }
 
