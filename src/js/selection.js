@@ -44,10 +44,10 @@ export default class selection extends Phaser.Scene {
   );
 
   // Ajout de la fonctionnalité d'affichage lettre par lettre
-  this.time.delayedCall(100, this.afficherTexteLettreParLettre, [], this);
+  this.time.delayedCall(50, this.afficherTexteLettreParLettre, [], this);
 
   // Ajouter le bouton "Start" et l'image du campus avec un délai de 18 secondes
-  this.time.delayedCall(18700, this.afficherCampusEtBouton, [], this);
+  this.time.delayedCall(15000, this.afficherCampusEtBouton, [], this);
 }
 
   update() {
@@ -55,7 +55,7 @@ export default class selection extends Phaser.Scene {
   }
 
   afficherTexteLettreParLettre() {
-    const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n                                                                                                            Bonne chance !!!";
+    const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits ?\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n\n\n\n\n                    Bonne chance !!!";
     let textePartiel = "";
     let indexLettre = 0;
 
