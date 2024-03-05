@@ -23,7 +23,7 @@ var button1;
 var button2;
 var button3;
 var button4;
-var bouton_restart; 
+var bouton_restart;
 
 export default class MiniJeuDarties extends Phaser.Scene {
 
@@ -314,106 +314,105 @@ export default class MiniJeuDarties extends Phaser.Scene {
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(2);
-    
 
-    //on rend le bouton interratif
-    console.log(button1);
-    button1.setInteractive();
-    button2.setInteractive();
-    button3.setInteractive();
-    button4.setInteractive();
+      //on rend le bouton interratif
+      console.log(button1);
+      button1.setInteractive();
+      button2.setInteractive();
+      button3.setInteractive();
+      button4.setInteractive();
 
-    //Cas ou la souris passe sur le bouton play
-    button1.on("pointerover", () => {
-      button1.setTint(0xC0C0C0);
-    });
-    //Cas ou la souris ne passe plus sur le bouton play
-    button1.on("pointerout", () => {
-      button1.clearTint();
-    });
-    //Cas ou la souris clique sur le bouton play :
-    button1.on("pointerup", () => {
-      if (monArrayList[ListParcoursAleatoire[0]] == CodeDecrypte) {
-        this.add.text(420, 430, "Vous avez Gagné", {
-          fontSize: '25px',
-          fill: '#000000', //noir 
-          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-          align: 'center'
-        }).setDepth(3);
-      }  else {
-        this.ajout_bouton_restart();
-      }
-    });
+      //Cas ou la souris passe sur le bouton play
+      button1.on("pointerover", () => {
+        button1.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      button1.on("pointerout", () => {
+        button1.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      button1.on("pointerup", () => {
+        if (monArrayList[ListParcoursAleatoire[0]] == CodeDecrypte) {
+          this.add.text(470, 500, "Vous avez Gagné", {
+            fontSize: '25px',
+            fill: '#000000', //noir 
+            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+            align: 'center'
+          }).setDepth(3);
+        } else {
+          this.ajout_bouton_restart();
+        }
+      });
 
-    //bouton 2
-    //Cas ou la souris passe sur le bouton play
-    button2.on("pointerover", () => {
-      button2.setTint(0xC0C0C0);
-    });
-    //Cas ou la souris ne passe plus sur le bouton play
-    button2.on("pointerout", () => {
-      button2.clearTint();
-    });
-    //Cas ou la souris clique sur le bouton play :
-    button2.on("pointerup", () => {
-      if (monArrayList[ListParcoursAleatoire[1]] == CodeDecrypte) {
-        this.add.text(420, 530, "Vous avez Gagné", {
-          fontSize: '25px',
-          fill: '#000000', //noir 
-          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-          align: 'center'
-        }).setDepth(3);
-      } else {
-        this.ajout_bouton_restart();
-      }
-    });
+      //bouton 2
+      //Cas ou la souris passe sur le bouton play
+      button2.on("pointerover", () => {
+        button2.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      button2.on("pointerout", () => {
+        button2.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      button2.on("pointerup", () => {
+        if (monArrayList[ListParcoursAleatoire[1]] == CodeDecrypte) {
+          this.add.text(470, 500, "Vous avez Gagné", {
+            fontSize: '25px',
+            fill: '#000000', //noir 
+            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+            align: 'center'
+          }).setDepth(3);
+        } else {
+          this.ajout_bouton_restart();
+        }
+      });
 
-    //Cas ou la souris passe sur le bouton play
-    button3.on("pointerover", () => {
-      button3.setTint(0xC0C0C0);
-    });
-    //Cas ou la souris ne passe plus sur le bouton play
-    button3.on("pointerout", () => {
-      button3.clearTint();
-    });
-    //Cas ou la souris clique sur le bouton play :
-    button3.on("pointerup", () => {
-      if (monArrayList[ListParcoursAleatoire[2]] == CodeDecrypte) {
-        this.add.text(420, 530, "Vous avez Gagné", {
-          fontSize: '25px',
-          fill: '#000000', //noir 
-          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-          align: 'center'
-        }).setDepth(3);
-      } else {
-        this.ajout_bouton_restart();
-      }
-    });
+      //Cas ou la souris passe sur le bouton play
+      button3.on("pointerover", () => {
+        button3.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      button3.on("pointerout", () => {
+        button3.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      button3.on("pointerup", () => {
+        if (monArrayList[ListParcoursAleatoire[2]] == CodeDecrypte) {
+          this.add.text(470, 500, "Vous avez Gagné", {
+            fontSize: '25px',
+            fill: '#000000', //noir 
+            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+            align: 'center'
+          }).setDepth(3);
+        } else {
+          this.ajout_bouton_restart();
+        }
+      });
 
-    //Cas ou la souris passe sur le bouton play
-    button4.on("pointerover", () => {
-      button4.setTint(0xC0C0C0);
-    });
-    //Cas ou la souris ne passe plus sur le bouton play
-    button4.on("pointerout", () => {
-      button4.clearTint();
-    });
-    //Cas ou la souris clique sur le bouton play :
-    button4.on("pointerup", () => {
-      if (monArrayList[ListParcoursAleatoire[3]] == CodeDecrypte) {
-        this.add.text(420, 530, "Vous avez Gagné", {
-          fontSize: '25px',
-          fill: '#000000', //noir 
-          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-          align: 'center'
-        }).setDepth(3);
-      } else {
-        this.ajout_bouton_restart();
-      }
-    });
+      //Cas ou la souris passe sur le bouton play
+      button4.on("pointerover", () => {
+        button4.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      button4.on("pointerout", () => {
+        button4.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      button4.on("pointerup", () => {
+        if (monArrayList[ListParcoursAleatoire[3]] == CodeDecrypte) {
+          this.add.text(470, 500, "Vous avez Gagné", {
+            fontSize: '25px',
+            fill: '#000000', //noir 
+            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+            align: 'center'
+          }).setDepth(3);
+        } else {
+          this.ajout_bouton_restart();
+        }
+      });
 
-    bullet.destroy();
-  }
+      bullet.destroy();
+    }
   }
 
   genererNombreBinaire() {
@@ -430,7 +429,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     return nombreDecimal;
   }
 
-  ajout_bouton_restart(){
+  ajout_bouton_restart() {
     this.add.text(470, 500, "Vous avez Perdu !", {
       fontSize: '25px',
       fill: '#000000', //noir 
@@ -439,7 +438,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     }).setDepth(3);
     //creation btn restart
     bouton_restart = this.add.image(400, 300, "restart").setDepth(3).setScale(0.05);
-    
+
     bouton_restart.setInteractive();
     bouton_restart.on("pointerover", () => {
       bouton_restart.setTint(0xC0C0C0);
@@ -450,8 +449,9 @@ export default class MiniJeuDarties extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     bouton_restart.on("pointerup", () => {
-      this.scene.stop(MiniJeuDarties); 
-      //this.scene.switch(principal);
+      this.scene.stop("MiniJeuDarties");
+      this.scene.start("principal");
     });
+  }
 }
-}
+
