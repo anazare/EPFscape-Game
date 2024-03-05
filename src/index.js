@@ -37,11 +37,11 @@ var config = {
   },
 
 
-  scene: [puzzle,videoggP,chargementP,chargement1, chargement2, chargement3, selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+  scene: [niveauMeyer,selection,videoggP,chargementP,chargement1, chargement2, chargement3,puzzle, minijeuAbdellah , principal,   niveauJousset, niveauDarties, niveauAbdellah]
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start("puzzle");
+game.scene.start(niveauMeyer);
 
 
