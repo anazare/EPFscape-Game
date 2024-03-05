@@ -21,6 +21,7 @@ export default class niveauMeyer extends Phaser.Scene {
 
     // chargement de la carte
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
+    this.load.image("fleche", "src/assets/fleche.png");
   }
 
   create() {
@@ -125,7 +126,22 @@ export default class niveauMeyer extends Phaser.Scene {
   
       // Lancement de la fonction pour afficher le texte progressivement
       typeWriter(text, 0);
-      
+      var fleche = this.add.image(650,350 , 'fleche').setScale(0.15).setDepth(9);
+      fleche.setInteractive();
+
+      fleche.on("pointerover", () => {
+        fleche.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      fleche.on("pointerout", () => {
+        fleche.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      fleche.on("pointerup", () => {
+        this.scene.stop("niveauMeyer"); // Arrête la scène du mini-jeu
+        this.scene.start("puzzle"); // Démarre la scène du niveau principal
+
+      });
   }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
