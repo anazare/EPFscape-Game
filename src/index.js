@@ -9,15 +9,10 @@ import minijeuAbdellah from "/src/js/minijeuAbdellah.js";
 import puzzle from "/src/js/puzzle.js";
 import videoggP from "/src/js/videoggP.js";
 import chargementP from "/src/js/chargementP.js";
-<<<<<<< HEAD
 import chargement1 from "/src/js/chargement1.js";
 import chargement2 from "/src/js/chargement2.js";
 import chargement3 from "/src/js/chargement3.js";
-=======
-import chargementP from "/src/js/chargement1.js";
-import chargementP from "/src/js/chargement2.js";
-import chargementP from "/src/js/chargement3.js";
->>>>>>> 9f340070861b8e176b2ca9518a46c076fb0f7671
+
 
 // configuration générale du jeu
 var config = {
@@ -41,16 +36,12 @@ var config = {
     }
   },
 
-<<<<<<< HEAD
-  scene: [puzzle,videoggP,chargementP,chargement1, chargement2, chargement3, selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
-=======
-  scene: [puzzle,videoggP,chargementP,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
->>>>>>> 9f340070861b8e176b2ca9518a46c076fb0f7671
 
+  scene: [puzzle,videoggP,chargementP,chargement1, chargement2, chargement3, selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start("minijeuAbdellah");
+game.scene.start("puzzle");
 
 
