@@ -24,6 +24,8 @@ export default class niveauAbdellah extends Phaser.Scene {
     this.load.image("button1", "src/assets/bouton.png");
     this.load.image("retour", "src/assets/retour.png");
     this.load.image("livre", "src/assets/book.png");
+    this.load.image("livre2", "src/assets/book.png");
+    this.load.image("fleche", "src/assets/fleche.png");
 
   }
 
@@ -162,14 +164,31 @@ export default class niveauAbdellah extends Phaser.Scene {
       });
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
-this.add.image(400, 325, 'livre').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu...\n\n\n\n\n\n PS: Cliquer sur la flèche te fera \n recommencer ce niveau.", {
+this.add.image(400, 325, 'livre2').setDepth(8);
+this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu...\n\n\n\n\n\n Dans le mini-jeu ...", {
   fontSize: '25px',
   fontFamily: "Caveat",
   fill: '#000000', //noir 
   wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
   align: 'center'
 }).setDepth(9);
+var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
+      fleche.setInteractive();
+
+      fleche.on("pointerover", () => {
+        fleche.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      fleche.on("pointerout", () => {
+        fleche.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      fleche.on("pointerup", () => {
+        this.scene.stop("niveauAbdellah"); // Arrête la scène du mini-jeu
+        this.scene.start("minijeuAbdellah"); // Démarre la scène du niveau principal
+
+      });
+
       });
 //////////////////////////////////////////////////////////////////////////
 
