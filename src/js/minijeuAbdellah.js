@@ -9,6 +9,8 @@ var multiplicateur;
 var multiplicande;
 var resultat;
 var questionText;
+var monArrayList = [];
+var ListParcoursAleatoire = [];
 var groupeBalloon; // Groupe de ballons
 
 export default class minijeuAbdellah extends Phaser.Scene {
@@ -88,11 +90,29 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
   // Fonction pour créer les ballons
   createBalloons() {
+    var CodeDecrypte = multiplicande*multiplicateur; //réponse correcte 
+    //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
+    monArrayList.push(CodeDecrypte);
+    for (var pas = 0; pas < 3; pas++) {
+      const nbA = Phaser.Math.Between(80, 300);
+      if (!monArrayList.includes(nbA)) {
+        monArrayList.push(nbA);
+      }
+    }
+
+    //génération de positions random et rangement dans une list 
+    while (ListParcoursAleatoire.length !== 4) {
+      const nbA = Phaser.Math.Between(0, 3);
+      if (!ListParcoursAleatoire.includes(nbA)) {
+        ListParcoursAleatoire.push(nbA);
+      }
+    }
+
     let balloonData = [
-      { x: 750, y: 160, answer: "37" },
-      { x: 600, y: 270, answer: "47" },
-      { x: 720, y: 390, answer: "59" },
-      { x: 440, y: 410, answer: "38" }
+      { x: 750, y: 160, answer: monArrayList[ListParcoursAleatoire[0]] },
+      { x: 600, y: 270, answer: monArrayList[ListParcoursAleatoire[1]] },
+      { x: 720, y: 390, answer: monArrayList[ListParcoursAleatoire[2]] },
+      { x: 440, y: 410, answer: monArrayList[ListParcoursAleatoire[3]] }
     ];
 
     balloonData.forEach(data => {
@@ -102,7 +122,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
         fill: '#000000',
         wordWrap: { width: 300, useAdvancedWrap: true },
         align: 'center'
-      }).setOrigin(0.5);
+      }).setOrigin(0.5).setDepth(2);
 
       groupeBalloon.add(balloonText);
 
