@@ -6,7 +6,7 @@ import niveauJousset from "/src/js/niveauJousset.js";
 import niveauAbdellah from "/src/js/niveauAbdellah.js";
 import principal from "/src/js/principal.js";
 import minijeuAbdellah from "/src/js/minijeuAbdellah.js";
-
+import puzzle from "/src/js/puzzle.js"
 // configuration générale du jeu
 var config = {
   type: Phaser.AUTO,
@@ -28,12 +28,12 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
-  scene: [selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+  scene: [puzzle,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
   
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start("selection");
+game.scene.start("puzzle");
 
 
