@@ -9,7 +9,13 @@ import minijeuAbdellah from "/src/js/minijeuAbdellah.js";
 import puzzle from "/src/js/puzzle.js";
 import videoggP from "/src/js/videoggP.js";
 import chargementP from "/src/js/chargementP.js";
+<<<<<<< HEAD
 import MiniJeuDarties from "./js/MiniJeuDarties.js";
+=======
+import chargementP from "/src/js/chargement1.js";
+import chargementP from "/src/js/chargement2.js";
+import chargementP from "/src/js/chargement3.js";
+>>>>>>> 67fcca6 (ecran de chargement en plus et mini jeu abdellah fini parti gagner)
 
 // configuration générale du jeu
 var config = {
@@ -32,12 +38,20 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
+<<<<<<< HEAD
   scene: [MiniJeuDarties, puzzle,videoggP,chargementP,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+=======
+  scene: [minijeuAbdellah ,,videoggP,chargementP,selection,chargement1, chargement2, chargement3,  principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+>>>>>>> 67fcca6 (ecran de chargement en plus et mini jeu abdellah fini parti gagner)
   
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
+<<<<<<< HEAD
 game.scene.start("MiniJeuDarties");
+=======
+game.scene.start("minijeuAbdellah");
+>>>>>>> 67fcca6 (ecran de chargement en plus et mini jeu abdellah fini parti gagner)
 
 
