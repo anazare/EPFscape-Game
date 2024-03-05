@@ -28,6 +28,9 @@ export default class minijeuAbdellah extends Phaser.Scene {
     this.load.image('cannon', 'src/assets/cannon.png');
     this.load.image('bullet', 'src/assets/balle.png');
     this.load.image('balloon', 'src/assets/balloon.png');
+    this.load.image("bouton_reglement", "src/assets/info.png");
+    this.load.image("livre", "src/assets/book.png");
+    this.load.image("retour", "src/assets/retour.png");
   }
 
   create() {
@@ -64,6 +67,52 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
     // Gestion de la collision entre les balles et les ballons
     this.physics.add.overlap(groupeBullets, groupeBalloon, this.hit, null, this);
+    var bouton_reg = this.add.image(750, 50, 'bouton_reglement').setScale(0.1);
+    bouton_reg.setInteractive();
+
+    //cas ou la souris ne passe plus 
+    bouton_reg.on("pointerover", () => {
+      bouton_reg.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    bouton_reg.on("pointerout", () => {
+      bouton_reg.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    bouton_reg.on("pointerup", () => {
+      this.add.image(400, 300, "livre").setDepth(2);
+      this.add.text(80, 80, "Le but est de viser le ballon contenant \n la bonne réponse.", {
+        fontSize: '25px',
+        fontFamily: "Caveat",
+        fill: '#000000', //noir 
+        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+        align: 'center'
+      }).setDepth(3);
+
+      var bouton_return = this.add.image(650, 100, 'retour').setScale(0.1).setDepth(3);
+      bouton_return.setInteractive();
+
+      bouton_return.on("pointerover", () => {
+        bouton_return.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      bouton_return.on("pointerout", () => {
+        bouton_return.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      bouton_return.on("pointerup", () => {
+        // enlever image et texte 
+        this.add.text(80, 80, "Retour", {
+          fontSize: '25px',
+          fontFamily: "Caveat",
+          fill: '#000000', //noir 
+          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+          align: 'center'
+        }).setDepth();
+
+      });
+    });
+
   }
 
   update() {

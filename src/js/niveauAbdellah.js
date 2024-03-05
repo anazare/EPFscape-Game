@@ -21,6 +21,10 @@ export default class niveauAbdellah extends Phaser.Scene {
 
     // chargement de la carte
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
+    this.load.image("button1", "src/assets/bouton.png");
+    this.load.image("retour", "src/assets/retour.png");
+    this.load.image("livre", "src/assets/book.png");
+
   }
 
   create() {
@@ -125,8 +129,113 @@ export default class niveauAbdellah extends Phaser.Scene {
   
       // Lancement de la fonction pour afficher le texte progressivement
       typeWriter(text, 0);
-      
+      this.add.text(592, 485, '2', {
+        fontSize: '25px',
+        fill: '#000000', //noir 
+        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+        align: 'center'
+      }).setDepth(6);
+
+      this.add.text(192, 485, '4', {
+        fontSize: '25px',
+        fill: '#000000', //noir 
+        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+        align: 'center'
+      }).setDepth(6);
+
+      this.add.text(392, 485, '7', {
+        fontSize: '25px',
+        fill: '#000000', //noir 
+        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+        align: 'center'
+      }).setDepth(6);
+      /////////////////////////////////////////////////////////////
+      var button1 = this.add.image(600, 500, 'button1').setScale(0.07).setDepth(3);
+      button1.setInteractive();
+
+      button1.on("pointerover", () => {
+        button1.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      button1.on("pointerout", () => {
+        button1.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      button1.on("pointerup", () => {
+this.add.image(400, 325, 'livre').setDepth(8);
+this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu...\n\n\n\n\n\n PS: Cliquer sur la flèche te fera \n recommencer ce niveau.", {
+  fontSize: '25px',
+  fontFamily: "Caveat",
+  fill: '#000000', //noir 
+  wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+  align: 'center'
+}).setDepth(9);
+      });
+//////////////////////////////////////////////////////////////////////////
+
+var button2 = this.add.image(200, 500, 'button1').setScale(0.07).setDepth(3);
+button2.setInteractive();
+
+button2.on("pointerover", () => {
+  button2.setTint(0xC0C0C0);
+});
+//Cas ou la souris ne passe plus sur le bouton play
+button2.on("pointerout", () => {
+  button2.clearTint();
+});
+//Cas ou la souris clique sur le bouton play :
+button2.on("pointerup", () => {
+  this.add.image(400, 325, 'livre').setDepth(8);
+  this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
+    fontSize: '25px',
+    fontFamily: "Caveat",
+    fill: '#000000', //noir 
+    wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+    align: 'center'
+  }).setDepth(9);
+});
+///////////////////////////////////////////////////////////////////////////////
+
+var button3 = this.add.image(400, 500, 'button1').setScale(0.07).setDepth(3);
+button3.setInteractive();
+
+button3.on("pointerover", () => {
+  button3.setTint(0xC0C0C0);
+});
+//Cas ou la souris ne passe plus sur le bouton play
+button3.on("pointerout", () => {
+  button3.clearTint();
+});
+//Cas ou la souris clique sur le bouton play :
+button3.on("pointerup", () => {
+  this.add.image(400, 325, 'livre').setDepth(8);
+  this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
+    fontSize: '25px',
+    fontFamily: "Caveat",
+    fill: '#000000', //noir 
+    wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+    align: 'center'
+  }).setDepth(9);
+});
+///////////////////////////////////////////////////////////////////////////////
+      var bouton_return = this.add.image(740, 100, 'retour').setScale(0.1).setDepth(9);
+      bouton_return.setInteractive();
+
+      bouton_return.on("pointerover", () => {
+        bouton_return.setTint(0xC0C0C0);
+      });
+      //Cas ou la souris ne passe plus sur le bouton play
+      bouton_return.on("pointerout", () => {
+        bouton_return.clearTint();
+      });
+      //Cas ou la souris clique sur le bouton play :
+      bouton_return.on("pointerup", () => {
+        this.scene.stop("niveauAbdellah"); // Arrête la scène du mini-jeu
+        this.scene.start("principal"); // Démarre la scène du niveau principal
+
+      });
   }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
 
