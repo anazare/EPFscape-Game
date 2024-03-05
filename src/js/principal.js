@@ -27,6 +27,11 @@ export default class principal extends Phaser.Scene {
 
     // chargement de la carte
     this.load.tilemapTiledJSON("carte", "src/assets/map_principale2.json");
+    
+    //chrgmt portes
+    this.load.image('img_porte1', 'src/assets/door1.png');
+    this.load.image('img_porte2', 'src/assets/door2.png');
+    this.load.image('img_porte3', 'src/assets/door3.png');
   }
 
   create() {
@@ -96,8 +101,9 @@ export default class principal extends Phaser.Scene {
 
     // ajout du modèle de collision entre le personnage et le monde
     player.setCollideWorldBounds(true);
-
-
+this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
+this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
+this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
   }
 
   update() {
@@ -146,5 +152,13 @@ export default class principal extends Phaser.Scene {
 
     }
     this.physics.world.collide(player, calque_background2);
+
+    if (cursors.right.isDown)  {
+      if (this.physics.overlap(player, this.porte2)) this.scene.switch("niveauDarties");
+      if (this.physics.overlap(player, this.porte1)) this.scene.switch("niveauAbdellah");
+      if (this.physics.overlap(player, this.porte3)) this.scene.switch("niveauMeyer");
+    } 
+  
+  
   }
 }

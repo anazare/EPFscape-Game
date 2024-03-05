@@ -48,7 +48,7 @@ export default class niveauMeyer extends Phaser.Scene {
     
   
    // création du personnage de jeu et positionnement
-   player = this.physics.add.sprite(100, 400, "dude").setScale(4.5);;
+   player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
    player.setBounce(0.2);
  
  
@@ -94,7 +94,41 @@ export default class niveauMeyer extends Phaser.Scene {
     this.physics.add.collider(player, calque_background);
 
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //AJOUT TEXTE
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+  this.displayDynamicText();
+
   }
+  displayDynamicText() {
+    
+      const text = "AH, ça faisait longtemps Redouane!\n Pour valider ton semestre je te  \n laisse la possibilité de vérifier\n tes connaissances\n à l'aide de ce petit puzzle"; 
+      const x = 100; // Position X du texte
+      const y = 100; // Position Y du texte
+      const fontSize = '25px'; // Taille de la police
+      const fill = '#fff'; // Couleur du texte
+      const delay = 50; // Délai entre chaque caractère en ms
+  
+      let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
+      
+  
+      // Fonction pour afficher le texte de manière progressive
+      function typeWriter(text, index) {
+          if (index < text.length) {
+              dynamicText.setText(dynamicText.text + text[index]);
+              index++;
+              setTimeout(function() {
+                  typeWriter(text, index);
+              }, delay);
+          }
+      }
+  
+      // Lancement de la fonction pour afficher le texte progressivement
+      typeWriter(text, 0);
+      
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
 
   update() {
     // définitinon des mouvements du personnage
