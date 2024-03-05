@@ -3,11 +3,11 @@ import * as fct from "/src/js/fonctions.js";
 var player;
 var cursors;
 
-export default class niveauAbdellah extends Phaser.Scene {
+export default class enigme2Abdellah extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({
-      key: "niveauAbdellah" //  ici on précise le nom de la classe en tant qu'identifiant
+      key: "enigme2Abdellah" //  ici on précise le nom de la classe en tant qu'identifiant
     });
   }
 
@@ -108,7 +108,7 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
   displayDynamicText() {
     
-      const text = "Bonjour à toi, malgré tes bavardages je \n te laisse une  dernière chance pour te\n rattraper. Si tu réponds correctement à \n ces 2 enigmes  et que tu réussis \n le mini-jeu, tu pourra récuperer \n tes 3 crédits: \n\n Je suis un nombre entier positif. \n Si tu multiplies mon carré par 5, \n puis ajoute le double de mon cube, \n tu obtiendra 64. Qui suis-je?"; 
+      const text = "La deuxième enigme est: \n Je suis un theorème PUISSANT qui établit \n une relation entre les longueurs des côtés \n et les angles d'un triangle. \n Mon nom est attribué à un \n mathématicien perse du 15ème siècle.\n Qui suis-je?";
       const x = 100; // Position X du texte
       const y = 100; // Position Y du texte
       const fontSize = '25px'; // Taille de la police
@@ -131,22 +131,22 @@ export default class niveauAbdellah extends Phaser.Scene {
   
       // Lancement de la fonction pour afficher le texte progressivement
       typeWriter(text, 0);
-      this.add.text(592, 485, '2', {
+      this.add.text(545, 485, 'Al-Kashi', {
         fontSize: '25px',
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(6);
 
-      this.add.text(192, 485, '4', {
+      this.add.text(132, 485, 'Pythagore', {
         fontSize: '25px',
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(6);
 
-      this.add.text(392, 485, '7', {
-        fontSize: '25px',
+      this.add.text(330, 485, 'Bolzano\n Weierstrass', {
+        fontSize: '20px',
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
@@ -165,7 +165,7 @@ export default class niveauAbdellah extends Phaser.Scene {
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
 this.add.image(400, 325, 'livre2').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu...\n\n\n\n\n\n Dans le mini-jeu ...", {
+this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer a la 2ème enigme...\n\n\n\n\n\n ", {
   fontSize: '25px',
   fontFamily: "Caveat",
   fill: '#000000', //noir 
@@ -184,8 +184,8 @@ var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
       });
       //Cas ou la souris clique sur le bouton play :
       fleche.on("pointerup", () => {
-        this.scene.stop("niveauAbdellah"); // Arrête la scène du mini-jeu
-      this.scene.start("enigme2Abdellah"); // Démarre la scène du niveau principal
+        this.scene.stop("enigme2Abdellah"); // Arrête la scène du mini-jeu
+        this.scene.start("minijeuAbdellah"); // Démarre la scène du niveau principal
 
       });
 

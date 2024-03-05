@@ -22,6 +22,9 @@ export default class Puzzle extends Phaser.Scene {
     this.load.image("image4", "src/assets/image4.png");
     this.load.image("image5", "src/assets/pngegg.png");
     
+
+
+    
   }
 
   create() {
@@ -48,6 +51,8 @@ export default class Puzzle extends Phaser.Scene {
         console.log(`Image position - X: ${image.x}, Y: ${image.y}`);
       });
     });
+  
+
 
   }
 
