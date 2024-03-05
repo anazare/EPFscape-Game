@@ -2,6 +2,7 @@ import * as fct from "/src/js/fonctions.js";
 
 var player;
 var cursors;
+var continuer
 
 export default class niveauDarties extends Phaser.Scene {
   // constructeur de la classe
@@ -14,13 +15,11 @@ export default class niveauDarties extends Phaser.Scene {
   preload() {
     // ajout perso
     this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
-
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
-
-
     // chargement de la carte
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
+    this.load.image("continuer", "src/assets/fleche.png"); 
   }
 
   create() {
@@ -98,6 +97,21 @@ export default class niveauDarties extends Phaser.Scene {
   //AJOUT TEXTE
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
   this.displayDynamicText();
+
+  continuer = this.add.image(700,500, "continuer").setScale(0.2); 
+  continuer.setInteractive();
+
+  continuer.on("pointerover", () => {
+    continuer.setTint(0xC0C0C0);
+    });
+
+    continuer.on("pointerout", () => {
+      continuer.clearTint();
+    });
+
+    continuer.on("pointerup", () => {
+      this.scene.start("MiniJeuDarties");
+    });
 
   }
   displayDynamicText() {
