@@ -333,14 +333,16 @@ export default class MiniJeuDarties extends Phaser.Scene {
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
         if (monArrayList[ListParcoursAleatoire[0]] == CodeDecrypte) {
-          this.add.text(470, 500, "Vous avez Gagné", {
+          this.add.text(470, 500, "Vous avez Gagné !", {
             fontSize: '25px',
             fill: '#000000', //noir 
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
-          this.scene.stop("MiniJeuDarties");
-          this.scene.start("principal");
+          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
+          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
+          //this.scene.stop("MiniJeuDarties");
+          //this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -364,8 +366,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
-          this.scene.stop("MiniJeuDarties");
-          this.scene.start("principal");
+          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
+          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
+          //this.scene.stop("MiniJeuDarties");
+          //this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -388,8 +392,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
-          this.scene.stop("MiniJeuDarties");
-          this.scene.start("principal");
+          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
+          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
+          //this.scene.stop("MiniJeuDarties");
+          //this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -412,8 +418,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
             wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
             align: 'center'
           }).setDepth(3);
-          this.scene.stop("MiniJeuDarties");
-          this.scene.start("principal");
+          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
+          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
+          //this.scene.stop("MiniJeuDarties");
+          //this.scene.start("principal");
         } else {
           this.ajout_bouton_restart();
         }
@@ -464,6 +472,12 @@ export default class MiniJeuDarties extends Phaser.Scene {
       this.scene.stop("MiniJeuDarties");
       this.scene.start("principal");
     });
+  }
+  Arreter_Niveau(niveau) {
+    this.scene.stop(niveau);
+  }
+  Ouvrir_principale(niveau){
+    this.scene.start(niveau);
   }
 }
 
