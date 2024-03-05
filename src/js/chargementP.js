@@ -1,15 +1,15 @@
 import * as fct from "/src/js/fonctions.js";
-export default class videoggP extends Phaser.Scene {
+export default class chargementP extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({
-      key: "videoggP" //  ici on précise le nom de la classe en tant qu'identifiant
+      key: "chargementP" //  ici on précise le nom de la classe en tant qu'identifiant
     });
   }
   create() {
     // Create a video element dynamically
     this.videoElement = document.createElement('video');
-    this.videoElement.src = 'src/assets/felicitation.mp4';
+    this.videoElement.src = 'src/assets/chargement.mp4';
     this.videoElement.width = 1200; // Set the width according to your needs
     this.videoElement.height = 1200; // Set the height according to your needs
 
@@ -36,6 +36,6 @@ export default class videoggP extends Phaser.Scene {
 
   onVideoEnded() {
     // Transition to the next scene
-    this.scene.switch("chargementP");
+    this.scene.switch("principal");
     this.videoElement.parentNode.removeChild(this.videoElement);  }
 }

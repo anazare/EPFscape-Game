@@ -6,13 +6,10 @@ import niveauJousset from "/src/js/niveauJousset.js";
 import niveauAbdellah from "/src/js/niveauAbdellah.js";
 import principal from "/src/js/principal.js";
 import minijeuAbdellah from "/src/js/minijeuAbdellah.js";
-<<<<<<< HEAD
 import puzzle from "/src/js/puzzle.js";
 import videoggP from "/src/js/videoggP.js";
+import chargementP from "/src/js/chargementP.js";
 
-=======
-import puzzle from "/src/js/puzzle.js"
->>>>>>> 114b94d9856c2241b7fef58a27e02a1862e95fa5
 // configuration générale du jeu
 var config = {
   type: Phaser.AUTO,
@@ -34,20 +31,12 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
-<<<<<<< HEAD
-  scene: [videoggP,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah,puzzle]
-=======
-  scene: [puzzle,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
->>>>>>> 114b94d9856c2241b7fef58a27e02a1862e95fa5
+  scene: [puzzle,videoggP,chargementP,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
   
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-<<<<<<< HEAD
-game.scene.start("videoggP");
-=======
 game.scene.start("puzzle");
->>>>>>> 114b94d9856c2241b7fef58a27e02a1862e95fa5
 
 
