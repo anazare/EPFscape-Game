@@ -23,6 +23,7 @@ var button1;
 var button2;
 var button3;
 var button4;
+var bouton_restart; 
 
 export default class MiniJeuDarties extends Phaser.Scene {
 
@@ -57,6 +58,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
     this.load.image("button2", 'src/assets/bouton.png');
     this.load.image("button3", 'src/assets/bouton.png');
     this.load.image("button4", 'src/assets/bouton.png');
+    this.load.image("restart", "src/assets/restart.png");
+
   }
 
   /***********************************************************************/
@@ -337,13 +340,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-      } else {
-        this.add.text(420, 430, "Vous avez Perdu !", {
-          fontSize: '25px',
-          fill: '#000000', //noir 
-          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-          align: 'center'
-        }).setDepth(3);
+      }  else {
+        this.ajout_bouton_restart();
       }
     });
 
@@ -365,6 +363,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
+      } else {
+        this.ajout_bouton_restart();
       }
     });
 
@@ -385,6 +385,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
+      } else {
+        this.ajout_bouton_restart();
       }
     });
 
@@ -405,6 +407,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
+      } else {
+        this.ajout_bouton_restart();
       }
     });
 
@@ -426,26 +430,28 @@ export default class MiniJeuDarties extends Phaser.Scene {
     return nombreDecimal;
   }
 
-  
-  restartMiniJeu() {
-    // Réinitialisez ici toutes les variables et éléments de jeu nécessaires
-    player.destroy();
-    groupe_plateformes.clear(true, true);
-    groupeBullets.clear(true, true);
-    groupeCibles.clear(true, true);
-    son_feu.stop();
-    codeSecret = '';
-    CodeDecrypte = 0;
-    monArrayList = [];
-    ListParcoursAleatoire = [];
-    button1.destroy();
-    button2.destroy();
-    button3.destroy();
-    button4.destroy();
-
-    // Vous pouvez également appeler les méthodes initiales pour recréer l'état initial
-    this.preload();
-    this.create();
-  }
-
+  ajout_bouton_restart(){
+    this.add.text(470, 500, "Vous avez Perdu !", {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(3);
+    //creation btn restart
+    bouton_restart = this.add.image(400, 300, "restart").setDepth(3).setScale(0.05);
+    
+    bouton_restart.setInteractive();
+    bouton_restart.on("pointerover", () => {
+      bouton_restart.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    bouton_restart.on("pointerout", () => {
+      bouton_restart.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    bouton_restart.on("pointerup", () => {
+      this.scene.stop(MiniJeuDarties); 
+      //this.scene.switch(principal);
+    });
+}
 }

@@ -3,10 +3,12 @@ import * as fct from "/src/js/fonctions.js";
 const SKY_IMAGE_KEY = "img_ciel";
 var groupeBullets;
 var cannon;
+var balloonData;
 var cursors;
 var boutonFeu;
 var multiplicateur;
 var multiplicande;
+var CodeDecrypte;
 var resultat;
 var questionText;
 var monArrayList = [];
@@ -90,7 +92,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
   // Fonction pour créer les ballons
   createBalloons() {
-    var CodeDecrypte = multiplicande*multiplicateur; //réponse correcte 
+    CodeDecrypte = multiplicande*multiplicateur; //réponse correcte 
     //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
     monArrayList.push(CodeDecrypte);
     for (var pas = 0; pas < 3; pas++) {
@@ -108,7 +110,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
       }
     }
 
-    let balloonData = [
+     balloonData = [
       { x: 750, y: 160, answer: monArrayList[ListParcoursAleatoire[0]] },
       { x: 600, y: 270, answer: monArrayList[ListParcoursAleatoire[1]] },
       { x: 720, y: 390, answer: monArrayList[ListParcoursAleatoire[2]] },
@@ -158,6 +160,11 @@ export default class minijeuAbdellah extends Phaser.Scene {
     if (groupeBalloon.pointsVie == 0) {
       groupeBalloon.chiffreAssocie.destroy();
       groupeBalloon.destroy();
+      const strCodeDecrypte = CodeDecrypte.toString();
+
+      if (groupeBalloon.chiffreAssocie.text === strCodeDecrypte) {
+        this.scene.switch("videoggP");
+      }
     }
 
     // Détruire la balle
