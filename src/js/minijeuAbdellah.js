@@ -9,7 +9,7 @@ var multiplicateur;
 var multiplicande;
 var resultat;
 var questionText;
-
+var groupeBalloon; // Groupe de ballons
 
 export default class minijeuAbdellah extends Phaser.Scene {
   // constructeur de la classe
@@ -19,31 +19,23 @@ export default class minijeuAbdellah extends Phaser.Scene {
     });
   }
 
-preload() {
-  this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
+  preload() {
+    this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
     this.load.image('cannon', 'src/assets/cannon.png');
     this.load.image('bullet', 'src/assets/balle.png');
+    this.load.image('balloon', 'src/assets/balloon.png');
+  }
 
-}
-
-genererMultiplication() {
-  // Générer deux nombres aléatoires pour la multiplication
-  multiplicateur = Phaser.Math.Between(12, 23);
-  multiplicande = Phaser.Math.Between(8, 16);
-
-  // Calculer le résultat de la multiplication
-  resultat = multiplicateur * multiplicande;
-}
-
-create() {
-  this.add.image(400, 300, SKY_IMAGE_KEY);
+  create() {
+    this.add.image(400, 300, SKY_IMAGE_KEY);
     // Création du canon
     cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.02);
     cannon.setCollideWorldBounds(true);
     cannon.body.allowGravity = false;
 
+    // Création du groupe de balles
     groupeBullets = this.physics.add.group();
-   
+
 
     // Création des contrôles au clavier
     cursors = this.input.keyboard.createCursorKeys();
@@ -53,55 +45,102 @@ create() {
 
     boutonFeu = this.input.keyboard.addKey('A');
 
-    // instructions pour les objets surveillés en bord de monde
-  this.physics.world.on("worldbounds", function (body) {
-    // on récupère l'objet surveillé
-    var objet = body.gameObject;
-    // s'il s'agit d'une balle
-    if (groupeBullets.contains(objet)) {
-      // on le détruit
-      objet.destroy();
-    }
-  });
-      // Générer une multiplication mathématique aléatoire
-      this.genererMultiplication();
+    // Générer une multiplication mathématique aléatoire
+    this.genererMultiplication();
 
-      // Afficher la question à l'écran
-      questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
-  
-}
+    // Afficher la question à l'écran
+    questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
 
-update() {
-  cannon.body.allowGravity = false;
+    // Création du groupe de ballons
+    groupeBalloon = this.physics.add.staticGroup();
+
+    // Création des ballons et ajout au groupe
+    this.createBalloons();
+    console.log()
+
+    // Gestion de la collision entre les balles et les ballons
+    this.physics.add.overlap(groupeBullets, groupeBalloon, this.hit, null, this);
+  }
+
+  update() {
+    cannon.body.allowGravity = false;
     // Déplacement du canon
-    if (cursors.up.isDown && cannon.y > 200)  {
-        cannon.setVelocityY(-200);
+    if (cursors.up.isDown && cannon.y > 200) {
+      cannon.setVelocityY(-200);
     } else if (cursors.down.isDown && cannon.y < 500) {
-        cannon.setVelocityY(200);
+      cannon.setVelocityY(200);
     } else {
-        cannon.setVelocityY(0);
-
+      cannon.setVelocityY(0);
     }
-     
+
+
     if (Phaser.Input.Keyboard.JustDown(boutonFeu)) {
       this.tirer(cannon);
     }
- 
-}
-   //fonction tirer( ), prenant comme paramètre l'auteur du tir
-   tirer(cannon) {
-    var coefDir = 1;
-    // on crée la balle a coté du joueur
-    var bullet = groupeBullets.create(cannon.x + (25 * coefDir), cannon.y - (25 * coefDir), 'bullet');
-    // parametres physiques de la balle.
-    bullet.setCollideWorldBounds(true);
-    // on acive la détection de l'evenement "collision au bornes"
-    bullet.body.onWorldBounds = true;
-
-    bullet.body.allowGravity = true;
-    bullet.setVelocity(400 * coefDir, -300); // vitesse en x et en y
-    bullet.setGravity(100);
   }
 
- 
+  // Fonction pour générer une multiplication aléatoire
+  genererMultiplication() {
+    multiplicateur = Phaser.Math.Between(12, 23);
+    multiplicande = Phaser.Math.Between(8, 16);
+    resultat = multiplicateur * multiplicande;
+  }
+
+  // Fonction pour créer les ballons
+  createBalloons() {
+    let balloonData = [
+      { x: 750, y: 160, answer: "37" },
+      { x: 600, y: 270, answer: "47" },
+      { x: 720, y: 390, answer: "59" },
+      { x: 440, y: 410, answer: "38" }
+    ];
+
+    balloonData.forEach(data => {
+      
+      let balloonText = this.add.text(data.x, data.y, data.answer, {
+        fontSize: '25px',
+        fill: '#000000',
+        wordWrap: { width: 300, useAdvancedWrap: true },
+        align: 'center'
+      }).setOrigin(0.5);
+
+      groupeBalloon.add(balloonText);
+
+      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.05);
+      balloon.pointsVie =1;
+      balloon.chiffreAssocie =balloonText;
+      groupeBalloon.add(balloon, true);
+      
+      balloon.body.allowGravity = false;
+
+    });
+  }
+
+  // Fonction pour tirer une balle
+  tirer(cannon) {
+
+    var coefDir = 1;
+    var bullet = groupeBullets.create(cannon.x + (25 * coefDir), cannon.y - (25 * coefDir), 'bullet');
+    bullet.setCollideWorldBounds(true);
+    bullet.body.onWorldBounds = true;
+    bullet.body.allowGravity = true;
+    bullet.setVelocity(400 * coefDir, -300);
+    bullet.setGravity(100);
+    bullet.setScale(0.05);
+  }
+
+  // Fonction déclenchée lorsqu'une balle touche un ballon
+  hit(bullet, groupeBalloon) {
+    // Réduire les points de vie du ballon
+    groupeBalloon.pointsVie--;
+
+    // Détruire le ballon s'il n'a plus de points de vie
+    if (groupeBalloon.pointsVie == 0) {
+      groupeBalloon.chiffreAssocie.destroy();
+      groupeBalloon.destroy();
+    }
+
+    // Détruire la balle
+    bullet.destroy();
+  }
 }
