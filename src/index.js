@@ -9,6 +9,7 @@ import minijeuAbdellah from "/src/js/minijeuAbdellah.js";
 import puzzle from "/src/js/puzzle.js";
 import videoggP from "/src/js/videoggP.js";
 import chargementP from "/src/js/chargementP.js";
+import MiniJeuDarties from "./js/MiniJeuDarties.js";
 
 // configuration générale du jeu
 var config = {
@@ -31,12 +32,12 @@ var config = {
       debug: true // permet de voir les hitbox et les vecteurs d'acceleration quand mis à true
     }
   },
-  scene: [puzzle,videoggP,chargementP,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
+  scene: [MiniJeuDarties, puzzle,videoggP,chargementP,selection, minijeuAbdellah , principal,  niveauMeyer, niveauJousset, niveauDarties, niveauAbdellah]
   
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start("puzzle");
+game.scene.start("MiniJeuDarties");
 
 
