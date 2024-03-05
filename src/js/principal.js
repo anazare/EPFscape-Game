@@ -7,7 +7,7 @@
 
 var player; // désigne le sprite du joueur
 var cursors; // pour la gestion du clavier
-
+var calque_background2; 
 
 
 export default class principal extends Phaser.Scene {
@@ -27,6 +27,11 @@ export default class principal extends Phaser.Scene {
 
     // chargement de la carte
     this.load.tilemapTiledJSON("carte", "src/assets/map_principale2.json");
+    
+    //chrgmt portes
+    this.load.image('img_porte1', 'src/assets/door1.png');
+    this.load.image('img_porte2', 'src/assets/door2.png');
+    this.load.image('img_porte3', 'src/assets/door3.png');
   }
 
   create() {
@@ -57,9 +62,9 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(2656, 6368, "dude").setScale(4.5);
+    player = this.physics.add.sprite(2656, 6240, "dude").setScale(4.5);
     player.setBounce(0.2);
-
+    this.physics.add.collider(player, calque_background2);
     // animation pour tourner à gauche
     this.anims.create({
       key: "left",
@@ -85,7 +90,7 @@ export default class principal extends Phaser.Scene {
 
     // création d'un écouteur sur le clavier
     cursors = this.input.keyboard.createCursorKeys();
-
+    this.physics.world.setBounds (0,0,4416,6400);
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 4416, 6400);
     // ancrage de la caméra sur le joueur
@@ -95,9 +100,10 @@ export default class principal extends Phaser.Scene {
 
 
     // ajout du modèle de collision entre le personnage et le monde
-    //player.setCollideWorldBounds(true);
-
-
+    player.setCollideWorldBounds(true);
+this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
+this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
+this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
   }
 
   update() {
@@ -145,5 +151,14 @@ export default class principal extends Phaser.Scene {
       player.setGravity(0); // Remove gravity from the player
 
     }
+    this.physics.world.collide(player, calque_background2);
+
+    if (cursors.right.isDown)  {
+      if (this.physics.overlap(player, this.porte2)) this.scene.switch("niveauDarties");
+      if (this.physics.overlap(player, this.porte1)) this.scene.switch("niveauAbdellah");
+      if (this.physics.overlap(player, this.porte3)) this.scene.switch("niveauMeyer");
+    } 
+  
+  
   }
 }

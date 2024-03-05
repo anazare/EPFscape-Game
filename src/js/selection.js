@@ -25,7 +25,7 @@ export default class selection extends Phaser.Scene {
   create() {
     fct.doNothing();
     fct.doAlsoNothing();
-    musique_de_fond = this.sound.add('background');
+    musique_de_fond = this.sound.add('background',{loop: true});
   musique_de_fond.play();
 
   this.add.image(400, 300, SKY_IMAGE_KEY);

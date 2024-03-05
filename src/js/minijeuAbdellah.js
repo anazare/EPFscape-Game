@@ -1,0 +1,166 @@
+import * as fct from "/src/js/fonctions.js";
+
+const SKY_IMAGE_KEY = "img_ciel";
+var groupeBullets;
+var cannon;
+var cursors;
+var boutonFeu;
+var multiplicateur;
+var multiplicande;
+var resultat;
+var questionText;
+var monArrayList = [];
+var ListParcoursAleatoire = [];
+var groupeBalloon; // Groupe de ballons
+
+export default class minijeuAbdellah extends Phaser.Scene {
+  // constructeur de la classe
+  constructor() {
+    super({
+      key: "minijeuAbdellah" //  ici on précise le nom de la classe en tant qu'identifiant
+    });
+  }
+
+  preload() {
+    this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
+    this.load.image('cannon', 'src/assets/cannon.png');
+    this.load.image('bullet', 'src/assets/balle.png');
+    this.load.image('balloon', 'src/assets/balloon.png');
+  }
+
+  create() {
+    this.add.image(400, 300, SKY_IMAGE_KEY);
+    // Création du canon
+    cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.02);
+    cannon.setCollideWorldBounds(true);
+    cannon.body.allowGravity = false;
+
+    // Création du groupe de balles
+    groupeBullets = this.physics.add.group();
+
+
+    // Création des contrôles au clavier
+    cursors = this.input.keyboard.createCursorKeys();
+
+    // Configuration de la collision entre les balles et les bords de l'écran
+    this.physics.world.setBoundsCollision(true, true, true, true);
+
+    boutonFeu = this.input.keyboard.addKey('A');
+
+    // Générer une multiplication mathématique aléatoire
+    this.genererMultiplication();
+
+    // Afficher la question à l'écran
+    questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
+
+    // Création du groupe de ballons
+    groupeBalloon = this.physics.add.staticGroup();
+
+    // Création des ballons et ajout au groupe
+    this.createBalloons();
+    console.log()
+
+    // Gestion de la collision entre les balles et les ballons
+    this.physics.add.overlap(groupeBullets, groupeBalloon, this.hit, null, this);
+  }
+
+  update() {
+    cannon.body.allowGravity = false;
+    // Déplacement du canon
+    if (cursors.up.isDown && cannon.y > 200) {
+      cannon.setVelocityY(-200);
+    } else if (cursors.down.isDown && cannon.y < 500) {
+      cannon.setVelocityY(200);
+    } else {
+      cannon.setVelocityY(0);
+    }
+
+
+    if (Phaser.Input.Keyboard.JustDown(boutonFeu)) {
+      this.tirer(cannon);
+    }
+  }
+
+  // Fonction pour générer une multiplication aléatoire
+  genererMultiplication() {
+    multiplicateur = Phaser.Math.Between(12, 23);
+    multiplicande = Phaser.Math.Between(8, 16);
+    resultat = multiplicateur * multiplicande;
+  }
+
+  // Fonction pour créer les ballons
+  createBalloons() {
+    var CodeDecrypte = multiplicande*multiplicateur; //réponse correcte 
+    //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
+    monArrayList.push(CodeDecrypte);
+    for (var pas = 0; pas < 3; pas++) {
+      const nbA = Phaser.Math.Between(80, 300);
+      if (!monArrayList.includes(nbA)) {
+        monArrayList.push(nbA);
+      }
+    }
+
+    //génération de positions random et rangement dans une list 
+    while (ListParcoursAleatoire.length !== 4) {
+      const nbA = Phaser.Math.Between(0, 3);
+      if (!ListParcoursAleatoire.includes(nbA)) {
+        ListParcoursAleatoire.push(nbA);
+      }
+    }
+
+    let balloonData = [
+      { x: 750, y: 160, answer: monArrayList[ListParcoursAleatoire[0]] },
+      { x: 600, y: 270, answer: monArrayList[ListParcoursAleatoire[1]] },
+      { x: 720, y: 390, answer: monArrayList[ListParcoursAleatoire[2]] },
+      { x: 440, y: 410, answer: monArrayList[ListParcoursAleatoire[3]] }
+    ];
+
+    balloonData.forEach(data => {
+      
+      let balloonText = this.add.text(data.x, data.y, data.answer, {
+        fontSize: '25px',
+        fill: '#000000',
+        wordWrap: { width: 300, useAdvancedWrap: true },
+        align: 'center'
+      }).setOrigin(0.5).setDepth(2);
+
+      groupeBalloon.add(balloonText);
+
+      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.05);
+      balloon.pointsVie =1;
+      balloon.chiffreAssocie =balloonText;
+      groupeBalloon.add(balloon, true);
+      
+      balloon.body.allowGravity = false;
+
+    });
+  }
+
+  // Fonction pour tirer une balle
+  tirer(cannon) {
+
+    var coefDir = 1;
+    var bullet = groupeBullets.create(cannon.x + (25 * coefDir), cannon.y - (25 * coefDir), 'bullet');
+    bullet.setCollideWorldBounds(true);
+    bullet.body.onWorldBounds = true;
+    bullet.body.allowGravity = true;
+    bullet.setVelocity(400 * coefDir, -300);
+    bullet.setGravity(100);
+    bullet.setScale(0.05);
+  }
+
+  // Fonction déclenchée lorsqu'une balle touche un ballon
+  hit(bullet, groupeBalloon) {
+    // Réduire les points de vie du ballon
+    groupeBalloon.pointsVie--;
+
+    // Détruire le ballon s'il n'a plus de points de vie
+    if (groupeBalloon.pointsVie == 0) {
+      groupeBalloon.chiffreAssocie.destroy();
+      groupeBalloon.destroy();
+    }
+
+    // Détruire la balle
+    bullet.destroy();
+  }
+}
