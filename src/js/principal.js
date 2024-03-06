@@ -66,27 +66,7 @@ export default class principal extends Phaser.Scene {
     player.setBounce(0.2);
     this.physics.add.collider(player, calque_background2);
     // animation pour tourner à gauche
-    this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("dude1", { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    // animation lorsque le personnage n'avance pas
-    this.anims.create({
-      key: "turn",
-      frames: [{ key: "dude1", frame: 4 }],
-      frameRate: 20
-    });
-
-    // animation pour tourner à droite
-    this.anims.create({
-      key: "right",
-      frames: this.anims.generateFrameNumbers("dude1", { start: 5, end:8}),
-      frameRate: 10,
-      repeat: -1
-    });
+    
 
     // création d'un écouteur sur le clavier
     cursors = this.input.keyboard.createCursorKeys();

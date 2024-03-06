@@ -47,8 +47,8 @@ export default class niveauDarties extends Phaser.Scene {
     
   
    // création du personnage de jeu et positionnement
-   player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
-   player.setBounce(0.2);
+   this.player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
+   this.player.setBounce(0.2);
  
  
    // animation pour tourner à gauche
@@ -78,19 +78,19 @@ export default class niveauDarties extends Phaser.Scene {
    cursors = this.input.keyboard.createCursorKeys();
    
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     this.physics.world.setBounds(0, 0, 800, 640);
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 800, 640);
     // ancrage de la caméra sur le joueur
-    this.cameras.main.startFollow(player);
+    this.cameras.main.startFollow(this.player);
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     // ajout d'une collision entre le joueur et le calque plateformes
-    this.physics.add.collider(player, calque_background);
+    this.physics.add.collider(this.player, calque_background);
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,30 +148,30 @@ export default class niveauDarties extends Phaser.Scene {
     // définitinon des mouvements du personnage
 
   if (cursors.up.isDown) {
-    player.setVelocityY(-160);
+    this.player.setVelocityY(-160);
     // à droite
   } else if (cursors.down.isDown) {
-    player.setVelocityY(160);
+    this.player.setVelocityY(160);
   }
 
   // a gauche
   if (cursors.left.isDown) {
-    player.setVelocityX(-160);
-    player.anims.play("left", true);
+    this.player.setVelocityX(-160);
+    this.player.anims.play("left", true);
 
     // à droite
   } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-    player.anims.play("right", true);
+    this.player.setVelocityX(160);
+    this.player.anims.play("right", true);
   }
   // immoobile
   else {
-    player.setVelocityX(0);
-    player.anims.play("turn");
+    this.player.setVelocityX(0);
+    this.player.anims.play("turn");
   }
   // en saut (important : blocked doown au lieu de tuoching down)
-  if (cursors.up.isDown && player.body.blocked.down) {
-    player.setVelocityY(-200);
+  if (cursors.up.isDown && this.player.body.blocked.down) {
+    this.player.setVelocityY(-200);
   }
   }
 }

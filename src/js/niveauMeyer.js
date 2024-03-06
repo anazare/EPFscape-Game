@@ -49,8 +49,8 @@ export default class niveauMeyer extends Phaser.Scene {
     
   
    // création du personnage de jeu et positionnement
-   player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
-   player.setBounce(0.2);
+   this.player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
+   this.player.setBounce(0.2);
  
  
    // animation pour tourner à gauche
