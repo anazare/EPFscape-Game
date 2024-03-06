@@ -47,20 +47,21 @@ export default class Pagedelancement extends Phaser.Scene {
 
   afficherBouton() {
     // Déclarer la variable bouton_play
-    const bouton_play = this.add.image(400, 480, "Start1").setScale(0.3).setAlpha(0.2);; // Réglez la valeur selon vos besoins
+    const bouton_play = this.add.image(400, 480, "Start1").setScale(0.3); // Réglez la valeur selon vos besoins
     bouton_play.setInteractive();
 
     bouton_play.on("pointerover", () => {
       bouton_play.setTint(0xC0C0C0);
-      bouton_play.setAlpha(0);
+      bouton_play.setAlpha(0.1);
+      
     });
 
     bouton_play.on("pointerout", () => {
-      bouton_play.setAlpha(0.2);
       bouton_play.clearTint();
     });
 
     bouton_play.on("pointerup", () => {
+      bouton_play.setAlpha(0.1);
       this.scene.start("chargementP1");
     });
   }
