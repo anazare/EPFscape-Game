@@ -342,9 +342,10 @@ bullet.setDisplaySize(20, 20);
 
     //j'ajoute l'image du livre et les instructions 
     this.add.image(400, 300, "livre").setDepth(1);
-    this.add.text(72, 82, "Félicitations! \n\n Vous avez réussit à atteindre toutes les cibles, toutefois, ce n'est pas sufisant pour valider le module. \n\n Je vais vous donner un code secret en base deux que vous devrez convertir en décimal : \n" + codeSecret, {
+    this.add.text(72, 82, "Félicitations! \n\n Vous avez réussi à atteindre toutes les cibles, toutefois, ce n'est pas suffisant pour valider le module. \n\n Je vais vous donner un code secret en base deux que vous devrez convertir en décimal : \n" + codeSecret, {
       fontSize: '25px',
       fill: '#000000', //noir 
+      fontFamily: "Caveat",
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
       align: 'center'
     }).setDepth(2); // Réglez la profondeur à une valeur plus élevée que celle des autres objets
