@@ -1,14 +1,15 @@
 // chargement des librairies
 
-
+import minijeuAbdellah from "./minijeuAbdellah.js";
 /***********************************************************************/
 /** VARIABLES GLOBALES 
 /***********************************************************************/
 
 var player; // désigne le sprite du joueur
 var cursors; // pour la gestion du clavier
-var calque_background2; 
-
+var calque_background2;
+var score;
+let textBubble;
 
 export default class principal extends Phaser.Scene {
   // constructeur de la classe
@@ -16,20 +17,19 @@ export default class principal extends Phaser.Scene {
     super({
       key: "principal" //  ici on précise le nom de la classe en tant qu'identifiant
     });
-    this.score = 0; // Initialize score variable
-    this.scoreText; // Declare scoreText variable
+    this.score=0;
   }
   preload() {
     // ajout perso
     this.load.image("dude1", "src/assets/tetered.png");
 
     // chargement tuiles de jeu
-    this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png", {frameWidth: 4416, frameHeight: 6400});
+    this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png", { frameWidth: 4416, frameHeight: 6400 });
 
 
     // chargement de la carte
     this.load.tilemapTiledJSON("carte", "src/assets/map_principale2.json");
-    
+
     //chrgmt portes
     this.load.image('img_porte1', 'src/assets/door1.png');
     this.load.image('img_porte2', 'src/assets/door2.png');
@@ -38,17 +38,10 @@ export default class principal extends Phaser.Scene {
 
   create() {
 
-     // Calculate the center position of the screen
-     const centerX = this.cameras.main.width / 2;
-     const centerY = this.cameras.main.height / 2;
- 
-     // Create the score text at the center position
-     this.scoreText = this.add.text(
-       centerX, // X position
-       centerY, // Y position
-       'Score: 0', // Initial text
-       { fontSize: '24px', fill: '#fff' } // Text style
-     ).setOrigin(0.5); // Set origin to center
+    // Calculate the center position of the screen
+    const centerX = this.cameras.main.width / 2;
+    const centerY = this.cameras.main.height / 2;
+
     // chargement de la carte
     const carteDuNiveau = this.add.tilemap("carte");
 
@@ -78,88 +71,96 @@ export default class principal extends Phaser.Scene {
     player.setBounce(0.2);
     this.physics.add.collider(player, calque_background2);
     // animation pour tourner à gauche
-    
+
 
     // création d'un écouteur sur le clavier
     cursors = this.input.keyboard.createCursorKeys();
-    this.physics.world.setBounds (0,0,4416,6400);
+    this.physics.world.setBounds(0, 0, 4416, 6400);
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 4416, 6400);
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player);
     this.cameras.main.setZoom(0.2);
-    
+
 
 
     // ajout du modèle de collision entre le personnage et le monde
     player.setCollideWorldBounds(true);
-this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
-this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
-this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
+    this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
+    this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
+    this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
+    this.initializeTextBubble();
   }
 
   update() {
 
-     player.setVelocity(0);
-
+    player.setVelocity(0);
     if (cursors.up.isDown) {
       player.setVelocityY(-300);
       // à droite
     } else if (cursors.down.isDown) {
-
       player.setVelocityY(300);
-
     }
 
-
-
     // a gauche
-
     if (cursors.left.isDown) {
-
       player.setVelocityX(-300);
-
-      //player.anims.play("left", true);
-
-
+      //player.anims.play("left", true)
 
       // à droite
-
     } else if (cursors.right.isDown) {
-
       player.setVelocityX(300);
-
       //player.anims.play("right", true);
-
     }
 
     // immoobile
-
     else {
-
       player.setVelocityX(0);
-
       //player.anims.play("turn");
       player.setGravity(0); // Remove gravity from the player
-
     }
     this.physics.world.collide(player, calque_background2);
 
-    if (cursors.right.isDown)  {
-      if (this.physics.overlap(player, this.porte2)){
+    if (cursors.right.isDown) {
+      if (this.physics.overlap(player, this.porte2)) {
         this.scene.switch("niveauDarties");
         this.porte2.destroy();
-      } 
+        this.score+=3; 
+        console.log("score : "+this.score); 
+      }
       if (this.physics.overlap(player, this.porte1)) {
         this.scene.switch("niveauAbdellah");
         this.porte1.destroy();
       }
       if (this.physics.overlap(player, this.porte3)) {
+        this.score+=2; 
+        console.log("score : "+this.score); 
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
+        
       }
-    } 
-  
-  
+    }
+    if (minijeuAbdellah.boolAbdellah1 ==true) {
+      this.score+=3; 
+      console.log("score : "+this.score); 
+    }
+
+    textBubble.setPosition(player.x, player.y - 200);
   }
+
+  initializeTextBubble() {
+    textBubble = this.add.text(player.x, player.y - 200, 'Score : '+ this.score, {
+      fontSize: '16px',
+      fill: '#ffffff',
+      backgroundColor: '#000000',
+      padding: {
+        x: 10,
+        y: 10
+      },
+      borderRadius: 6,
+      visible: false
+    }).setOrigin(0.5).setDepth(10).setScale(3);
+    console.log("ajout text bubble"); 
+  }
+  
 }
