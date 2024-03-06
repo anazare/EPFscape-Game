@@ -1,5 +1,5 @@
 import * as fct from "/src/js/fonctions.js";
-
+var son_Winston;
 var cursors;
 
 export default class niveauMeyer extends Phaser.Scene {
@@ -29,7 +29,7 @@ export default class niveauMeyer extends Phaser.Scene {
   }
 
   create() {
-    var son_Winston = this.sound.add("Winston"); 
+    son_Winston = this.sound.add("Winston"); 
     son_Winston.play(); 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
@@ -152,7 +152,7 @@ export default class niveauMeyer extends Phaser.Scene {
       });
       //Cas ou la souris clique sur le bouton play :
       fleche.on("pointerup", () => {
-        audio_explication.stop(); // Arrête la musique en cours
+        son_Winston.stop(); // Arrête la musique en cours
         this.scene.stop("niveauMeyer"); // Arrête la scène du mini-jeu
         this.scene.start("puzzle"); // Démarre la scène du niveau principal
 
