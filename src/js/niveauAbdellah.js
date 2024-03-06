@@ -1,6 +1,6 @@
 import * as fct from "/src/js/fonctions.js";
 
-var player;
+
 var cursors;
 var bouton_restart;
 export default class niveauAbdellah extends Phaser.Scene {
@@ -12,8 +12,9 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
 
   preload() {
+    var player;
     // ajout perso
-    this.load.spritesheet("dudeabd", "src/assets/dudeabd.png", { frameWidth: 31.5, frameHeight: 48 });
+    this.load.spritesheet("dudeabd", "src/assets/dudeabd.png", { frameWidth: 31.75, frameHeight: 48 });
 
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
