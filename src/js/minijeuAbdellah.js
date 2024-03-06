@@ -22,6 +22,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
     super({
       key: "minijeuAbdellah" //  ici on précise le nom de la classe en tant qu'identifiant
     });
+    var boolAbdellah1 = this.miniJeuTermine = false;
   }
 
   preload() {
@@ -245,6 +246,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
       const strCodeDecrypte = CodeDecrypte.toString();
 
       if (groupeBalloon.chiffreAssocie.text === strCodeDecrypte) {
+        this.miniJeuTermine=true; 
         this.scene.switch("videoggP");
       }
       else {
