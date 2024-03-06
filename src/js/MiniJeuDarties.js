@@ -5,7 +5,6 @@
 /** VARIABLES GLOBALES 
 /***********************************************************************/
 
-var player; // désigne le sprite du joueur
 var groupe_plateformes; // contient toutes les plateformes
 var clavier; // pour la gestion du clavier
 // mise en place d'une variable boutonFeu
@@ -29,7 +28,8 @@ var consignes;
 export default class MiniJeuDarties extends Phaser.Scene {
 
   constructor() {
-    super({ key: "MiniJeuDarties" }); // mettre le meme nom que le nom de la classe
+    super({ key: "MiniJeuDarties" }); 
+    this.player;// mettre le meme nom que le nom de la classe
   }
 
   /***********************************************************************/
@@ -41,6 +41,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
    * On y trouve surtout le chargement des assets (images, son ..)
    */
   preload() {
+
     // tous les assets du jeu sont placés dans le sous-répertoire src/assets/
     this.load.image("img_ciele", "src/assets/sky1.jpg");
     this.load.image("img_plateforme", "src/assets/platform.png");
