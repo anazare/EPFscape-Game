@@ -100,7 +100,7 @@ export default class Puzzle extends Phaser.Scene {
       isImage3InTargetArea &&
       isImage4InTargetArea
     ) {
-      this.scene.switch("videoggP1")
+      this.scene.switch("videoggP2")
       this.isPuzzleSolved = true;
     }
   }

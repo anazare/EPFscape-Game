@@ -410,7 +410,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
 
       } else {
         this.ajout_bouton_restart();
@@ -435,7 +435,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
 
 
       } else {
@@ -460,7 +460,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
       } else {
         this.ajout_bouton_restart();
       }
@@ -483,7 +483,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
       } else {
         this.ajout_bouton_restart();
       }
