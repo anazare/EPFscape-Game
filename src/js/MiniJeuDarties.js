@@ -85,7 +85,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
-    this.add.image(400, 300, "img_ciel").setScale(0.3);
+    this.add.image(400, 300, "img_ciel").setScale(0.3,0.3);
 
     // la création d'un groupes permet de gérer simultanément les éléments d'une meme famille
     //  Le groupe groupe_plateformes contiendra le sol et deux platesformes sur lesquelles sauter
@@ -107,13 +107,14 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
     // création d'un groupe d'éléments vide
     groupeBullets = this.physics.add.group();
+    
 
     // ajout de 8 cibles espacées de 110 pixels
     groupeCibles = this.physics.add.group({
       key: 'cible',
       repeat: 7,
       setXY: { x: 24, y: 0, stepX: 107 },
-      setScale: { x: 0.2, y: 0.2 } 
+      setScale: { x: 0.15, y: 0.15} 
     });
     // modification des cibles créées
     groupeCibles.children.iterate(function (cibleTrouvee) {
@@ -123,6 +124,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
       cibleTrouvee.y = Phaser.Math.Between(10, 250);
       // modification du coefficient de rebond
       cibleTrouvee.setBounce(1);
+      
     });
 
     // ajout du modèle de collision entre cibles et plate-formes
@@ -241,6 +243,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
     if (player.direction == 'left') { coefDir = -1; } else { coefDir = 1 }
     // on crée la balle a coté du joueur
     var bullet = groupeBullets.create(player.x + (25 * coefDir), player.y - 4, 'bullet');
+
+// Réduire la taille de l'image à 20 pixels de largeur et 20 pixels de hauteur
+bullet.setDisplaySize(20, 20);
+
     // parametres physiques de la balle.
     bullet.setCollideWorldBounds(true);
     // on acive la détection de l'evenement "collision au bornes"
