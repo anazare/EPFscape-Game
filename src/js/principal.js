@@ -174,7 +174,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
       console.log("score : "+this.score); 
     }
 
-    textBubble.setPosition(player.x, player.y - 200);
+    //textBubble.setPosition(player.x, player.y - 200);
   }
 
   initializeTextBubble() {
