@@ -61,7 +61,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
+    player = this.physics.add.sprite(800, 400, "dude").setScale(10);;
     player.setBounce(0.2);
 
 
