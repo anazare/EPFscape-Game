@@ -6,6 +6,7 @@ const BOOK_IMAGE_KEY = "img_livre";
 var clavier;
 var livreTexte;
 var musique_de_fond;
+var jousset1; 
 var bouton_play;
 var campus_img;
 
@@ -20,35 +21,38 @@ export default class selection extends Phaser.Scene {
     this.load.image("Start", "src/assets/bouton-start.png");
     this.load.image("campus", "src/assets/campus_montpellier_2022.png");
     this.load.audio('background', 'src/assets/sonambiance.mp3');
+    this.load.audio('jousset1', 'src/assets/jousset1.mp3');
   }
 
   create() {
-    fct.doNothing();
-    fct.doAlsoNothing();
-    musique_de_fond = this.sound.add('background',{loop: true});
-  musique_de_fond.play();
+    //création de la musique de fond et mise en boucle 
+    musique_de_fond = this.sound.add('background', { loop: true });
+    musique_de_fond.play();
+    //création du son : explications de jousset  
+    jousset1 = this.sound.add('jousset1');
+    jousset1.play();
+    //ajout de l'image de fond 
+    this.add.image(400, 300, SKY_IMAGE_KEY);
+    //ajout du livre par dessous 
+    const imageLivre = this.add.image(400, 300, BOOK_IMAGE_KEY);
 
-  this.add.image(400, 300, SKY_IMAGE_KEY);
+    livreTexte = this.add.text(
+      imageLivre.x - imageLivre.width / 2 + 70,
+      imageLivre.y - imageLivre.height / 2 + 80,
+      "",
+      {
+        fontFamily: "Caveat", // Changer la police à "Caveat"
+        fontSize: "17px",
+        color: "#000000",
+      }
+    );
 
-  const imageLivre = this.add.image(400, 300, BOOK_IMAGE_KEY);
+    // Ajout de la fonctionnalité d'affichage lettre par lettre
+    this.time.delayedCall(50, this.afficherTexteLettreParLettre, [], this);
 
-  livreTexte = this.add.text(
-    imageLivre.x - imageLivre.width / 2 + 70,
-    imageLivre.y - imageLivre.height / 2 + 80,
-    "",
-    {
-      fontFamily: "Caveat", // Changer la police à "Caveat"
-      fontSize: "17px",
-      color: "#000000",
-    }
-  );
-
-  // Ajout de la fonctionnalité d'affichage lettre par lettre
-  this.time.delayedCall(50, this.afficherTexteLettreParLettre, [], this);
-
-  // Ajouter le bouton "Start" et l'image du campus avec un délai de 18 secondes
-  this.time.delayedCall(15000, this.afficherCampusEtBouton, [], this);
-}
+    // Ajouter le bouton "Start" et l'image du campus avec un délai de 18 secondes
+    this.time.delayedCall(15000, this.afficherCampusEtBouton, [], this);
+  }
 
   update() {
     // Ajouter ici des logiques de mise à jour si nécessaire
@@ -61,7 +65,7 @@ export default class selection extends Phaser.Scene {
 
     this.time.addEvent({
       repeat: texteComplet.length - 1,
-      delay: 50,
+      delay: 44.5,
       callback: function () {
         textePartiel += texteComplet[indexLettre];
         livreTexte.setText(textePartiel);
