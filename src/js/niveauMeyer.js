@@ -149,13 +149,6 @@ export default class niveauMeyer extends Phaser.Scene {
   update() {
     // définitinon des mouvements du personnage
 
-  if (cursors.up.isDown) {
-    this.player.setVelocityY(-160);
-    // à droite
-  } else if (cursors.down.isDown) {
-    this.player.setVelocityY(160);
-  }
-
   // a gauche
   if (cursors.left.isDown) {
     this.player.setVelocityX(-160);
