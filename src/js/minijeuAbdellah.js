@@ -31,9 +31,8 @@ export default class minijeuAbdellah extends Phaser.Scene {
     this.load.image('balloon', 'src/assets/balloon.png');
     this.load.image("bouton_reglement", "src/assets/info.png");
     this.load.image("livre", "src/assets/book.png");
-    this.load.image("retour", "src/assets/retour.png");
+    //this.load.image("retour", "src/assets/retour.png");
     this.load.image("restart", "src/assets/restart.png");
-
   }
 
   create() {

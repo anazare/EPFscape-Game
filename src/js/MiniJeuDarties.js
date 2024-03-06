@@ -82,6 +82,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // ajout des sons au gestionnaire sound
     // recupération de variables pour manipuler le son
     son_feu = this.sound.add('coupDeFeu');
+    son_feu.setVolume(0.1);
 
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
@@ -304,14 +305,7 @@ bullet.setDisplaySize(20, 20);
     });
     //Cas ou la souris clique sur le bouton restart :
     bouton_restart.on("pointerup", () => {
-      var timerRestart = this.time.delayedCall(3000,
-        () => {
-          this.scene.restart();
-        },
-        null,
-        this
-      );
-
+      this.scene.restart();
     });
   }
 
