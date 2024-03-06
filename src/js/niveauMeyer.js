@@ -15,7 +15,7 @@ export default class niveauMeyer extends Phaser.Scene {
 
 
     // ajout perso
-    this.load.spritesheet("dudewin", "src/assets/dudewin.png", { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet("alldude1", "src/assets/alldude.png", { frameWidth: 32.25, frameHeight: 48 });
 
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
@@ -55,29 +55,29 @@ export default class niveauMeyer extends Phaser.Scene {
     
   
    // création du personnage de jeu et positionnement
-   this.player = this.physics.add.sprite(800, 400, "dudewin").setScale(4);;
+   this.player = this.physics.add.sprite(800, 400, "alldude1").setScale(4);;
    this.player.setBounce(0.2);
  
  
    // animation pour tourner à gauche
    this.anims.create({
-     key: "left",
-     frames: this.anims.generateFrameNumbers("dudewin", { start: 0, end: 3 }),
+     key: "leftm",
+     frames: this.anims.generateFrameNumbers("alldude1", { start: 0, end: 3 }),
      frameRate: 10,
      repeat: -1
    });
  
    // animation lorsque le personnage n'avance pas
    this.anims.create({
-     key: "turn",
-     frames: [{ key: "dudewin", frame: 4 }],
+     key: "turnm",
+     frames: [{ key: "alldude1", frame: 4 }],
      frameRate: 20
    });
  
    // animation pour tourner à droite
    this.anims.create({
-     key: "right",
-     frames: this.anims.generateFrameNumbers("dudewin", { start: 5, end: 8 }),
+     key: "rightm",
+     frames: this.anims.generateFrameNumbers("alldude1", { start: 5, end: 8 }),
      frameRate: 10,
      repeat: -1
    });
@@ -161,22 +161,23 @@ export default class niveauMeyer extends Phaser.Scene {
  
 
   update() {
+   
     // définitinon des mouvements du personnage
 
   // a gauche
   if (cursors.left.isDown) {
     this.player.setVelocityX(-160);
-    this.player.anims.play("left", true);
+    this.player.anims.play("leftm", true);
 
     // à droite
   } else if (cursors.right.isDown) {
     this.player.setVelocityX(160);
-    this.player.anims.play("right", true);
+    this.player.anims.play("rightm", true);
   }
   // immoobile
   else {
     this.player.setVelocityX(0);
-    this.player.anims.play("turn");
+    this.player.anims.play("turnm");
   }
   // en saut (important : blocked doown au lieu de tuoching down)
   if (cursors.up.isDown && this.player.body.blocked.down) {
