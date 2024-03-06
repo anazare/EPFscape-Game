@@ -168,7 +168,7 @@ export default class niveauAbdellah extends Phaser.Scene {
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
 this.add.image(400, 325, 'livre2').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu...\n\n\n\n\n\n Dans le mini-jeu ...", {
+this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
   fontSize: '25px',
   fontFamily: "Caveat",
   fill: '#000000', //noir 

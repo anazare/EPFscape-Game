@@ -167,7 +167,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
 this.add.image(400, 325, 'livre2').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu\n\n\n\n\n\n ", {
+this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n\ Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
   fontSize: '25px',
   fontFamily: "Caveat",
   fill: '#000000', //noir 
