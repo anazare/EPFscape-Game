@@ -55,7 +55,7 @@ export default class selection extends Phaser.Scene {
   }
 
   afficherTexteLettreParLettre() {
-    const texteComplet = "Bonjour jeune peufien,\n\nJe suis ton responsable pédagogique.\n\nIl te manque malheureusement 8 crédits ?\n\npour valider le semestre.Tu dois te rendre\n\ndans les salles M01,M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n\n\n\n\n                    Bonne chance !!!";
+    const texteComplet = "AH! Ca faisait longtemps Redouane!\n\nIl te manque malheureusement 8 crédits ?\n\npour valider ton semestre.Tu dois te rendre\n\ndans les salles M01, M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n\n\n\n\n                    Bonne chance !!!";
     let textePartiel = "";
     let indexLettre = 0;
 
