@@ -116,7 +116,7 @@ export default class niveauDarties extends Phaser.Scene {
   }
   displayDynamicText() {
     
-      const text = "Bonjour, je te lance un défi, \n si tu réussis le mini-jeu ainsi\n que l'enigme qui suivra \n je te donne tes 3 crédits restants."; 
+      const text = "Bonjour Redouane, je te lance un défi, \n si tu réussis le mini-jeu ainsi\n que l'enigme qui suivra \n je te donne tes 3 crédits restants."; 
       const x = 100; // Position X du texte
       const y = 100; // Position Y du texte
       const fontSize = '25px'; // Taille de la police
