@@ -5,7 +5,6 @@
 /** VARIABLES GLOBALES 
 /***********************************************************************/
 
-var player; // désigne le sprite du joueur
 var cursors; // pour la gestion du clavier
 var calque_background2; 
 
@@ -16,9 +15,11 @@ export default class principal extends Phaser.Scene {
     super({
       key: "principal" //  ici on précise le nom de la classe en tant qu'identifiant
     });
+    this.player;
     this.score = 0; // Initialize score variable
     this.scoreText; // Declare scoreText variable
   }
+  
   preload() {
     // ajout perso
     this.load.image("dude1", "src/assets/tetered.png");
@@ -74,9 +75,9 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.image(2656, 6240, "dude1").setScale(1);
-    player.setBounce(0.2);
-    this.physics.add.collider(player, calque_background2);
+    this.player = this.physics.add.image(2656, 6240, "dude1").setScale(1);
+    this.player.setBounce(0.2);
+    this.physics.add.collider(this.player, calque_background2);
     // animation pour tourner à gauche
     
 
@@ -86,13 +87,13 @@ export default class principal extends Phaser.Scene {
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 4416, 6400);
     // ancrage de la caméra sur le joueur
-    this.cameras.main.startFollow(player);
+    this.cameras.main.startFollow(this.player);
     this.cameras.main.setZoom(0.2);
     
 
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
 this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
 this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
@@ -100,14 +101,14 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
   update() {
 
-     player.setVelocity(0);
+    this.player.setVelocity(0);
 
     if (cursors.up.isDown) {
-      player.setVelocityY(-300);
+      this.player.setVelocityY(-300);
       // à droite
     } else if (cursors.down.isDown) {
 
-      player.setVelocityY(300);
+      this.player.setVelocityY(300);
 
     }
 
@@ -117,7 +118,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
     if (cursors.left.isDown) {
 
-      player.setVelocityX(-300);
+      this.player.setVelocityX(-300);
 
       //player.anims.play("left", true);
 
@@ -127,7 +128,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
     } else if (cursors.right.isDown) {
 
-      player.setVelocityX(300);
+      this.player.setVelocityX(300);
 
       //player.anims.play("right", true);
 
@@ -137,24 +138,24 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
     else {
 
-      player.setVelocityX(0);
+      this.player.setVelocityX(0);
 
       //player.anims.play("turn");
-      player.setGravity(0); // Remove gravity from the player
+      this.player.setGravity(0); // Remove gravity from the player
 
     }
-    this.physics.world.collide(player, calque_background2);
+    this.physics.world.collide(this.player, calque_background2);
 
     if (cursors.right.isDown)  {
-      if (this.physics.overlap(player, this.porte2)){
+      if (this.physics.overlap(this.player, this.porte2)){
         this.scene.switch("niveauDarties");
         this.porte2.destroy();
       } 
-      if (this.physics.overlap(player, this.porte1)) {
+      if (this.physics.overlap(this.player, this.porte1)) {
         this.scene.switch("niveauAbdellah");
         this.porte1.destroy();
       }
-      if (this.physics.overlap(player, this.porte3)) {
+      if (this.physics.overlap(this.player, this.porte3)) {
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
       }

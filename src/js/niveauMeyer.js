@@ -1,6 +1,5 @@
 import * as fct from "/src/js/fonctions.js";
 
-var player;
 var cursors;
 
 export default class niveauMeyer extends Phaser.Scene {
@@ -9,9 +8,12 @@ export default class niveauMeyer extends Phaser.Scene {
     super({
       key: "niveauMeyer" //  ici on précise le nom de la classe en tant qu'identifiant
     });
+    this.player;
   }
 
   preload() {
+
+
     // ajout perso
     this.load.spritesheet("dudewin", "src/assets/dudewin.png", { frameWidth: 32, frameHeight: 48 });
 
