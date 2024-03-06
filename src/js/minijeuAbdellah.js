@@ -1,6 +1,6 @@
 import * as fct from "/src/js/fonctions.js";
 
-const SKY_IMAGE_KEY = "img_ciel";
+const SKY_IMAGE_KEY = "fondmaths";
 var groupeBullets;
 var cannon;
 var balloonData;
@@ -25,7 +25,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
+    this.load.image(SKY_IMAGE_KEY, "src/assets/fondmaths.jpg");
     this.load.image('cannon', 'src/assets/cannon.png');
     this.load.image('bullet', 'src/assets/balle.png');
     this.load.image('balloon', 'src/assets/balloon.png');
@@ -38,7 +38,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
   create() {
     this.enigmeVisible = false;
     this.resetVariables();
-    this.add.image(400, 300, SKY_IMAGE_KEY);
+    this.add.image(400, 300, SKY_IMAGE_KEY).setScale(2.1);
     // Création du canon
     cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.02);
     cannon.setCollideWorldBounds(true);
@@ -60,7 +60,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
     this.genererMultiplication();
 
     // Afficher la question à l'écran
-    questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
+    questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#000000', fontFamily: 'Caveat' }).setOrigin(0.5);
 
     // Création du groupe de ballons
     groupeBalloon = this.physics.add.staticGroup();
@@ -178,7 +178,8 @@ export default class minijeuAbdellah extends Phaser.Scene {
     balloonData.forEach(data => {
       
       let balloonText = this.add.text(data.x, data.y, data.answer, {
-        fontSize: '25px',
+        fontSize: '27px',
+        fontFamily: "Caveat",
         fill: '#000000',
         wordWrap: { width: 300, useAdvancedWrap: true },
         align: 'center'
@@ -186,7 +187,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
       groupeBalloon.add(balloonText);
 
-      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.05);
+      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.08);
       balloon.pointsVie =1;
       balloon.chiffreAssocie =balloonText;
       groupeBalloon.add(balloon, true);
