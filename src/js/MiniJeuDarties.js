@@ -44,7 +44,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // tous les assets du jeu sont placés dans le sous-répertoire src/assets/
     this.load.image("img_ciele", "src/assets/sky1.jpg");
     this.load.image("img_plateforme", "src/assets/platform.png");
-    this.load.spritesheet("img_perso", "src/assets/dude.png", {
+    this.load.spritesheet("img_perso", "src/assets/dudered.png", {
       frameWidth: 32,
       frameHeight: 48
     });
