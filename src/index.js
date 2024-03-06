@@ -39,11 +39,11 @@ var config = {
   },
 
 
-  scene: [niveauAbdellah,minijeuAbdellah,MiniJeuDarties,  niveauMeyer,selection,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
+  scene: [selection,niveauAbdellah,minijeuAbdellah,MiniJeuDarties,  niveauMeyer,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start(niveauAbdellahAbdellah);
+game.scene.start(selection);
 
 
