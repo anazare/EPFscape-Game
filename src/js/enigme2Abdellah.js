@@ -110,7 +110,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
   }
   displayDynamicText() {
     
-      const text = "La deuxième enigme est: \n Je suis un theorème PUISSANT qui établit \n une relation entre les longueurs des côtés \n et les angles d'un triangle. \n Mon nom est attribué à un \n mathématicien perse du 15ème siècle.\n Qui suis-je?";
+      const text = "La deuxième enigme est: \n Je suis un theorème PUISSANT qui établit \n une relation entre les longueurs \n des côtés  et les angles d'un triangle. \n Mon nom est attribué à un \n mathématicien perse du 15ème siècle.\n Qui suis-je?";
       const x = 100; // Position X du texte
       const y = 100; // Position Y du texte
       const fontSize = '25px'; // Taille de la police
@@ -167,7 +167,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
 this.add.image(400, 325, 'livre2').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n\ Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
+this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
   fontSize: '25px',
   fontFamily: "Caveat",
   fill: '#000000', //noir 
