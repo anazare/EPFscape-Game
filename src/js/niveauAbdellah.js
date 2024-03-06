@@ -72,7 +72,7 @@ export default class niveauAbdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(10);
+    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(9);
     this.player.setBounce(0.2);
 
 
@@ -189,17 +189,17 @@ export default class niveauAbdellah extends Phaser.Scene {
     button1.on("pointerup", () => {
       var bravo = this.sound.add("bravo");
     bravo.play();
-      this.add.image(400, 325, 'livre2').setDepth(8);
+      this.add.image(400, 325, 'livre2').setDepth(9);
       this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
         fontSize: '25px',
         fontFamily: "Caveat",
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
-      }).setDepth(9);
+      }).setDepth(10);
 
 
-      var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
+      var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(10);
       fleche.setInteractive();
 
       fleche.on("pointerover", () => {
@@ -231,14 +231,14 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button2.on("pointerup", () => {
-      this.add.image(400, 325, 'livre').setDepth(8);
+      this.add.image(400, 325, 'livre').setDepth(9);
       this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
         fontSize: '25px',
         fontFamily: "Caveat",
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
-      }).setDepth(9);
+      }).setDepth(10);
       this.ajout_bouton_restart();
     });
     ///////////////////////////////////////////////////////////////////////////////
@@ -255,14 +255,14 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button3.on("pointerup", () => {
-      this.add.image(400, 325, 'livre').setDepth(8);
+      this.add.image(400, 325, 'livre').setDepth(9);
       this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
         fontSize: '25px',
         fontFamily: "Caveat",
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
-      }).setDepth(9);
+      }).setDepth(10);
       this.ajout_bouton_restart();
     });
 
@@ -299,7 +299,7 @@ export default class niveauAbdellah extends Phaser.Scene {
   ajout_bouton_restart() {
 
     //creation btn restart
-    bouton_restart = this.add.image(225, 400, "restart").setDepth(10).setScale(0.05);
+    bouton_restart = this.add.image(225, 400, "restart").setDepth(11).setScale(0.05);
 
     bouton_restart.setInteractive();
     bouton_restart.on("pointerover", () => {
