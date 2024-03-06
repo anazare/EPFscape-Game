@@ -24,6 +24,7 @@ var button2;
 var button3;
 var button4;
 var bouton_restart;
+var consignes;
 
 export default class MiniJeuDarties extends Phaser.Scene {
 
@@ -50,7 +51,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // chargement de l'image balle.png
     this.load.image("bullet", "src/assets/oldballe.png");
     // chargement de l'image cible.png
-    this.load.image("cible", "src/assets/cible.png");
+    this.load.image("cible", "src/assets/cible1.png");
     // on charge deux fichiers audio avec les identifiants coupDeFeu et background
     this.load.audio('coupDeFeu', 'src/assets/tir.mp3');
     this.load.image('livre', 'src/assets/book.png');
@@ -74,6 +75,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
    */
   create() {
     this.resetVariables();
+    console.log('var resset');
     /*************************************
      *  CREATION DU MONDE + PLATEFORMES  *
      *************************************/
@@ -194,7 +196,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
         objet.destroy();
       }
     });
-
+    this.enigmeVisible = false;
   }
 
   /***********************************************************************/
@@ -224,6 +226,11 @@ export default class MiniJeuDarties extends Phaser.Scene {
       this.tirer(player);
       son_feu.play();
     }
+    // Vérifier si toutes les cibles ont été détruites
+    if (groupeCibles.countActive(true) === 0 && this.enigmeVisible == false) {
+      this.enigmeVisible = true;
+      this.Enigme();
+    }
 
   }
 
@@ -248,7 +255,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     cible.pointsVie--;
     if (cible.pointsVie == 0) {
       cible.destroy();
-      this.Enigme();
+
     }
     bullet.destroy();
   }
@@ -269,12 +276,14 @@ export default class MiniJeuDarties extends Phaser.Scene {
   }
 
   ajout_bouton_restart() {
-    this.add.text(470, 500, "Vous avez Perdu !", {
+    //écriture des consignes
+    consignes = this.add.text(470, 500, "Vous avez Perdu !", {
       fontSize: '25px',
       fill: '#000000', //noir 
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
       align: 'center'
     }).setDepth(3);
+    console.log("Texte ajouté")
     //creation btn restart
     bouton_restart = this.add.image(400, 300, "restart").setDepth(3).setScale(0.05);
 
@@ -295,10 +304,6 @@ export default class MiniJeuDarties extends Phaser.Scene {
         null,
         this
       );
-      // codeSecret.destroy();
-      // CodeDecrypte.destroy();
-      // monArrayList.destroy();
-      // ListParcoursAleatoire.destroy();
 
     });
   }
@@ -311,24 +316,29 @@ export default class MiniJeuDarties extends Phaser.Scene {
   Enigme() {
     //générer un code secret aléatoire 
     codeSecret = this.genererNombreBinaire();
+    console.log("Code Secret:", codeSecret);
     //décryptage du code
     CodeDecrypte = this.binaireVersDecimal(codeSecret); //réponse correcte 
+    console.log("Code Decrypté:", CodeDecrypte);
+
     //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
     monArrayList.push(CodeDecrypte);
-    for (var pas = 0; pas < 3; pas++) {
-      const nbA = Phaser.Math.Between(1, 99);
-      if (!monArrayList.includes(nbA)) {
-        monArrayList.push(nbA);
+    while (monArrayList.length < 4) {
+      const nbB = Phaser.Math.Between(1, 99);
+      if (!monArrayList.includes(nbB)) {
+        monArrayList.push(nbB);
       }
     }
-
+    
+    console.log("ArrayList après remplissage:", monArrayList);
     //génération de positions random et rangement dans une list 
-    while (ListParcoursAleatoire.length !== 4) {
+    while (ListParcoursAleatoire.length < 4) {
       const nbA = Phaser.Math.Between(0, 3);
       if (!ListParcoursAleatoire.includes(nbA)) {
         ListParcoursAleatoire.push(nbA);
       }
     }
+    console.log("Liste Parcours Aléatoire:", ListParcoursAleatoire);
 
     //j'ajoute l'image du livre et les instructions 
     this.add.image(400, 300, "livre").setDepth(1);
