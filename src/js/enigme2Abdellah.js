@@ -15,8 +15,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
   preload() {
 
     // ajout perso
-    this.load.spritesheet("dudeabd", "src/assets/alldude.png", { frameWidth: 32, frameHeight: 48 });
-
+    this.load.spritesheet("alldude", "src/assets/alldude.png", { frameWidth: 31.9, frameHeight: 48 });
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
 
@@ -62,14 +61,13 @@ export default class enigme2Abdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(10);
+    this.player = this.physics.add.sprite(800, 400, "alldude").setScale(4).setDepth(10);
     this.player.setBounce(0.2);
 
 
-    // animation pour tourner à gauche
     this.anims.create({
       key: "left",
-    frames: this.anims.generateFrameNumbers("dudeabd", { start: 28, end: 32 }),
+    frames: this.anims.generateFrameNumbers("alldude", { start: 27, end: 30 }),
       frameRate: 10,
       repeat: -1
     });
@@ -77,14 +75,14 @@ export default class enigme2Abdellah extends Phaser.Scene {
     // animation lorsque le personnage n'avance pas
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dudeabd", frame: 33 }],
+      frames: [{ key: "alldude", frame: 31 }],
       frameRate: 20
     });
 
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dudeabd", { start: 34, end: 38 }),
+      frames: this.anims.generateFrameNumbers("alldude", { start: 32, end: 35 }),
       frameRate: 10,
       repeat: -1
     });
