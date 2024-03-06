@@ -7,7 +7,7 @@ export default class videoggP extends Phaser.Scene {
     });
   }
   preload(){
-    this.load.audio("jousset3", )
+    this.load.audio("jousset2", "src/assets/jousset2.mp3");
   }
   create() {
     // Create a video element dynamically
@@ -32,7 +32,9 @@ export default class videoggP extends Phaser.Scene {
     // Start playing the video
     this.videoElement.play();
 
-
+    // ajout du son de jousset 
+    var jousset2 = this.sound.add('jousset2');
+    jousset2.play();
   }
 
   update() {
@@ -42,6 +44,5 @@ export default class videoggP extends Phaser.Scene {
   onVideoEnded() {
     // Transition to the next scene
     this.scene.switch("chargementP");
-    this.videoElement.parentNode.removeChild(this.videoElement);
-  this.scene.stop();  }
+    this.videoElement.parentNode.removeChild(this.videoElement);  }
 }
