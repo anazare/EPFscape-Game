@@ -19,7 +19,7 @@ export default class principal extends Phaser.Scene {
   }
   preload() {
     // ajout perso
-    this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
+    this.load.image("dude1", "src/assets/tetered.png");
 
     // chargement tuiles de jeu
     this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png", {frameWidth: 4416, frameHeight: 6400});
@@ -62,13 +62,13 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(2656, 6240, "dude").setScale(4.5);
+    player = this.physics.add.image(2656, 6240, "dude1").setScale(1);
     player.setBounce(0.2);
     this.physics.add.collider(player, calque_background2);
     // animation pour tourner à gauche
     this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers("dude1", { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
@@ -76,14 +76,14 @@ export default class principal extends Phaser.Scene {
     // animation lorsque le personnage n'avance pas
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "dude1", frame: 4 }],
       frameRate: 20
     });
 
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end:8}),
+      frames: this.anims.generateFrameNumbers("dude1", { start: 5, end:8}),
       frameRate: 10,
       repeat: -1
     });
@@ -127,7 +127,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
       player.setVelocityX(-300);
 
-      player.anims.play("left", true);
+      //player.anims.play("left", true);
 
 
 
@@ -137,7 +137,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
       player.setVelocityX(300);
 
-      player.anims.play("right", true);
+      //player.anims.play("right", true);
 
     }
 
@@ -147,7 +147,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
       player.setVelocityX(0);
 
-      player.anims.play("turn");
+      //player.anims.play("turn");
       player.setGravity(0); // Remove gravity from the player
 
     }
