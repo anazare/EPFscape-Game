@@ -31,12 +31,15 @@ export default class niveauAbdellah extends Phaser.Scene {
     //ajout audio enigme 1
     this.load.audio('Abdellah1', "src/assets/Abdellah1.mp3");
     this.load.audio('Abdellah2', "src/assets/Abdellah2.mp3");
+    this.load.audio('bravo', 'src/assets/Bravo.mp3'); 
   }
 
   son2(son) {
     var audio_enigme = this.sound.add(son);
     audio_enigme.play();
   }
+
+
 
   create() {
     var audio_explication = this.sound.add('Abdellah1');
@@ -123,14 +126,19 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
   displayDynamicText() {
 
-    const text = "Bonjour , malgré tes bavardages je \n te laisse une  dernière chance pour te\n rattraper. Si tu réponds correctement à \n ces 2 enigmes  et que tu réussis \n le mini-jeu, tu pourra récuperer \n tes 3 crédits: \n La première énigme est la suivante : \n Je suis un nombre entier positif. \n Si tu multiplies mon carré par 5, \n puis ajoute le double de mon cube, \n tu obtiendra 64. Qui suis-je?";
+    const text = "Bonjour à toi, \nMalgré tes bavardages je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 64.\nQui suis-je?";
     const x = 100; // Position X du texte
-    const y = 100; // Position Y du texte
+    const y = 77; // Position Y du texte
     const fontSize = '25px'; // Taille de la police
     const fill = '#fff'; // Couleur du texte
     const delay = 50; // Délai entre chaque caractère en ms
 
-    let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
+    let dynamicText = this.add.text(x, y, '', {
+      fontSize: fontSize,
+      fill: fill,
+      align: 'justify',  // Alignement du texte (justify, left, center, right)
+      wordWrap: { width: 600, useAdvancedWrap: true },  // Largeur de l'enveloppe du texte
+    });
 
 
     // Fonction pour afficher le texte de manière progressive
@@ -179,6 +187,8 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button1.on("pointerup", () => {
+      var bravo = this.sound.add("bravo");
+    bravo.play();
       this.add.image(400, 325, 'livre2').setDepth(8);
       this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
         fontSize: '25px',

@@ -29,6 +29,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
     this.load.image("fleche", "src/assets/fleche.png");
     this.load.image("restart", "src/assets/restart.png");
     this.load.audio('Abdellah3', "src/assets/Abdellah3.mp3");
+    this.load.audio('bravo', "src/assets/Bravo.mp3"); 
   }
 
   create() {
@@ -170,6 +171,8 @@ export default class enigme2Abdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button1.on("pointerup", () => {
+      var bravo = this.sound.add("bravo");
+      bravo.play();
       this.add.image(400, 325, 'livre2').setDepth(8);
       this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
         fontSize: '25px',
@@ -178,6 +181,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(9);
+      
       var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
       fleche.setInteractive();
 
