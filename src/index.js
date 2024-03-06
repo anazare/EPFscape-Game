@@ -12,6 +12,7 @@ import chargementP from "/src/js/chargementP.js";
 import chargement1 from "/src/js/chargement1.js";
 import chargement2 from "/src/js/chargement2.js";
 import chargement3 from "/src/js/chargement3.js";
+import MiniJeuDarties from "./js/MiniJeuDarties.js";
 import enigme2Abdellah from "/src/js/enigme2Abdellah.js";
 
 
@@ -38,11 +39,11 @@ var config = {
   },
 
 
-  scene: [niveauAbdellah, niveauMeyer,selection,videoggP,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah,  minijeuAbdellah , principal,   niveauJousset, niveauDarties]
+  scene: [MiniJeuDarties, niveauAbdellah, niveauMeyer,selection,videoggP,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah,  minijeuAbdellah , principal,   niveauJousset, niveauDarties]
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start(niveauAbdellah);
+game.scene.start(MiniJeuDarties);
 
 

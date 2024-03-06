@@ -24,6 +24,7 @@ var button2;
 var button3;
 var button4;
 var bouton_restart;
+var consignes;
 
 export default class MiniJeuDarties extends Phaser.Scene {
 
@@ -50,7 +51,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // chargement de l'image balle.png
     this.load.image("bullet", "src/assets/oldballe.png");
     // chargement de l'image cible.png
-    this.load.image("cible", "src/assets/cible.png");
+    this.load.image("cible", "src/assets/cible1.png");
     // on charge deux fichiers audio avec les identifiants coupDeFeu et background
     this.load.audio('coupDeFeu', 'src/assets/tir.mp3');
     this.load.image('livre', 'src/assets/book.png');
@@ -73,6 +74,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
    * ainsi que toutes les instructions permettant de planifier des evenements
    */
   create() {
+    this.resetVariables();
+    console.log('var resset');
     /*************************************
      *  CREATION DU MONDE + PLATEFORMES  *
      *************************************/
@@ -193,7 +196,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
         objet.destroy();
       }
     });
-
+    this.enigmeVisible = false;
   }
 
   /***********************************************************************/
@@ -223,6 +226,11 @@ export default class MiniJeuDarties extends Phaser.Scene {
       this.tirer(player);
       son_feu.play();
     }
+    // Vérifier si toutes les cibles ont été détruites
+    if (groupeCibles.countActive(true) === 0 && this.enigmeVisible == false) {
+      this.enigmeVisible = true;
+      this.Enigme();
+    }
 
   }
 
@@ -248,188 +256,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
     if (cible.pointsVie == 0) {
       cible.destroy();
 
-      //générer un code secret aléatoire 
-      codeSecret = this.genererNombreBinaire();
-      //décryptage du code
-      CodeDecrypte = this.binaireVersDecimal(codeSecret); //réponse correcte 
-      //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
-      monArrayList.push(CodeDecrypte);
-      for (var pas = 0; pas < 3; pas++) {
-        const nbA = Phaser.Math.Between(1, 99);
-        if (!monArrayList.includes(nbA)) {
-          monArrayList.push(nbA);
-        }
-      }
-
-      //génération de positions random et rangement dans une list 
-      while (ListParcoursAleatoire.length !== 4) {
-        const nbA = Phaser.Math.Between(0, 3);
-        if (!ListParcoursAleatoire.includes(nbA)) {
-          ListParcoursAleatoire.push(nbA);
-        }
-      }
-
-      //j'ajoute l'image du livre et les instructions 
-      this.add.image(400, 300, "livre").setDepth(1);
-      this.add.text(72, 82, "Félicitations! \n\n Vous avez réussit à atteindre toutes les cibles, toutefois, ce n'est pas sufisant pour valider le module. \n\n Je vais vous donner un code secret en base deux que vous devrez convertir en décimal : \n" + codeSecret, {
-        fontSize: '25px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(2); // Réglez la profondeur à une valeur plus élevée que celle des autres objets
-
-      //j'ajoute l'image des boutons et je génère le texte qui les rempli 
-      //bouton 1
-      button1 = this.add.image(600, 140, "button1").setDepth(2).setScale(0.05);
-      this.add.text(585, 130, "" + monArrayList[ListParcoursAleatoire[0]], {
-        fontSize: '25px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(2);
-
-      //bouton 2
-      button2 = this.add.image(600, 240, "button2").setDepth(2).setScale(0.05);
-      this.add.text(585, 230, "" + monArrayList[ListParcoursAleatoire[1]], {
-        fontSize: '25px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(2);
-
-      //bouton 3
-      button3 = this.add.image(600, 340, "button3").setDepth(2).setScale(0.05);
-      this.add.text(585, 330, "" + monArrayList[ListParcoursAleatoire[2]], {
-        fontSize: '25px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(2);
-
-      //bouton 4
-      button4 = this.add.image(600, 440, "button4").setDepth(2).setScale(0.05);
-      this.add.text(585, 430, "" + monArrayList[ListParcoursAleatoire[3]], {
-        fontSize: '25px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(2);
-
-      //on rend le bouton interratif
-      console.log(button1);
-      button1.setInteractive();
-      button2.setInteractive();
-      button3.setInteractive();
-      button4.setInteractive();
-
-      //Cas ou la souris passe sur le bouton play
-      button1.on("pointerover", () => {
-        button1.setTint(0xC0C0C0);
-      });
-      //Cas ou la souris ne passe plus sur le bouton play
-      button1.on("pointerout", () => {
-        button1.clearTint();
-      });
-      //Cas ou la souris clique sur le bouton play :
-      button1.on("pointerup", () => {
-        if (monArrayList[ListParcoursAleatoire[0]] == CodeDecrypte) {
-          this.add.text(470, 500, "Vous avez Gagné !", {
-            fontSize: '25px',
-            fill: '#000000', //noir 
-            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-            align: 'center'
-          }).setDepth(3);
-          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
-          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
-          //this.scene.stop("MiniJeuDarties");
-          //this.scene.start("principal");
-        } else {
-          this.ajout_bouton_restart();
-        }
-      });
-
-      //bouton 2
-      //Cas ou la souris passe sur le bouton play
-      button2.on("pointerover", () => {
-        button2.setTint(0xC0C0C0);
-      });
-      //Cas ou la souris ne passe plus sur le bouton play
-      button2.on("pointerout", () => {
-        button2.clearTint();
-      });
-      //Cas ou la souris clique sur le bouton play :
-      button2.on("pointerup", () => {
-        if (monArrayList[ListParcoursAleatoire[1]] == CodeDecrypte) {
-          this.add.text(470, 500, "Vous avez Gagné", {
-            fontSize: '25px',
-            fill: '#000000', //noir 
-            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-            align: 'center'
-          }).setDepth(3);
-          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
-          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
-          //this.scene.stop("MiniJeuDarties");
-          //this.scene.start("principal");
-        } else {
-          this.ajout_bouton_restart();
-        }
-      });
-
-      //Cas ou la souris passe sur le bouton play
-      button3.on("pointerover", () => {
-        button3.setTint(0xC0C0C0);
-      });
-      //Cas ou la souris ne passe plus sur le bouton play
-      button3.on("pointerout", () => {
-        button3.clearTint();
-      });
-      //Cas ou la souris clique sur le bouton play :
-      button3.on("pointerup", () => {
-        if (monArrayList[ListParcoursAleatoire[2]] == CodeDecrypte) {
-          this.add.text(470, 500, "Vous avez Gagné", {
-            fontSize: '25px',
-            fill: '#000000', //noir 
-            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-            align: 'center'
-          }).setDepth(3);
-          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
-          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
-          //this.scene.stop("MiniJeuDarties");
-          //this.scene.start("principal");
-        } else {
-          this.ajout_bouton_restart();
-        }
-      });
-
-      //Cas ou la souris passe sur le bouton play
-      button4.on("pointerover", () => {
-        button4.setTint(0xC0C0C0);
-      });
-      //Cas ou la souris ne passe plus sur le bouton play
-      button4.on("pointerout", () => {
-        button4.clearTint();
-      });
-      //Cas ou la souris clique sur le bouton play :
-      button4.on("pointerup", () => {
-        if (monArrayList[ListParcoursAleatoire[3]] == CodeDecrypte) {
-          this.add.text(470, 500, "Vous avez Gagné", {
-            fontSize: '25px',
-            fill: '#000000', //noir 
-            wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-            align: 'center'
-          }).setDepth(3);
-          this.time.delayedCall(1000, Arreter_Niveau, "MiniJeuDarties", this);
-          this.time.delayedCall(1000, this.Ouvrir_principale, "principal", this);
-          //this.scene.stop("MiniJeuDarties");
-          //this.scene.start("principal");
-        } else {
-          this.ajout_bouton_restart();
-        }
-      });
-
-      bullet.destroy();
     }
+    bullet.destroy();
   }
+
 
   genererNombreBinaire() {
     var nombreBinaire = '';
@@ -446,12 +276,14 @@ export default class MiniJeuDarties extends Phaser.Scene {
   }
 
   ajout_bouton_restart() {
-    this.add.text(470, 500, "Vous avez Perdu !", {
+    //écriture des consignes
+    consignes = this.add.text(470, 500, "Vous avez Perdu !", {
       fontSize: '25px',
       fill: '#000000', //noir 
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
       align: 'center'
     }).setDepth(3);
+    console.log("Texte ajouté")
     //creation btn restart
     bouton_restart = this.add.image(400, 300, "restart").setDepth(3).setScale(0.05);
 
@@ -465,19 +297,205 @@ export default class MiniJeuDarties extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton restart :
     bouton_restart.on("pointerup", () => {
-      codeSecret.destroy();
-      CodeDecrypte.destroy();
-      monArrayList.destroy();
-      ListParcoursAleatoire.destroy();
-      this.scene.stop("MiniJeuDarties");
-      this.scene.start("principal");
+      var timerRestart = this.time.delayedCall(3000,
+        () => {
+          this.scene.restart();
+        },
+        null,
+        this
+      );
+
     });
   }
-  Arreter_Niveau(niveau) {
-    this.scene.stop(niveau);
+
+  Transition_niveau(niveau1, niveau2) {
+    this.scene.stop(niveau1);
+    this.scene.start(niveau2);
   }
-  Ouvrir_principale(niveau){
-    this.scene.start(niveau);
+
+  Enigme() {
+    //générer un code secret aléatoire 
+    codeSecret = this.genererNombreBinaire();
+    console.log("Code Secret:", codeSecret);
+    //décryptage du code
+    CodeDecrypte = this.binaireVersDecimal(codeSecret); //réponse correcte 
+    console.log("Code Decrypté:", CodeDecrypte);
+
+    //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
+    monArrayList.push(CodeDecrypte);
+    while (monArrayList.length < 4) {
+      const nbB = Phaser.Math.Between(1, 99);
+      if (!monArrayList.includes(nbB)) {
+        monArrayList.push(nbB);
+      }
+    }
+    
+    console.log("ArrayList après remplissage:", monArrayList);
+    //génération de positions random et rangement dans une list 
+    while (ListParcoursAleatoire.length < 4) {
+      const nbA = Phaser.Math.Between(0, 3);
+      if (!ListParcoursAleatoire.includes(nbA)) {
+        ListParcoursAleatoire.push(nbA);
+      }
+    }
+    console.log("Liste Parcours Aléatoire:", ListParcoursAleatoire);
+
+    //j'ajoute l'image du livre et les instructions 
+    this.add.image(400, 300, "livre").setDepth(1);
+    this.add.text(72, 82, "Félicitations! \n\n Vous avez réussit à atteindre toutes les cibles, toutefois, ce n'est pas sufisant pour valider le module. \n\n Je vais vous donner un code secret en base deux que vous devrez convertir en décimal : \n" + codeSecret, {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(2); // Réglez la profondeur à une valeur plus élevée que celle des autres objets
+
+    //j'ajoute l'image des boutons et je génère le texte qui les rempli 
+    //bouton 1
+    button1 = this.add.image(600, 140, "button1").setDepth(2).setScale(0.05);
+    this.add.text(585, 130, "" + monArrayList[ListParcoursAleatoire[0]], {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(2);
+
+    //bouton 2
+    button2 = this.add.image(600, 240, "button2").setDepth(2).setScale(0.05);
+    this.add.text(585, 230, "" + monArrayList[ListParcoursAleatoire[1]], {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(2);
+
+    //bouton 3
+    button3 = this.add.image(600, 340, "button3").setDepth(2).setScale(0.05);
+    this.add.text(585, 330, "" + monArrayList[ListParcoursAleatoire[2]], {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(2);
+
+    //bouton 4
+    button4 = this.add.image(600, 440, "button4").setDepth(2).setScale(0.05);
+    this.add.text(585, 430, "" + monArrayList[ListParcoursAleatoire[3]], {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(2);
+
+    //on rend le bouton interratif
+    console.log(button1);
+    button1.setInteractive();
+    button2.setInteractive();
+    button3.setInteractive();
+    button4.setInteractive();
+
+    //Cas ou la souris passe sur le bouton play
+    button1.on("pointerover", () => {
+      button1.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button1.on("pointerout", () => {
+      button1.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button1.on("pointerup", () => {
+      if (monArrayList[ListParcoursAleatoire[0]] == CodeDecrypte) {
+        this.add.text(470, 500, "Vous avez Gagné !", {
+          fontSize: '25px',
+          fill: '#000000', //noir 
+          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+          align: 'center'
+        }).setDepth(3);
+        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+
+      } else {
+        this.ajout_bouton_restart();
+      }
+    });
+
+    //bouton 2
+    //Cas ou la souris passe sur le bouton play
+    button2.on("pointerover", () => {
+      button2.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button2.on("pointerout", () => {
+      button2.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button2.on("pointerup", () => {
+      if (monArrayList[ListParcoursAleatoire[1]] == CodeDecrypte) {
+        this.add.text(470, 500, "Vous avez Gagné", {
+          fontSize: '25px',
+          fill: '#000000', //noir 
+          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+          align: 'center'
+        }).setDepth(3);
+        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+
+
+      } else {
+        this.ajout_bouton_restart();
+      }
+    });
+
+    //Cas ou la souris passe sur le bouton play
+    button3.on("pointerover", () => {
+      button3.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button3.on("pointerout", () => {
+      button3.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button3.on("pointerup", () => {
+      if (monArrayList[ListParcoursAleatoire[2]] == CodeDecrypte) {
+        this.add.text(470, 500, "Vous avez Gagné", {
+          fontSize: '25px',
+          fill: '#000000', //noir 
+          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+          align: 'center'
+        }).setDepth(3);
+        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+      } else {
+        this.ajout_bouton_restart();
+      }
+    });
+
+    //Cas ou la souris passe sur le bouton play
+    button4.on("pointerover", () => {
+      button4.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button4.on("pointerout", () => {
+      button4.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button4.on("pointerup", () => {
+      if (monArrayList[ListParcoursAleatoire[3]] == CodeDecrypte) {
+        this.add.text(470, 500, "Vous avez Gagné", {
+          fontSize: '25px',
+          fill: '#000000', //noir 
+          wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+          align: 'center'
+        }).setDepth(3);
+        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+      } else {
+        this.ajout_bouton_restart();
+      }
+    });
   }
+
+  resetVariables() {
+    codeSecret = null;
+    CodeDecrypte = null;
+    monArrayList = [];
+    ListParcoursAleatoire = [];
+  }
+
 }
 
