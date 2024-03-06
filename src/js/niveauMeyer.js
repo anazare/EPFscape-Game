@@ -22,9 +22,13 @@ export default class niveauMeyer extends Phaser.Scene {
     // chargement de la carte
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
     this.load.image("fleche", "src/assets/fleche.png");
+
+    this.load.audio("Winston", "src/assets/Winston.mp3"); 
   }
 
   create() {
+    var son_Winston = this.sound.add("Winston"); 
+    son_Winston.play(); 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
     const tileset = CarteDeLaClasse.addTilesetImage(
@@ -103,14 +107,22 @@ export default class niveauMeyer extends Phaser.Scene {
   }
   displayDynamicText() {
     
-      const text = "AH, ça faisait longtemps Redouane!\n Pour valider ton semestre je te  \n laisse la possibilité de vérifier\n tes connaissances\n à l'aide de ce petit puzzle"; 
+      const text = "Salut Redouane!\n Alors, pour avoir tes crédits... Je te laisse la possibilité de vérifier tes connaissances en chimie à l'aide de ce petit puzzle."; 
       const x = 100; // Position X du texte
       const y = 100; // Position Y du texte
       const fontSize = '25px'; // Taille de la police
       const fill = '#fff'; // Couleur du texte
       const delay = 50; // Délai entre chaque caractère en ms
   
-      let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
+      let dynamicText = this.add.text(x, y, '', {
+        fontSize: fontSize,
+        fill: fill,
+        align: 'justify',  // Justification du texte
+        wordWrap: {
+          width: 600,        // Largeur maximale de la zone de texte
+          useAdvancedWrap: true  // Activation du retour à la ligne automatique
+        }
+      });
       
   
       // Fonction pour afficher le texte de manière progressive
