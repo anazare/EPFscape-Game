@@ -3,6 +3,9 @@ import * as fct from "/src/js/fonctions.js";
 
 var cursors;
 var bouton_restart;
+var audio_enigme;
+var audio_explication;
+
 export default class niveauAbdellah extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
@@ -32,22 +35,22 @@ export default class niveauAbdellah extends Phaser.Scene {
     //ajout audio enigme 1
     this.load.audio('Abdellah1', "src/assets/Abdellah1.mp3");
     this.load.audio('Abdellah2', "src/assets/Abdellah2.mp3");
-    this.load.audio('bravo', 'src/assets/Bravo.mp3'); 
+    this.load.audio('bravo', 'src/assets/Bravo.mp3');
   }
-
-  son2(son) {
-    var audio_enigme = this.sound.add(son);
-    audio_enigme.play();
-  }
-
-
 
   create() {
-    var audio_explication = this.sound.add('Abdellah1');
+    audio_explication = this.sound.add('Abdellah1');
+    audio_enigme = this.sound.add('Abdellah2');
     audio_explication.play();
+    console.log("ajout son1");
 
-    var timerRestart = this.time.delayedCall(11000, this.son2, ["Abdellah2"], this);
+    // Création du timer pour l'énigme 2
+    var timerRestart = this.time.delayedCall(11000, () => {
+      audio_enigme.play();
+      console.log("ajout son2");
+    }, [], this);
 
+    
 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
@@ -175,7 +178,12 @@ export default class niveauAbdellah extends Phaser.Scene {
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
       align: 'center'
     }).setDepth(6);
+
     /////////////////////////////////////////////////////////////
+    // AJOUTS BOUTONS 
+    ////////////////////////////////////////////////////////////
+
+    // ajout bouton 1
     var button1 = this.add.image(600, 500, 'button1').setScale(0.07).setDepth(3);
     button1.setInteractive();
 
@@ -188,8 +196,15 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button1.on("pointerup", () => {
+      audio_explication.stop(); // Arrête la musique en cours
+      console.log("arret audio1");
+      var timerRestart1 = this.time.delayedCall(11000, () => {
+        audio_enigme.stop();
+        console.log("arret son2");
+      }, [], this);
+
       var bravo = this.sound.add("bravo");
-    bravo.play();
+      bravo.play();
       this.add.image(400, 325, 'livre2').setDepth(9);
       this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
         fontSize: '25px',
