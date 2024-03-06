@@ -8,6 +8,7 @@ import minijeuAbdellah from "/src/js/minijeuAbdellah.js";
 import puzzle from "/src/js/puzzle.js";
 import videoggP from "/src/js/videoggP.js";
 import chargementP from "/src/js/chargementP.js";
+import chargementP1 from "/src/js/chargementP1.js";
 import chargement1 from "/src/js/chargement1.js";
 import chargement2 from "/src/js/chargement2.js";
 import chargement3 from "/src/js/chargement3.js";
@@ -42,7 +43,7 @@ var config = {
   },
 
 
-  scene: [pagedelancement,selection,niveauAbdellah,minijeuAbdellah,MiniJeuDarties,videoggP1, niveauMeyer,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
+  scene: [pagedelancement,selection,niveauAbdellah,chargementP1, minijeuAbdellah,MiniJeuDarties,videoggP1, niveauMeyer,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
 };
 
 // création et lancement du jeu

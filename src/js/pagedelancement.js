@@ -55,7 +55,7 @@ export default class Pagedelancement extends Phaser.Scene {
     });
 
     bouton_play.on("pointerup", () => {
-      this.scene.start("chargementP");
+      this.scene.start("chargementP1");
     });
   }
 }
