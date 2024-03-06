@@ -5,7 +5,6 @@ const BOOK_IMAGE_KEY = "img_livre";
 
 var clavier;
 var livreTexte;
-var musique_de_fond;
 var jousset1; 
 var bouton_play;
 
@@ -19,15 +18,12 @@ export default class selection extends Phaser.Scene {
     this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
     this.load.image(BOOK_IMAGE_KEY, "src/assets/book.png");
     this.load.image("Start", "src/assets/bouton-start.png");
-    this.load.audio('background', 'src/assets/sonambiance.mp3');
+    
     this.load.audio('jousset1', 'src/assets/jousset1.mp3');
   }
 
   create() {
-    //création de la musique de fond et mise en boucle 
-    musique_de_fond = this.sound.add('background', { loop: true });
-    musique_de_fond.play();
-    musique_de_fond.setVolume(0.1);
+    
     //création du son : explications de jousset  
     jousset1 = this.sound.add('jousset1');
     jousset1.play();
@@ -92,6 +88,7 @@ export default class selection extends Phaser.Scene {
     });
 
     bouton_play.on("pointerup", () => {
+      jousset1.stop();
       this.scene.start("principal");
     });
   }
