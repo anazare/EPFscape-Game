@@ -42,7 +42,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
    */
   preload() {
     // tous les assets du jeu sont placés dans le sous-répertoire src/assets/
-    this.load.image("img_ciel", "src/assets/sky.png");
+    this.load.image("img_ciel", "src/assets/sky1.jpg");
     this.load.image("img_plateforme", "src/assets/platform.png");
     this.load.spritesheet("img_perso", "src/assets/dude.png", {
       frameWidth: 32,
@@ -85,7 +85,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
-    this.add.image(400, 300, "img_ciel");
+    this.add.image(400, 300, "img_ciel").setScale(0.3);
 
     // la création d'un groupes permet de gérer simultanément les éléments d'une meme famille
     //  Le groupe groupe_plateformes contiendra le sol et deux platesformes sur lesquelles sauter
@@ -112,7 +112,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
     groupeCibles = this.physics.add.group({
       key: 'cible',
       repeat: 7,
-      setXY: { x: 24, y: 0, stepX: 107 }
+      setXY: { x: 24, y: 0, stepX: 107 },
+      setScale: { x: 0.2, y: 0.2 } 
     });
     // modification des cibles créées
     groupeCibles.children.iterate(function (cibleTrouvee) {
