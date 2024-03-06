@@ -9,7 +9,7 @@ export default class videoggP extends Phaser.Scene {
   create() {
     // Create a video element dynamically
     this.videoElement = document.createElement('video');
-    this.videoElement.src = 'src/assets/felicitation.mp4';
+    this.videoElement.src = 'src/assets/videogg.mp4';
     this.videoElement.width = 1200; // Set the width according to your needs
     this.videoElement.height = 1200; // Set the height according to your needs
 
