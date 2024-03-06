@@ -154,9 +154,18 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
     this.physics.world.collide(player, calque_background2);
 
     if (cursors.right.isDown)  {
-      if (this.physics.overlap(player, this.porte2)) this.scene.switch("niveauDarties");
-      if (this.physics.overlap(player, this.porte1)) this.scene.switch("niveauAbdellah");
-      if (this.physics.overlap(player, this.porte3)) this.scene.switch("niveauMeyer");
+      if (this.physics.overlap(player, this.porte2)){
+        this.scene.switch("niveauDarties");
+        this.porte2.destroy();
+      } 
+      if (this.physics.overlap(player, this.porte1)) {
+        this.scene.switch("niveauAbdellah");
+        this.porte1.destroy();
+      }
+      if (this.physics.overlap(player, this.porte3)) {
+        this.scene.switch("niveauMeyer");
+        this.porte3.destroy();
+      }
     } 
   
   

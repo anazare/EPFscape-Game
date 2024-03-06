@@ -2,7 +2,7 @@ import * as fct from "/src/js/fonctions.js";
 
 var player;
 var cursors;
-
+var bouton_restart;
 export default class niveauAbdellah extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
@@ -26,10 +26,13 @@ export default class niveauAbdellah extends Phaser.Scene {
     this.load.image("livre", "src/assets/book.png");
     this.load.image("livre2", "src/assets/book.png");
     this.load.image("fleche", "src/assets/fleche.png");
+    this.load.image("restart", "src/assets/restart.png");
+    
 
   }
 
   create() {
+
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
     const tileset = CarteDeLaClasse.addTilesetImage(
@@ -165,13 +168,15 @@ export default class niveauAbdellah extends Phaser.Scene {
       //Cas ou la souris clique sur le bouton play :
       button1.on("pointerup", () => {
 this.add.image(400, 325, 'livre2').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu...\n\n\n\n\n\n Dans le mini-jeu ...", {
+this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
   fontSize: '25px',
   fontFamily: "Caveat",
   fill: '#000000', //noir 
   wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
   align: 'center'
 }).setDepth(9);
+
+
 var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
       fleche.setInteractive();
 
@@ -212,6 +217,7 @@ button2.on("pointerup", () => {
     wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
     align: 'center'
   }).setDepth(9);
+  this.ajout_bouton_restart();
 });
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -235,27 +241,13 @@ button3.on("pointerup", () => {
     wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
     align: 'center'
   }).setDepth(9);
+  this.ajout_bouton_restart();
 });
-///////////////////////////////////////////////////////////////////////////////
-      var bouton_return = this.add.image(740, 100, 'retour').setScale(0.1).setDepth(9);
-      bouton_return.setInteractive();
 
-      bouton_return.on("pointerover", () => {
-        bouton_return.setTint(0xC0C0C0);
-      });
-      //Cas ou la souris ne passe plus sur le bouton play
-      bouton_return.on("pointerout", () => {
-        bouton_return.clearTint();
-      });
-      //Cas ou la souris clique sur le bouton play :
-      bouton_return.on("pointerup", () => {
-        this.scene.stop("niveauAbdellah"); // Arrête la scène du mini-jeu
-        this.scene.start("principal"); // Démarre la scène du niveau principal
-
-      });
+     
   }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
  
 
   update() {
@@ -288,6 +280,23 @@ button3.on("pointerup", () => {
     player.setVelocityY(-200);
   }
   }
+  ajout_bouton_restart() {
+   
+    //creation btn restart
+    bouton_restart = this.add.image(225, 400, "restart").setDepth(10).setScale(0.05);
 
+    bouton_restart.setInteractive();
+    bouton_restart.on("pointerover", () => {
+      bouton_restart.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    bouton_restart.on("pointerout", () => {
+      bouton_restart.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    bouton_restart.on("pointerup", () => {
+      this.scene.restart();
+    });
+  }
 }
 

@@ -1,9 +1,9 @@
 import * as fct from "/src/js/fonctions.js";
-export default class videoggP extends Phaser.Scene {
+export default class videoggP2 extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({
-      key: "videoggP" //  ici on précise le nom de la classe en tant qu'identifiant
+      key: "videoggP2" //  ici on précise le nom de la classe en tant qu'identifiant
     });
   }
   create() {
