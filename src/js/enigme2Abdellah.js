@@ -28,10 +28,12 @@ export default class enigme2Abdellah extends Phaser.Scene {
     this.load.image("livre2", "src/assets/book.png");
     this.load.image("fleche", "src/assets/fleche.png");
     this.load.image("restart", "src/assets/restart.png");
-
+    this.load.audio('Abdellah3', "src/assets/Abdellah3.mp3"); 
   }
 
   create() {
+    
+
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
     const tileset = CarteDeLaClasse.addTilesetImage(

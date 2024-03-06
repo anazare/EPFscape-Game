@@ -49,7 +49,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
       frameHeight: 48
     });
     // chargement de l'image balle.png
-    this.load.image("bullet", "src/assets/oldballe.png");
+    this.load.image("bullet1", "src/assets/oldballe.png");
     // chargement de l'image cible.png
     this.load.image("cible", "src/assets/cible1.png");
     // on charge deux fichiers audio avec les identifiants coupDeFeu et background
@@ -82,6 +82,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // ajout des sons au gestionnaire sound
     // recupération de variables pour manipuler le son
     son_feu = this.sound.add('coupDeFeu');
+    son_feu.setVolume(0.1);
 
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
@@ -242,7 +243,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     var coefDir;
     if (player.direction == 'left') { coefDir = -1; } else { coefDir = 1 }
     // on crée la balle a coté du joueur
-    var bullet = groupeBullets.create(player.x + (25 * coefDir), player.y - 4, 'bullet');
+    var bullet = groupeBullets.create(player.x + (25 * coefDir), player.y - 4, 'bullet1');
 
 // Réduire la taille de l'image à 20 pixels de largeur et 20 pixels de hauteur
 bullet.setDisplaySize(20, 20);
@@ -304,20 +305,12 @@ bullet.setDisplaySize(20, 20);
     });
     //Cas ou la souris clique sur le bouton restart :
     bouton_restart.on("pointerup", () => {
-      var timerRestart = this.time.delayedCall(3000,
-        () => {
-          this.scene.restart();
-        },
-        null,
-        this
-      );
-
+      this.scene.restart();
     });
   }
 
   Transition_niveau(niveau1, niveau2) {
-    this.scene.stop(niveau1);
-    this.scene.start(niveau2);
+    this.scene.switch(niveau2);
   }
 
   Enigme() {
