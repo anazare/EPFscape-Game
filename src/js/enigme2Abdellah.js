@@ -49,8 +49,9 @@ export default class enigme2Abdellah extends Phaser.Scene {
       tileset
     );
     const calque_background2 = CarteDeLaClasse.createLayer(
+      
       "Calque de Tuiles 2",
-      tileset
+      tileset *
     );
     const calque_background3 = CarteDeLaClasse.createLayer(
       "Calque de Tuiles 3",
