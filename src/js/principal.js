@@ -147,20 +147,14 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
     if (cursors.right.isDown)  {
       if (this.physics.overlap(player, this.porte2)){
-        this.score += 3;
-      this.scoreText.setText('Score: ' + this.score);
         this.scene.switch("niveauDarties");
         this.porte2.destroy();
       } 
       if (this.physics.overlap(player, this.porte1)) {
-        this.score += 3;
-      this.scoreText.setText('Score: ' + this.score);
         this.scene.switch("niveauAbdellah");
         this.porte1.destroy();
       }
       if (this.physics.overlap(player, this.porte3)) {
-        this.score += 2;
-      this.scoreText.setText('Score: ' + this.score);
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
       }
