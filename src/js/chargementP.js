@@ -37,5 +37,6 @@ export default class chargementP extends Phaser.Scene {
   onVideoEnded() {
     // Transition to the next scene
     this.scene.switch("principal");
-    this.videoElement.parentNode.removeChild(this.videoElement);  }
+    this.videoElement.parentNode.removeChild(this.videoElement); 
+    this.scene.stop();  }
 }

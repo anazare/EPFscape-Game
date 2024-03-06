@@ -37,5 +37,6 @@ export default class videoggP extends Phaser.Scene {
   onVideoEnded() {
     // Transition to the next scene
     this.scene.switch("chargementP");
-    this.videoElement.parentNode.removeChild(this.videoElement);  }
+    this.videoElement.parentNode.removeChild(this.videoElement);
+  this.scene.stop();  }
 }
