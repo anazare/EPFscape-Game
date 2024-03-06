@@ -6,6 +6,9 @@ export default class videoggP extends Phaser.Scene {
       key: "videoggP" //  ici on précise le nom de la classe en tant qu'identifiant
     });
   }
+  preload(){
+    this.load.audio("jousset3", )
+  }
   create() {
     // Create a video element dynamically
     this.videoElement = document.createElement('video');
@@ -28,6 +31,8 @@ export default class videoggP extends Phaser.Scene {
 
     // Start playing the video
     this.videoElement.play();
+
+
   }
 
   update() {

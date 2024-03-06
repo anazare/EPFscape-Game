@@ -28,6 +28,7 @@ export default class selection extends Phaser.Scene {
     //création de la musique de fond et mise en boucle 
     musique_de_fond = this.sound.add('background', { loop: true });
     musique_de_fond.play();
+    musique_de_fond.setVolume(0.25);
     //création du son : explications de jousset  
     jousset1 = this.sound.add('jousset1');
     jousset1.play();
