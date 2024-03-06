@@ -20,9 +20,12 @@ export default class niveauDarties extends Phaser.Scene {
     // chargement de la carte
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
     this.load.image("continuer", "src/assets/fleche.png"); 
+    this.load.audio("consignes", "src/assets/Darties.mp3"); 
   }
 
   create() {
+    var cons = this.sound.add('consignes'); 
+    cons.play(); 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
     const tileset = CarteDeLaClasse.addTilesetImage(
@@ -116,20 +119,25 @@ export default class niveauDarties extends Phaser.Scene {
   }
   displayDynamicText() {
     
-      const text = "Bonjour Redouane, je te lance un défi, \n si tu réussis le mini-jeu ainsi\n que l'enigme qui suivra \n je te donne tes 3 crédits restants."; 
+      const text = "Bonjour Redouane, je te lance un défi ! \nSi tu réussis le mini-jeu ainsi que l'enigme qui suivra je te donne tes 3 crédits restants."; 
       const x = 100; // Position X du texte
       const y = 100; // Position Y du texte
       const fontSize = '25px'; // Taille de la police
       const fill = '#fff'; // Couleur du texte
       const delay = 50; // Délai entre chaque caractère en ms
   
-      let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
-      
+      let dynamicText1 = this.add.text(x, y, '', {
+        fontSize: fontSize,
+        fill: fill,
+        fontFamily: "Caveat",
+        wordWrap: { width: 600, useAdvancedWrap: true },
+        align: 'justify'
+      });
   
       // Fonction pour afficher le texte de manière progressive
       function typeWriter(text, index) {
           if (index < text.length) {
-              dynamicText.setText(dynamicText.text + text[index]);
+              dynamicText1.setText(dynamicText1.text + text[index]);
               index++;
               setTimeout(function() {
                   typeWriter(text, index);
@@ -139,7 +147,6 @@ export default class niveauDarties extends Phaser.Scene {
   
       // Lancement de la fonction pour afficher le texte progressivement
       typeWriter(text, 0);
-      
   }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
