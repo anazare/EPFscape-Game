@@ -37,6 +37,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
   }
 
   create() {
+    this.resetVariables();
     this.add.image(400, 300, SKY_IMAGE_KEY);
     // Création du canon
     cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.02);
@@ -209,47 +210,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     bouton_restart.on("pointerup", () => {
-      this.scene.stop("minijeuAbdellah");
-      this.scene.start("minijeuAbdellah");
-    for (var pas = 0; pas < 3; pas++) {
-      const nbA = Phaser.Math.Between(80, 300);
-      if (!monArrayList.includes(nbA)) {
-        monArrayList.push(nbA);
-      }
-    }
-    //génération de positions random et rangement dans une list 
-    while (ListParcoursAleatoire.length !== 4) {
-      const nbA = Phaser.Math.Between(0, 3);
-      if (!ListParcoursAleatoire.includes(nbA)) {
-        ListParcoursAleatoire.push(nbA);
-      }
-    }
-    balloonData = [
-      { x: 750, y: 160, answer: monArrayList[ListParcoursAleatoire[0]] },
-      { x: 600, y: 270, answer: monArrayList[ListParcoursAleatoire[1]] },
-      { x: 720, y: 390, answer: monArrayList[ListParcoursAleatoire[2]] },
-      { x: 440, y: 410, answer: monArrayList[ListParcoursAleatoire[3]] }
-    ];
-
-    balloonData.forEach(data => {
-      
-      let balloonText = this.add.text(data.x, data.y, data.answer, {
-        fontSize: '25px',
-        fill: '#000000',
-        wordWrap: { width: 300, useAdvancedWrap: true },
-        align: 'center'
-      }).setOrigin(0.5).setDepth(2);
-
-      groupeBalloon.add(balloonText);
-
-      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.05);
-      balloon.pointsVie =1;
-      balloon.chiffreAssocie =balloonText;
-      groupeBalloon.add(balloon, true);
-      
-      balloon.body.allowGravity = false;
-    });
-      
+      this.scene.restart("minijeuAbdellah");
     });
   }
 
@@ -294,4 +255,15 @@ export default class minijeuAbdellah extends Phaser.Scene {
     // Détruire la balle
     bullet.destroy();
   }
-}
+  resetVariables() {
+
+    resultat = null;
+    CodeDecrypte = null;
+    multiplicande = null
+    monArrayList = [];
+    multiplicateur= null;
+    ListParcoursAleatoire = [];
+    balloonData = [];
+    }
+    
+    }
