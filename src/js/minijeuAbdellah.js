@@ -192,7 +192,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
       balloon.chiffreAssocie =balloonText;
       groupeBalloon.add(balloon, true);
       
-      balloon.body.allowGravity = false;
+      balloon.body.allowGravity = false; 
 
     });
   }
