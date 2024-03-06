@@ -1,6 +1,5 @@
 import * as fct from "/src/js/fonctions.js";
 
-var player;
 var cursors;
 var bouton_restart;
 
@@ -10,12 +9,13 @@ export default class enigme2Abdellah extends Phaser.Scene {
     super({
       key: "enigme2Abdellah" //  ici on précise le nom de la classe en tant qu'identifiant
     });
+    this.player;
   }
 
   preload() {
-    // ajout perso
-    this.load.spritesheet("dudeabd", "src/assets/dudeabd.png", { frameWidth: 32, frameHeight: 48 });
 
+    // ajout perso
+    this.load.spritesheet("alldude", "src/assets/alldude.png", { frameWidth: 31.9, frameHeight: 48 });
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
 
@@ -61,14 +61,13 @@ export default class enigme2Abdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(10);
+    this.player = this.physics.add.sprite(800, 400, "alldude").setScale(4).setDepth(10);
     this.player.setBounce(0.2);
 
 
-    // animation pour tourner à gauche
     this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("dudeabd", { start: 0, end: 3 }),
+    frames: this.anims.generateFrameNumbers("alldude", { start: 27, end: 30 }),
       frameRate: 10,
       repeat: -1
     });
@@ -76,14 +75,14 @@ export default class enigme2Abdellah extends Phaser.Scene {
     // animation lorsque le personnage n'avance pas
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dudeabd", frame: 4 }],
+      frames: [{ key: "alldude", frame: 31 }],
       frameRate: 20
     });
 
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dudeabd", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("alldude", { start: 32, end: 35 }),
       frameRate: 10,
       repeat: -1
     });
@@ -181,7 +180,6 @@ export default class enigme2Abdellah extends Phaser.Scene {
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(9);
-      
       var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
       fleche.setInteractive();
 
@@ -194,7 +192,6 @@ export default class enigme2Abdellah extends Phaser.Scene {
       });
       //Cas ou la souris clique sur le bouton play :
       fleche.on("pointerup", () => {
-        this.scene.stop("enigme2Abdellah"); // Arrête la scène du mini-jeu
         this.scene.start("minijeuAbdellah"); // Démarre la scène du niveau principal
 
       });

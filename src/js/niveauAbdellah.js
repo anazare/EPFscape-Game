@@ -17,7 +17,7 @@ export default class niveauAbdellah extends Phaser.Scene {
   preload() {
     var player;
     // ajout perso
-    this.load.spritesheet("dudeabd", "src/assets/dudeabd.png", { frameWidth: 31.75, frameHeight: 48 });
+    this.load.spritesheet("alldude", "src/assets/alldude.png", { frameWidth: 31.9, frameHeight: 48 });
 
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
@@ -76,14 +76,13 @@ export default class niveauAbdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(9);
+    this.player = this.physics.add.sprite(800, 400, "alldude").setScale(4).setDepth(9);
     this.player.setBounce(0.2);
 
 
-    // animation pour tourner à gauche
     this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("dudeabd", { start: 0, end: 3 }),
+    frames: this.anims.generateFrameNumbers("alldude", { start: 27, end: 30 }),
       frameRate: 10,
       repeat: -1
     });
@@ -91,18 +90,17 @@ export default class niveauAbdellah extends Phaser.Scene {
     // animation lorsque le personnage n'avance pas
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dudeabd", frame: 4 }],
+      frames: [{ key: "alldude", frame: 31 }],
       frameRate: 20
     });
 
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dudeabd", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("alldude", { start: 32, end: 35 }),
       frameRate: 10,
       repeat: -1
     });
-
     // création d'un écouteur sur le clavier
     cursors = this.input.keyboard.createCursorKeys();
 
