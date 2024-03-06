@@ -98,7 +98,7 @@ export default class niveauDarties extends Phaser.Scene {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
   this.displayDynamicText();
 
-  continuer = this.add.image(700,500, "continuer").setScale(0.2); 
+  continuer = this.add.image(675,350, "continuer").setScale(0.15); 
   continuer.setInteractive();
 
   continuer.on("pointerover", () => {
