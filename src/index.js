@@ -47,6 +47,10 @@ var config = {
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
+<<<<<<< HEAD
 game.scene.start(pagedelancement);
+=======
+game.scene.start("selection");
+>>>>>>> 1c01db8ad1ab8c2756995e19995216b2586f3c16
 
 

@@ -8,7 +8,7 @@ var livreTexte;
 var musique_de_fond;
 var jousset1; 
 var bouton_play;
-var campus_img;
+
 
 export default class selection extends Phaser.Scene {
   constructor() {
@@ -19,7 +19,6 @@ export default class selection extends Phaser.Scene {
     this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
     this.load.image(BOOK_IMAGE_KEY, "src/assets/book.png");
     this.load.image("Start", "src/assets/bouton-start.png");
-    this.load.image("campus", "src/assets/campus_montpellier_2022.png");
     this.load.audio('background', 'src/assets/sonambiance.mp3');
     this.load.audio('jousset1', 'src/assets/jousset1.mp3');
   }
@@ -28,10 +27,11 @@ export default class selection extends Phaser.Scene {
     //création de la musique de fond et mise en boucle 
     musique_de_fond = this.sound.add('background', { loop: true });
     musique_de_fond.play();
-    musique_de_fond.setVolume(0.25);
+    musique_de_fond.setVolume(0.1);
     //création du son : explications de jousset  
     jousset1 = this.sound.add('jousset1');
     jousset1.play();
+    jousset1.setVolume(0.5);
     //ajout de l'image de fond 
     this.add.image(400, 300, SKY_IMAGE_KEY);
     //ajout du livre par dessous 
@@ -43,9 +43,12 @@ export default class selection extends Phaser.Scene {
       "",
       {
         fontFamily: "Caveat", // Changer la police à "Caveat"
-        fontSize: "17px",
+        fontSize: "25px",
         color: "#000000",
+        align : 'center',
+        wordWrap: { width: 300 },
       }
+      
     );
 
     // Ajout de la fonctionnalité d'affichage lettre par lettre
@@ -60,7 +63,7 @@ export default class selection extends Phaser.Scene {
   }
 
   afficherTexteLettreParLettre() {
-    const texteComplet = "AH! Ca faisait longtemps Redouane!\n\nIl te manque malheureusement 8 crédits \n\npour valider ton semestre.Tu dois te rendre\n\ndans les salles M01, M02 et M03 à la\n\nrencontre de tes professeurs pour discuter\n\nde ton cas.\n\n\n\n\n\n\n                    Bonne chance !!!";
+    const texteComplet = "\n\nAH! Ca faisait longtemps Redouane! \n\nIl te manque malheureusement 8 crédits pour valider ton semestre. Tu dois te rendre dans les salles M01, M02 et M03 à la rencontre de tes professeurs pour discuter de ton cas.\n\n\nBonne chance !!!";
     let textePartiel = "";
     let indexLettre = 0;
 
@@ -77,8 +80,7 @@ export default class selection extends Phaser.Scene {
   }
 
   afficherCampusEtBouton() {
-    campus_img = this.add.image(585, 190, "campus").setDepth(1).setDisplaySize(250, 170);
-    bouton_play = this.add.image(580, 490, "Start").setDepth(1).setDisplaySize(100, 70);
+    bouton_play = this.add.image(580, 300, "Start").setDepth(1).setScale(0.5);
     bouton_play.setInteractive();
 
     bouton_play.on("pointerover", () => {

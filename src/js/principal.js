@@ -16,10 +16,12 @@ export default class principal extends Phaser.Scene {
     super({
       key: "principal" //  ici on précise le nom de la classe en tant qu'identifiant
     });
+    this.score = 0; // Initialize score variable
+    this.scoreText; // Declare scoreText variable
   }
   preload() {
     // ajout perso
-    this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
+    this.load.image("dude1", "src/assets/tetered.png");
 
     // chargement tuiles de jeu
     this.load.image("Phaser_tuilesdejeu", "src/assets/tilesheet_complete.png", {frameWidth: 4416, frameHeight: 6400});
@@ -36,7 +38,17 @@ export default class principal extends Phaser.Scene {
 
   create() {
 
-
+     // Calculate the center position of the screen
+     const centerX = this.cameras.main.width / 2;
+     const centerY = this.cameras.main.height / 2;
+ 
+     // Create the score text at the center position
+     this.scoreText = this.add.text(
+       centerX, // X position
+       centerY, // Y position
+       'Score: 0', // Initial text
+       { fontSize: '24px', fill: '#fff' } // Text style
+     ).setOrigin(0.5); // Set origin to center
     // chargement de la carte
     const carteDuNiveau = this.add.tilemap("carte");
 
@@ -62,31 +74,11 @@ export default class principal extends Phaser.Scene {
     calque_background2.setCollisionByProperty({ estSolide: true });
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(2656, 6240, "dude").setScale(4.5);
+    player = this.physics.add.image(2656, 6240, "dude1").setScale(1);
     player.setBounce(0.2);
     this.physics.add.collider(player, calque_background2);
     // animation pour tourner à gauche
-    this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    // animation lorsque le personnage n'avance pas
-    this.anims.create({
-      key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
-      frameRate: 20
-    });
-
-    // animation pour tourner à droite
-    this.anims.create({
-      key: "right",
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end:8}),
-      frameRate: 10,
-      repeat: -1
-    });
+    
 
     // création d'un écouteur sur le clavier
     cursors = this.input.keyboard.createCursorKeys();
@@ -127,7 +119,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
       player.setVelocityX(-300);
 
-      player.anims.play("left", true);
+      //player.anims.play("left", true);
 
 
 
@@ -137,7 +129,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
       player.setVelocityX(300);
 
-      player.anims.play("right", true);
+      //player.anims.play("right", true);
 
     }
 
@@ -147,7 +139,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
       player.setVelocityX(0);
 
-      player.anims.play("turn");
+      //player.anims.play("turn");
       player.setGravity(0); // Remove gravity from the player
 
     }
@@ -155,14 +147,20 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
 
     if (cursors.right.isDown)  {
       if (this.physics.overlap(player, this.porte2)){
+        this.score += 3;
+      this.scoreText.setText('Score: ' + this.score);
         this.scene.switch("niveauDarties");
         this.porte2.destroy();
       } 
       if (this.physics.overlap(player, this.porte1)) {
+        this.score += 3;
+      this.scoreText.setText('Score: ' + this.score);
         this.scene.switch("niveauAbdellah");
         this.porte1.destroy();
       }
       if (this.physics.overlap(player, this.porte3)) {
+        this.score += 2;
+      this.scoreText.setText('Score: ' + this.score);
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
       }

@@ -13,7 +13,7 @@ export default class niveauAbdellah extends Phaser.Scene {
 
   preload() {
     // ajout perso
-    this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet("dudeabd", "src/assets/dudeabd.png", { frameWidth: 31.5, frameHeight: 48 });
 
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
@@ -31,12 +31,15 @@ export default class niveauAbdellah extends Phaser.Scene {
     //ajout audio enigme 1
     this.load.audio('Abdellah1', "src/assets/Abdellah1.mp3");
     this.load.audio('Abdellah2', "src/assets/Abdellah2.mp3");
+    this.load.audio('bravo', 'src/assets/Bravo.mp3'); 
   }
 
   son2(son) {
     var audio_enigme = this.sound.add(son);
     audio_enigme.play();
   }
+
+
 
   create() {
     var audio_explication = this.sound.add('Abdellah1');
@@ -69,14 +72,14 @@ export default class niveauAbdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
-    player.setBounce(0.2);
+    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(10);
+    this.player.setBounce(0.2);
 
 
     // animation pour tourner à gauche
     this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers("dudeabd", { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
@@ -84,14 +87,14 @@ export default class niveauAbdellah extends Phaser.Scene {
     // animation lorsque le personnage n'avance pas
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "dudeabd", frame: 4 }],
       frameRate: 20
     });
 
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("dudeabd", { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1
     });
@@ -100,19 +103,19 @@ export default class niveauAbdellah extends Phaser.Scene {
     cursors = this.input.keyboard.createCursorKeys();
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     this.physics.world.setBounds(0, 0, 800, 640);
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 800, 640);
     // ancrage de la caméra sur le joueur
-    this.cameras.main.startFollow(player);
+    this.cameras.main.startFollow(this.player);
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     // ajout d'une collision entre le joueur et le calque plateformes
-    this.physics.add.collider(player, calque_background);
+    this.physics.add.collider(this.player, calque_background);
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -123,14 +126,19 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
   displayDynamicText() {
 
-    const text = "Bonjour , malgré tes bavardages je \n te laisse une  dernière chance pour te\n rattraper. Si tu réponds correctement à \n ces 2 enigmes  et que tu réussis \n le mini-jeu, tu pourra récuperer \n tes 3 crédits: \n La première énigme est la suivante : \n Je suis un nombre entier positif. \n Si tu multiplies mon carré par 5, \n puis ajoute le double de mon cube, \n tu obtiendra 64. Qui suis-je?";
+    const text = "Bonjour à toi, \nMalgré tes bavardages je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 64.\nQui suis-je?";
     const x = 100; // Position X du texte
-    const y = 100; // Position Y du texte
+    const y = 77; // Position Y du texte
     const fontSize = '25px'; // Taille de la police
     const fill = '#fff'; // Couleur du texte
     const delay = 50; // Délai entre chaque caractère en ms
 
-    let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
+    let dynamicText = this.add.text(x, y, '', {
+      fontSize: fontSize,
+      fill: fill,
+      align: 'justify',  // Alignement du texte (justify, left, center, right)
+      wordWrap: { width: 600, useAdvancedWrap: true },  // Largeur de l'enveloppe du texte
+    });
 
 
     // Fonction pour afficher le texte de manière progressive
@@ -179,6 +187,8 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button1.on("pointerup", () => {
+      var bravo = this.sound.add("bravo");
+    bravo.play();
       this.add.image(400, 325, 'livre2').setDepth(8);
       this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
         fontSize: '25px',
@@ -265,31 +275,25 @@ export default class niveauAbdellah extends Phaser.Scene {
   update() {
     // définitinon des mouvements du personnage
 
-    if (cursors.up.isDown) {
-      player.setVelocityY(-160);
-      // à droite
-    } else if (cursors.down.isDown) {
-      player.setVelocityY(160);
-    }
 
     // a gauche
     if (cursors.left.isDown) {
-      player.setVelocityX(-160);
-      player.anims.play("left", true);
+      this.player.setVelocityX(-160);
+      this.player.anims.play("left", true);
 
       // à droite
     } else if (cursors.right.isDown) {
-      player.setVelocityX(160);
-      player.anims.play("right", true);
+      this.player.setVelocityX(160);
+      this.player.anims.play("right", true);
     }
     // immoobile
     else {
-      player.setVelocityX(0);
-      player.anims.play("turn");
+      this.player.setVelocityX(0);
+      this.player.anims.play("turn");
     }
     // en saut (important : blocked doown au lieu de tuoching down)
-    if (cursors.up.isDown && player.body.blocked.down) {
-      player.setVelocityY(-200);
+    if (cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-200);
     }
   }
   ajout_bouton_restart() {

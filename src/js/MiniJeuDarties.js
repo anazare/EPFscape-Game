@@ -137,14 +137,14 @@ export default class MiniJeuDarties extends Phaser.Scene {
      ****************************/
 
     // On créée un nouveeau personnage : player
-    player = this.physics.add.sprite(100, 450, "img_perso");
+    this.player = this.physics.add.sprite(100, 450, "img_perso");
 
     // creation d'un attribut direction pour le joueur, initialisée avec 'right'
-    player.direction = 'right';
+    this.player.direction = 'right';
 
     //  propriétées physiqyes de l'objet player :
-    player.setBounce(0.2); // on donne un petit coefficient de rebond
-    player.setCollideWorldBounds(true); // le player se cognera contre les bords du monde
+    this.player.setBounce(0.2); // on donne un petit coefficient de rebond
+    this.player.setCollideWorldBounds(true); // le player se cognera contre les bords du monde
 
     /***************************
      *  CREATION DES ANIMATIONS *
@@ -188,7 +188,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
      ******************************************************/
 
     //  Collide the player and the groupe_etoiles with the groupe_plateformes
-    this.physics.add.collider(player, groupe_plateformes);
+    this.physics.add.collider(this.player, groupe_plateformes);
 
     // instructions pour les objets surveillés en bord de monde
     this.physics.world.on("worldbounds", function (body) {
@@ -209,25 +209,25 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
   update() {
     if (clavier.left.isDown) {
-      player.direction = 'left';
-      player.setVelocityX(-160);
-      player.anims.play("anim_tourne_gauche", true);
+      this.player.direction = 'left';
+      this.player.setVelocityX(-160);
+      this.player.anims.play("anim_tourne_gauche", true);
     } else if (clavier.right.isDown) {
-      player.direction = 'right';
-      player.setVelocityX(160);
-      player.anims.play("anim_tourne_droite", true);
+      this.player.direction = 'right';
+      this.player.setVelocityX(160);
+      this.player.anims.play("anim_tourne_droite", true);
     } else {
-      player.setVelocityX(0);
-      player.anims.play("anim_face");
+      this.player.setVelocityX(0);
+      this.player.anims.play("anim_face");
     }
 
-    if (clavier.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-330);
+    if (clavier.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(-330);
     }
 
     // déclenchement de la fonction tirer() si appui sur boutonFeu 
     if (Phaser.Input.Keyboard.JustDown(boutonFeu)) {
-      this.tirer(player);
+      this.tirer(this.player);
       son_feu.play();
     }
     // Vérifier si toutes les cibles ont été détruites
@@ -241,9 +241,9 @@ export default class MiniJeuDarties extends Phaser.Scene {
   //fonction tirer( ), prenant comme paramètre l'auteur du tir
   tirer(player) {
     var coefDir;
-    if (player.direction == 'left') { coefDir = -1; } else { coefDir = 1 }
+    if (this.player.direction == 'left') { coefDir = -1; } else { coefDir = 1 }
     // on crée la balle a coté du joueur
-    var bullet = groupeBullets.create(player.x + (25 * coefDir), player.y - 4, 'bullet1');
+    var bullet = groupeBullets.create(this.player.x + (25 * coefDir), this.player.y - 4, 'bullet1');
 
 // Réduire la taille de l'image à 20 pixels de largeur et 20 pixels de hauteur
 bullet.setDisplaySize(20, 20);
@@ -410,7 +410,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
 
       } else {
         this.ajout_bouton_restart();
@@ -435,7 +435,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
 
 
       } else {
@@ -460,7 +460,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
       } else {
         this.ajout_bouton_restart();
       }
@@ -483,7 +483,7 @@ bullet.setDisplaySize(20, 20);
           wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
           align: 'center'
         }).setDepth(3);
-        var timerRestart = this.time.delayedCall(3000, this.Transition_niveau, ["MiniJeuDarties", "principal"], this);
+        this.scene.switch("videoggP1");
       } else {
         this.ajout_bouton_restart();
       }

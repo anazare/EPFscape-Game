@@ -28,18 +28,21 @@ export default class enigme2Abdellah extends Phaser.Scene {
     this.load.image("livre2", "src/assets/book.png");
     this.load.image("fleche", "src/assets/fleche.png");
     this.load.image("restart", "src/assets/restart.png");
-    this.load.audio('Abdellah3', "src/assets/Abdellah3.mp3"); 
+    this.load.audio('Abdellah3', "src/assets/Abdellah3.mp3");
+    this.load.audio('bravo', "src/assets/Bravo.mp3"); 
   }
 
   create() {
-    
+    var audio_enigme2 = this.sound.add("Abdellah3");
+    audio_enigme2.play();
+    audio_enigme2.setVolume(0.5);
 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
     const tileset = CarteDeLaClasse.addTilesetImage(
       "tuiles2",
       "tuiles1"
-      );
+    );
     // chargement des calques qui constituent le background de la pièce
     const calque_background = CarteDeLaClasse.createLayer(
       "Calque de Tuiles 1",
@@ -55,39 +58,39 @@ export default class enigme2Abdellah extends Phaser.Scene {
     );
     calque_background.setCollisionByProperty({ estSolide: true });
 
-    
-  
-   // création du personnage de jeu et positionnement
-   player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
-   player.setBounce(0.2);
- 
- 
-   // animation pour tourner à gauche
-   this.anims.create({
-     key: "left",
-     frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
-     frameRate: 10,
-     repeat: -1
-   });
- 
-   // animation lorsque le personnage n'avance pas
-   this.anims.create({
-     key: "turn",
-     frames: [{ key: "dude", frame: 4 }],
-     frameRate: 20
-   });
- 
-   // animation pour tourner à droite
-   this.anims.create({
-     key: "right",
-     frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
-     frameRate: 10,
-     repeat: -1
-   });
- 
-   // création d'un écouteur sur le clavier
-   cursors = this.input.keyboard.createCursorKeys();
-   
+
+
+    // création du personnage de jeu et positionnement
+    player = this.physics.add.sprite(800, 400, "dude").setScale(10);;
+    player.setBounce(0.2);
+
+
+    // animation pour tourner à gauche
+    this.anims.create({
+      key: "left",
+      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    // animation lorsque le personnage n'avance pas
+    this.anims.create({
+      key: "turn",
+      frames: [{ key: "dude", frame: 4 }],
+      frameRate: 20
+    });
+
+    // animation pour tourner à droite
+    this.anims.create({
+      key: "right",
+      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    // création d'un écouteur sur le clavier
+    cursors = this.input.keyboard.createCursorKeys();
+
     // ajout du modèle de collision entre le personnage et le monde
     player.setCollideWorldBounds(true);
 
@@ -104,79 +107,82 @@ export default class enigme2Abdellah extends Phaser.Scene {
     this.physics.add.collider(player, calque_background);
 
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //AJOUT TEXTE
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
-  this.displayDynamicText();
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //AJOUT TEXTE
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    this.displayDynamicText();
 
   }
   displayDynamicText() {
-    
-      const text = "La deuxième enigme est: \n Je suis un theorème PUISSANT qui établit \n une relation entre les longueurs \n des côtés  et les angles d'un triangle. \n Mon nom est attribué à un \n mathématicien perse du 15ème siècle.\n Qui suis-je?";
-      const x = 100; // Position X du texte
-      const y = 100; // Position Y du texte
-      const fontSize = '25px'; // Taille de la police
-      const fill = '#fff'; // Couleur du texte
-      const delay = 50; // Délai entre chaque caractère en ms
-  
-      let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
-      
-  
-      // Fonction pour afficher le texte de manière progressive
-      function typeWriter(text, index) {
-          if (index < text.length) {
-              dynamicText.setText(dynamicText.text + text[index]);
-              index++;
-              setTimeout(function() {
-                  typeWriter(text, index);
-              }, delay);
-          }
+
+    const text = "La deuxième enigme : \n\n Je suis un theorème PUISSANTISSIME qui établit une relation entre les longueurs des côtés et les angles d'un triangle. Mon nom est attribué à un mathématicien perse du 15ème siècle.\n\nQui suis-je?";
+    const x = 100; // Position X du texte
+    const y = 100; // Position Y du texte
+    const fontSize = '25px'; // Taille de la police
+    const fill = '#fff'; // Couleur du texte
+    const delay = 55; // Délai entre chaque caractère en ms
+
+    let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill, align: 'justify', wordWrap: { width: 600 } });
+
+
+    // Fonction pour afficher le texte de manière progressive
+    function typeWriter(text, index) {
+      if (index < text.length) {
+        dynamicText.setText(dynamicText.text + text[index]);
+        index++;
+        setTimeout(function () {
+          typeWriter(text, index);
+        }, delay);
       }
-  
-      // Lancement de la fonction pour afficher le texte progressivement
-      typeWriter(text, 0);
-      this.add.text(545, 485, 'Al-Kashi', {
+    }
+
+    // Lancement de la fonction pour afficher le texte progressivement
+    typeWriter(text, 0);
+    this.add.text(545, 485, 'Al-Kashi', {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(6);
+
+    this.add.text(132, 485, 'Pythagore', {
+      fontSize: '25px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(6);
+
+    this.add.text(330, 485, 'Bolzano\n Weierstrass', {
+      fontSize: '20px',
+      fill: '#000000', //noir 
+      wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+      align: 'center'
+    }).setDepth(6);
+    /////////////////////////////////////////////////////////////
+    var button1 = this.add.image(600, 500, 'button1').setScale(0.07).setDepth(3);
+    button1.setInteractive();
+
+    button1.on("pointerover", () => {
+      button1.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button1.on("pointerout", () => {
+      button1.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button1.on("pointerup", () => {
+      var bravo = this.sound.add("bravo");
+      bravo.play();
+      this.add.image(400, 325, 'livre2').setDepth(8);
+      this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
         fontSize: '25px',
+        fontFamily: "Caveat",
         fill: '#000000', //noir 
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
-      }).setDepth(6);
-
-      this.add.text(132, 485, 'Pythagore', {
-        fontSize: '25px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(6);
-
-      this.add.text(330, 485, 'Bolzano\n Weierstrass', {
-        fontSize: '20px',
-        fill: '#000000', //noir 
-        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-        align: 'center'
-      }).setDepth(6);
-      /////////////////////////////////////////////////////////////
-      var button1 = this.add.image(600, 500, 'button1').setScale(0.07).setDepth(3);
-      button1.setInteractive();
-
-      button1.on("pointerover", () => {
-        button1.setTint(0xC0C0C0);
-      });
-      //Cas ou la souris ne passe plus sur le bouton play
-      button1.on("pointerout", () => {
-        button1.clearTint();
-      });
-      //Cas ou la souris clique sur le bouton play :
-      button1.on("pointerup", () => {
-this.add.image(400, 325, 'livre2').setDepth(8);
-this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
-  fontSize: '25px',
-  fontFamily: "Caveat",
-  fill: '#000000', //noir 
-  wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-  align: 'center'
-}).setDepth(9);
-var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
+      }).setDepth(9);
+      
+      var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
       fleche.setInteractive();
 
       fleche.on("pointerover", () => {
@@ -193,90 +199,90 @@ var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
 
       });
 
-      });
-//////////////////////////////////////////////////////////////////////////
+    });
+    //////////////////////////////////////////////////////////////////////////
 
-var button2 = this.add.image(200, 500, 'button1').setScale(0.07).setDepth(3);
-button2.setInteractive();
+    var button2 = this.add.image(200, 500, 'button1').setScale(0.07).setDepth(3);
+    button2.setInteractive();
 
-button2.on("pointerover", () => {
-  button2.setTint(0xC0C0C0);
-});
-//Cas ou la souris ne passe plus sur le bouton play
-button2.on("pointerout", () => {
-  button2.clearTint();
-});
-//Cas ou la souris clique sur le bouton play :
-button2.on("pointerup", () => {
-  this.add.image(400, 325, 'livre').setDepth(8);
-  this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
-    fontSize: '25px',
-    fontFamily: "Caveat",
-    fill: '#000000', //noir 
-    wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-    align: 'center'
-  }).setDepth(9);
-  this.ajout_bouton_restart(); 
-});
-///////////////////////////////////////////////////////////////////////////////
+    button2.on("pointerover", () => {
+      button2.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button2.on("pointerout", () => {
+      button2.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button2.on("pointerup", () => {
+      this.add.image(400, 325, 'livre').setDepth(8);
+      this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
+        fontSize: '25px',
+        fontFamily: "Caveat",
+        fill: '#000000', //noir 
+        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+        align: 'center'
+      }).setDepth(9);
+      this.ajout_bouton_restart();
+    });
+    ///////////////////////////////////////////////////////////////////////////////
 
-var button3 = this.add.image(400, 500, 'button1').setScale(0.07).setDepth(3);
-button3.setInteractive();
+    var button3 = this.add.image(400, 500, 'button1').setScale(0.07).setDepth(3);
+    button3.setInteractive();
 
-button3.on("pointerover", () => {
-  button3.setTint(0xC0C0C0);
-});
-//Cas ou la souris ne passe plus sur le bouton play
-button3.on("pointerout", () => {
-  button3.clearTint();
-});
-//Cas ou la souris clique sur le bouton play :
-button3.on("pointerup", () => {
-  this.add.image(400, 325, 'livre').setDepth(8);
-  this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
-    fontSize: '25px',
-    fontFamily: "Caveat",
-    fill: '#000000', //noir 
-    wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
-    align: 'center'
-  }).setDepth(9);
-  this.ajout_bouton_restart();
-});
+    button3.on("pointerover", () => {
+      button3.setTint(0xC0C0C0);
+    });
+    //Cas ou la souris ne passe plus sur le bouton play
+    button3.on("pointerout", () => {
+      button3.clearTint();
+    });
+    //Cas ou la souris clique sur le bouton play :
+    button3.on("pointerup", () => {
+      this.add.image(400, 325, 'livre').setDepth(8);
+      this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
+        fontSize: '25px',
+        fontFamily: "Caveat",
+        fill: '#000000', //noir 
+        wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
+        align: 'center'
+      }).setDepth(9);
+      this.ajout_bouton_restart();
+    });
 
-  } 
+  }
 
   update() {
     // définitinon des mouvements du personnage
 
-  if (cursors.up.isDown) {
-    player.setVelocityY(-160);
-    // à droite
-  } else if (cursors.down.isDown) {
-    player.setVelocityY(160);
-  }
+    if (cursors.up.isDown) {
+      player.setVelocityY(-160);
+      // à droite
+    } else if (cursors.down.isDown) {
+      player.setVelocityY(160);
+    }
 
-  // a gauche
-  if (cursors.left.isDown) {
-    player.setVelocityX(-160);
-    player.anims.play("left", true);
+    // a gauche
+    if (cursors.left.isDown) {
+      player.setVelocityX(-160);
+      player.anims.play("left", true);
 
-    // à droite
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-    player.anims.play("right", true);
-  }
-  // immoobile
-  else {
-    player.setVelocityX(0);
-    player.anims.play("turn");
-  }
-  // en saut (important : blocked doown au lieu de tuoching down)
-  if (cursors.up.isDown && player.body.blocked.down) {
-    player.setVelocityY(-200);
-  }
+      // à droite
+    } else if (cursors.right.isDown) {
+      player.setVelocityX(160);
+      player.anims.play("right", true);
+    }
+    // immoobile
+    else {
+      player.setVelocityX(0);
+      player.anims.play("turn");
+    }
+    // en saut (important : blocked doown au lieu de tuoching down)
+    if (cursors.up.isDown && player.body.blocked.down) {
+      player.setVelocityY(-200);
+    }
   }
   ajout_bouton_restart() {
-   
+
     //creation btn restart
     bouton_restart = this.add.image(225, 400, "restart").setDepth(10).setScale(0.05);
 
@@ -293,7 +299,7 @@ button3.on("pointerup", () => {
       this.scene.restart();
     });
   }
-  }
+}
 
 
 

@@ -22,9 +22,13 @@ export default class niveauMeyer extends Phaser.Scene {
     // chargement de la carte
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
     this.load.image("fleche", "src/assets/fleche.png");
+
+    this.load.audio("Winston", "src/assets/Winston.mp3"); 
   }
 
   create() {
+    var son_Winston = this.sound.add("Winston"); 
+    son_Winston.play(); 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
     const tileset = CarteDeLaClasse.addTilesetImage(
@@ -49,8 +53,8 @@ export default class niveauMeyer extends Phaser.Scene {
     
   
    // création du personnage de jeu et positionnement
-   player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
-   player.setBounce(0.2);
+   this.player = this.physics.add.sprite(800, 400, "dude").setScale(4);;
+   this.player.setBounce(0.2);
  
  
    // animation pour tourner à gauche
@@ -80,19 +84,19 @@ export default class niveauMeyer extends Phaser.Scene {
    cursors = this.input.keyboard.createCursorKeys();
    
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     this.physics.world.setBounds(0, 0, 800, 640);
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 800, 640);
     // ancrage de la caméra sur le joueur
-    this.cameras.main.startFollow(player);
+    this.cameras.main.startFollow(this.player);
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     // ajout d'une collision entre le joueur et le calque plateformes
-    this.physics.add.collider(player, calque_background);
+    this.physics.add.collider(this.player, calque_background);
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,14 +107,22 @@ export default class niveauMeyer extends Phaser.Scene {
   }
   displayDynamicText() {
     
-      const text = "AH, ça faisait longtemps Redouane!\n Pour valider ton semestre je te  \n laisse la possibilité de vérifier\n tes connaissances\n à l'aide de ce petit puzzle"; 
+      const text = "Salut Redouane!\n Alors, pour avoir tes crédits... Je te laisse la possibilité de vérifier tes connaissances en chimie à l'aide de ce petit puzzle."; 
       const x = 100; // Position X du texte
       const y = 100; // Position Y du texte
       const fontSize = '25px'; // Taille de la police
       const fill = '#fff'; // Couleur du texte
       const delay = 50; // Délai entre chaque caractère en ms
   
-      let dynamicText = this.add.text(x, y, '', { fontSize: fontSize, fill: fill });
+      let dynamicText = this.add.text(x, y, '', {
+        fontSize: fontSize,
+        fill: fill,
+        align: 'justify',  // Justification du texte
+        wordWrap: {
+          width: 600,        // Largeur maximale de la zone de texte
+          useAdvancedWrap: true  // Activation du retour à la ligne automatique
+        }
+      });
       
   
       // Fonction pour afficher le texte de manière progressive
@@ -149,31 +161,24 @@ export default class niveauMeyer extends Phaser.Scene {
   update() {
     // définitinon des mouvements du personnage
 
-  if (cursors.up.isDown) {
-    player.setVelocityY(-160);
-    // à droite
-  } else if (cursors.down.isDown) {
-    player.setVelocityY(160);
-  }
-
   // a gauche
   if (cursors.left.isDown) {
-    player.setVelocityX(-160);
-    player.anims.play("left", true);
+    this.player.setVelocityX(-160);
+    this.player.anims.play("left", true);
 
     // à droite
   } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-    player.anims.play("right", true);
+    this.player.setVelocityX(160);
+    this.player.anims.play("right", true);
   }
   // immoobile
   else {
-    player.setVelocityX(0);
-    player.anims.play("turn");
+    this.player.setVelocityX(0);
+    this.player.anims.play("turn");
   }
   // en saut (important : blocked doown au lieu de tuoching down)
-  if (cursors.up.isDown && player.body.blocked.down) {
-    player.setVelocityY(-200);
+  if (cursors.up.isDown && this.player.body.blocked.down) {
+    this.player.setVelocityY(-200);
   }
   }
 }
