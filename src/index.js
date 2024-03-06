@@ -15,6 +15,8 @@ import MiniJeuDarties from "./js/MiniJeuDarties.js";
 import enigme2Abdellah from "/src/js/enigme2Abdellah.js";
 import videoggP2 from "./js/videoggP2.js";
 import videoggP1 from "./js/videoggP1.js";
+import pagedelancement from "./js/pagedelancement.js";
+
 
 
 // configuration générale du jeu
@@ -40,11 +42,11 @@ var config = {
   },
 
 
-  scene: [selection,niveauAbdellah,minijeuAbdellah,MiniJeuDarties,videoggP1, niveauMeyer,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
+  scene: [pagedelancement,selection,niveauAbdellah,minijeuAbdellah,MiniJeuDarties,videoggP1, niveauMeyer,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
 };
 
 // création et lancement du jeu
 var game = new Phaser.Game(config);
-game.scene.start(selection);
+game.scene.start(pagedelancement);
 
 
