@@ -37,6 +37,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
   }
 
   create() {
+    this.enigmeVisible = false;
     this.resetVariables();
     this.add.image(400, 300, SKY_IMAGE_KEY);
     // Création du canon
@@ -133,6 +134,11 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
     if (Phaser.Input.Keyboard.JustDown(boutonFeu)) {
       this.tirer(cannon);
+    }
+
+    if (groupeBalloon.countActive(true) === 3 && this.enigmeVisible == false) {
+      this.enigmeVisible = true;
+      boutonFeu = this.input.keyboard.addKey('P');
     }
   }
 
