@@ -152,6 +152,7 @@ export default class niveauMeyer extends Phaser.Scene {
       });
       //Cas ou la souris clique sur le bouton play :
       fleche.on("pointerup", () => {
+        audio_explication.stop(); // Arrête la musique en cours
         this.scene.stop("niveauMeyer"); // Arrête la scène du mini-jeu
         this.scene.start("puzzle"); // Démarre la scène du niveau principal
 

@@ -19,7 +19,7 @@ export default class Pagedelancement extends Phaser.Scene {
     //création de la musique de fond et mise en boucle 
     musique_de_fond = this.sound.add('background', { loop: true });
     musique_de_fond.play();
-    musique_de_fond.setVolume(0.1);
+    musique_de_fond.setVolume(0.3);
 
     // Ajouter l'image de fond
     this.add.image(400, 300, "EPF").setScale(0.57);
