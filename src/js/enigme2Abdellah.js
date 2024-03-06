@@ -14,7 +14,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
 
   preload() {
     // ajout perso
-    this.load.spritesheet("dude", "src/assets/dude.png", { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet("dudeabd", "src/assets/dudeabd.png", { frameWidth: 32, frameHeight: 48 });
 
     // chargement tuiles de jeu
     this.load.image("tuiles1", "src/assets/tilesheet_complete.png"); //verifier que ce soit celui qui a été utilisé 
@@ -61,14 +61,14 @@ export default class enigme2Abdellah extends Phaser.Scene {
 
 
     // création du personnage de jeu et positionnement
-    player = this.physics.add.sprite(800, 400, "dude").setScale(10);;
-    player.setBounce(0.2);
+    this.player = this.physics.add.sprite(800, 400, "dudeabd").setScale(4).setDepth(10);
+    this.player.setBounce(0.2);
 
 
     // animation pour tourner à gauche
     this.anims.create({
       key: "left",
-      frames: this.anims.generateFrameNumbers("dude", { start: 0, end: 3 }),
+      frames: this.anims.generateFrameNumbers("dudeabd", { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
     });
@@ -76,14 +76,14 @@ export default class enigme2Abdellah extends Phaser.Scene {
     // animation lorsque le personnage n'avance pas
     this.anims.create({
       key: "turn",
-      frames: [{ key: "dude", frame: 4 }],
+      frames: [{ key: "dudeabd", frame: 4 }],
       frameRate: 20
     });
 
     // animation pour tourner à droite
     this.anims.create({
       key: "right",
-      frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
+      frames: this.anims.generateFrameNumbers("dudeabd", { start: 5, end: 8 }),
       frameRate: 10,
       repeat: -1
     });
@@ -92,19 +92,19 @@ export default class enigme2Abdellah extends Phaser.Scene {
     cursors = this.input.keyboard.createCursorKeys();
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     this.physics.world.setBounds(0, 0, 800, 640);
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 800, 640);
     // ancrage de la caméra sur le joueur
-    this.cameras.main.startFollow(player);
+    this.cameras.main.startFollow(this.player);
 
     // ajout du modèle de collision entre le personnage et le monde
-    player.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
     // ajout d'une collision entre le joueur et le calque plateformes
-    this.physics.add.collider(player, calque_background);
+    this.physics.add.collider(this.player, calque_background);
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,30 +255,30 @@ export default class enigme2Abdellah extends Phaser.Scene {
     // définitinon des mouvements du personnage
 
     if (cursors.up.isDown) {
-      player.setVelocityY(-160);
+      this.player.setVelocityY(-160);
       // à droite
     } else if (cursors.down.isDown) {
-      player.setVelocityY(160);
+      this.player.setVelocityY(160);
     }
 
     // a gauche
     if (cursors.left.isDown) {
-      player.setVelocityX(-160);
-      player.anims.play("left", true);
+      this.player.setVelocityX(-160);
+      this.player.anims.play("left", true);
 
       // à droite
     } else if (cursors.right.isDown) {
-      player.setVelocityX(160);
-      player.anims.play("right", true);
+      this.player.setVelocityX(160);
+      this.player.anims.play("right", true);
     }
     // immoobile
     else {
-      player.setVelocityX(0);
-      player.anims.play("turn");
+      this.player.setVelocityX(0);
+      this.player.anims.play("turn");
     }
     // en saut (important : blocked doown au lieu de tuoching down)
-    if (cursors.up.isDown && player.body.blocked.down) {
-      player.setVelocityY(-200);
+    if (cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-200);
     }
   }
   ajout_bouton_restart() {
