@@ -1,5 +1,14 @@
 import * as fct from "/src/js/fonctions.js";
-var g;
+// Déclaration d'une classe pour gérer les données du jeu
+class GameData {
+  constructor() {
+      this.g = 0;
+  }
+}
+
+// Création d'une instance de GameData pour stocker les données du jeu
+const gameData = new GameData();
+
 export default class chargementP extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
@@ -8,7 +17,6 @@ export default class chargementP extends Phaser.Scene {
     });
   }
   create() {
-    g = 0;
     // Create a video element dynamically
     this.videoElement = document.createElement('video');
     this.videoElement.src = 'src/assets/chargement.mp4';
@@ -37,14 +45,15 @@ export default class chargementP extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    if (g == 4){
-      this.scene.switch("End");   
-    }else{
-      g+=1;
-console.log("nombre:" + g);
-    // Transition to the next scene
-    this.scene.switch("principal");
-    this.videoElement.parentNode.removeChild(this.videoElement); 
-    this.scene.stop();  }
-  }
+    if (gameData.g == 3){
+        this.scene.switch("End");   
+    } else {
+        gameData.g += 1;
+        console.log("nombre:" + gameData.g);
+        // Transition to the next scene
+        this.scene.switch("principal");
+        this.videoElement.parentNode.removeChild(this.videoElement); 
+        this.scene.stop();
+    }
+}
 }

@@ -89,7 +89,7 @@ export default class selection extends Phaser.Scene {
 
     bouton_play.on("pointerup", () => {
       jousset1.stop();
-      this.scene.start("principal");
+      this.scene.start("chargementP");
     });
   }
 }
