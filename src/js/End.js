@@ -47,8 +47,6 @@ export default class End extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    if (gameData.g == 3){
       this.scene.switch("restartJeu");   
-  }
   }
 }
