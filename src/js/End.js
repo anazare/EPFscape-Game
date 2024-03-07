@@ -27,7 +27,7 @@ export default class End extends Phaser.Scene {
 
 
     // Add event listener for when the video ends
-    this.videoElement1.addEventListener('ended1', this.onVideoEnded.bind(this));
+    this.videoElement1.addEventListener('ended1', this.onVideoEnded1.bind(this));
 
     // Add the video to your document
     document.body.appendChild(this.videoElement1);
@@ -47,7 +47,7 @@ export default class End extends Phaser.Scene {
     // Update logic if needed
   }
 
-  onVideoEnded() {
+  onVideoEnded1() {
       this.scene.switch("restartJeu"); 
       console.log('passage a restartJeu');
   }
