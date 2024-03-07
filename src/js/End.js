@@ -7,7 +7,7 @@ export default class End extends Phaser.Scene {
     });
   }
   preload() {
-    this.load.audio("jousset5", "src/assets/jousset5.mp3");
+    this.load.audio("jousset4", "src/assets/jousset4.mp3");
 
   }
   create() {
@@ -35,7 +35,7 @@ export default class End extends Phaser.Scene {
     this.videoElement1.play();
 
     // ajout du son de jousset 
-    var jousset5 = this.sound.add('jousset5');
+    var jousset5 = this.sound.add('jousset4');
     jousset5.play();
 
 
@@ -47,7 +47,7 @@ export default class End extends Phaser.Scene {
 
   onVideoEnded() {
     // Transition to the next scene
-    this.scene.switch("principal");
+    this.scene.switch("restartJeu");
     this.videoElement1.parentNode.removeChild(this.videoElement1);
   }
 }
