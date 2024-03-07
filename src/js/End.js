@@ -1,17 +1,20 @@
 import * as fct from "/src/js/fonctions.js";
-var g;
-export default class chargementP extends Phaser.Scene {
+export default class End extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({
-      key: "chargementP" //  ici on précise le nom de la classe en tant qu'identifiant
+      key: "End" //  ici on précise le nom de la classe en tant qu'identifiant
     });
   }
+  preload(){
+    this.load.audio("jousset5", "src/assets/jousset5.mp3");
+    this.load.audio("rire", "src/assets/rire.mp3"); 
+  }
   create() {
-    g = 0;
+    
     // Create a video element dynamically
     this.videoElement = document.createElement('video');
-    this.videoElement.src = 'src/assets/chargement.mp4';
+    this.videoElement.src = 'src/assets/videogg.mp4';
     this.videoElement.width = 1200; // Set the width according to your needs
     this.videoElement.height = 1200; // Set the height according to your needs
 
@@ -30,6 +33,15 @@ export default class chargementP extends Phaser.Scene {
 
     // Start playing the video
     this.videoElement.play();
+
+    // ajout du son de jousset 
+    var jousset5 = this.sound.add('jousset5');
+    jousset5.play();
+    // ajout du son de jousset 
+    var rire = this.sound.add('rire');
+    rire.play();
+    rire.setVolume(0.3);
+
   }
 
   update() {
@@ -37,14 +49,7 @@ export default class chargementP extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    if (g == 4){
-      this.scene.stop("chargementP");
-      window.close();
-    }else{
-
     // Transition to the next scene
     this.scene.switch("principal");
-    this.videoElement.parentNode.removeChild(this.videoElement); 
-    this.scene.stop();  }
-  }
+    this.videoElement.parentNode.removeChild(this.videoElement);  }
 }

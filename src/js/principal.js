@@ -1,6 +1,8 @@
 // chargement des librairies
+import * as Abd from "/src/js/minijeuAbdellah.js";
+import * as Drt from "/src/js/MiniJeuDarties.js";
+import * as Pzl from "/src/js/puzzle.js";
 
-import minijeuAbdellah from "./minijeuAbdellah.js";
 /***********************************************************************/
 /** VARIABLES GLOBALES 
 /***********************************************************************/
@@ -10,19 +12,18 @@ var calque_background2;
 var score;
 let textBubble;
 
+
 export default class principal extends Phaser.Scene {
   // constructeur de la classe
   constructor() {
     super({
       key: "principal" //  ici on précise le nom de la classe en tant qu'identifiant
     });
-    this.player;
-    this.score = 0; // Initialize score variable
-    this.scoreText; // Declare scoreText variable
-    this.score=0;
+    this.player;// Initialize score variable
   }
   
   preload() {
+    
     // ajout perso
     this.load.image("dude1", "src/assets/tetered.png");
 
@@ -40,7 +41,10 @@ export default class principal extends Phaser.Scene {
   }
 
   create() {
-
+    score = 0;
+    console.log("maths : " + Abd.minijeuAbd_terminé); 
+    console.log("cpo : " + Drt.minijeuDrt_terminé); 
+    console.log("chimie : " + Pzl.isPuzzleSolved); 
     // Calculate the center position of the screen
     const centerX = this.cameras.main.width / 2;
     const centerY = this.cameras.main.height / 2;
@@ -95,22 +99,25 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
   }
 
   update() {
-
+    if (score == 8 && Abd.minijeuAbd_termine==true && Drt.minijeuDrt_termine==true && Pzl.isPuzzleSolved==true){
+      this.scene.stop("End");
+      window.close();    }
+    this.initializeTextBubble();
     this.player.setVelocity(0);
 
     if (cursors.up.isDown) {
-      this.player.setVelocityY(-300);
+      this.player.setVelocityY(-400);
       // à droite
     } else if (cursors.down.isDown) {
 
-      this.player.setVelocityY(300);
+      this.player.setVelocityY(400);
 
     }
 
     // a gauche
     if (cursors.left.isDown) {
 
-      this.player.setVelocityX(-300);
+      this.player.setVelocityX(-400);
 
       //player.anims.play("left", true);
 
@@ -119,7 +126,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
       // à droite
     } else if (cursors.right.isDown) {
 
-      this.player.setVelocityX(300);
+      this.player.setVelocityX(400);
 
       //player.anims.play("right", true);
     }
@@ -139,31 +146,29 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
       if (this.physics.overlap(this.player, this.porte2)){
         this.scene.switch("niveauDarties");
         this.porte2.destroy();
-        this.score+=3; 
-        console.log("score : "+this.score); 
+        score+=3; 
+        console.log("score : "+score); 
       }
       if (this.physics.overlap(this.player, this.porte1)) {
         this.scene.switch("niveauAbdellah");
+        score+=3; 
+        console.log("score : "+score); 
         this.porte1.destroy();
       }
       if (this.physics.overlap(this.player, this.porte3)) {
-        this.score+=2; 
-        console.log("score : "+this.score); 
+      score+=2; 
+        console.log("score : "+score); 
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
         
       }
     }
-    if (minijeuAbdellah.boolAbdellah1 ==true) {
-      this.score+=3; 
-      console.log("score : "+this.score); 
-    }
+    
 
-    textBubble.setPosition(player.x, player.y - 200);
   }
 
   initializeTextBubble() {
-    textBubble = this.add.text(player.x, player.y - 200, 'Score : '+ this.score, {
+    textBubble = this.add.text(this.player.x, this.player.y - 200, 'Score : ' + score, {
       fontSize: '16px',
       fill: '#ffffff',
       backgroundColor: '#000000',
@@ -171,7 +176,7 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
         x: 10,
         y: 10
       },
-      borderRadius: 6,
+      //borderRadius: 6,
       visible: false
     }).setOrigin(0.5).setDepth(10).setScale(3);
     console.log("ajout text bubble"); 
