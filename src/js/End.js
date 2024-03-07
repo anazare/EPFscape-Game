@@ -48,7 +48,7 @@ export default class End extends Phaser.Scene {
 
   onVideoEnded() {
     // Transition to the next scene
-    this.scene.switch("restartJeu");
     this.videoElement1.parentNode.removeChild(this.videoElement1);
+    this.scene.switch("restartJeu");
   }
 }
