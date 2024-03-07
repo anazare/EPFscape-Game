@@ -43,14 +43,14 @@ export default class MiniJeuDarties extends Phaser.Scene {
   preload() {
 
     // tous les assets du jeu sont placés dans le sous-répertoire src/assets/
-    this.load.image("img_ciele", "src/assets/sky1.jpg");
-    this.load.image("img_plateforme", "src/assets/platform.png");
+    this.load.image("img_ciele", "src/assets/sky.png");
+    this.load.image("img_plateforme", "src/assets/Nplatform.png");
     this.load.spritesheet("img_perso", "src/assets/dudered.png", {
       frameWidth: 32,
       frameHeight: 48
     });
     // chargement de l'image balle.png
-    this.load.image("bullet1", "src/assets/oldballe.png");
+    this.load.image("bullet1", "src/assets/Atome2.png");
     // chargement de l'image cible.png
     this.load.image("cible", "src/assets/cible1.png");
     // on charge deux fichiers audio avec les identifiants coupDeFeu et background
@@ -87,7 +87,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
-    this.add.image(400, 300, "img_ciele").setScale(0.3,0.3);
+    this.add.image(400, 300, "img_ciele").setScale(0.45, 0.5555);
 
     // la création d'un groupes permet de gérer simultanément les éléments d'une meme famille
     //  Le groupe groupe_plateformes contiendra le sol et deux platesformes sur lesquelles sauter
@@ -99,13 +99,15 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // l'image img_plateforme fait 400x32. On en met 2 à coté pour faire le sol
     // la méthode create permet de créer et d'ajouter automatiquement des objets à un groupe
     // on précise 2 parametres : chaque coordonnées et la texture de l'objet, et "voila!"
-    groupe_plateformes.create(200, 584, "img_plateforme");
-    groupe_plateformes.create(600, 584, "img_plateforme");
+    var x = 1; 
+    var y = 1; 
+    groupe_plateformes.create(200, 584, "img_plateforme").setScale(x,y);
+    groupe_plateformes.create(600, 584, "img_plateforme").setScale(x,y);
 
     //  on ajoute 3 platesformes flottantes
-    groupe_plateformes.create(600, 450, "img_plateforme");
-    groupe_plateformes.create(50, 300, "img_plateforme");
-    groupe_plateformes.create(750, 270, "img_plateforme");
+    groupe_plateformes.create(680, 450, "img_plateforme").setScale(x,y);
+    groupe_plateformes.create(50, 300, "img_plateforme").setScale(x,y);
+    groupe_plateformes.create(780, 270, "img_plateforme").setScale(x,y);
 
     // création d'un groupe d'éléments vide
     groupeBullets = this.physics.add.group();
@@ -118,6 +120,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
       setXY: { x: 24, y: 0, stepX: 107 },
       setScale: { x: 0.15, y: 0.15} 
     });
+    
     // modification des cibles créées
     groupeCibles.children.iterate(function (cibleTrouvee) {
       // définition de points de vie
@@ -236,7 +239,6 @@ export default class MiniJeuDarties extends Phaser.Scene {
       this.enigmeVisible = true;
       this.Enigme();
     }
-
   }
 
   //fonction tirer( ), prenant comme paramètre l'auteur du tir
@@ -247,7 +249,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     var bullet = groupeBullets.create(this.player.x + (25 * coefDir), this.player.y - 4, 'bullet1');
 
 // Réduire la taille de l'image à 20 pixels de largeur et 20 pixels de hauteur
-bullet.setDisplaySize(20, 20);
+bullet.setDisplaySize(30, 30);
 
     // parametres physiques de la balle.
     bullet.setCollideWorldBounds(true);
@@ -325,7 +327,7 @@ bullet.setDisplaySize(20, 20);
     //remplissage de l'arraylist avec la réponse correcte et 3 réponses random
     monArrayList.push(CodeDecrypte);
     while (monArrayList.length < 4) {
-      const nbB = Phaser.Math.Between(1, 99);
+      const nbB = Phaser.Math.Between(1, 63);
       if (!monArrayList.includes(nbB)) {
         monArrayList.push(nbB);
       }

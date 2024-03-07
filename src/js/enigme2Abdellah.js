@@ -197,7 +197,6 @@ export default class enigme2Abdellah extends Phaser.Scene {
       fleche.on("pointerup", () => {
         bravo.stop(); 
         this.scene.start("minijeuAbdellah"); // Démarre la scène du niveau principal
-
       });
 
     });
@@ -301,6 +300,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
     //Cas ou la souris clique sur le bouton play :
     bouton_restart.on("pointerup", () => {
       this.scene.restart();
+      console.log("lancement mini jeu math")
     });
   }
 }
