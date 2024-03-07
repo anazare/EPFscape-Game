@@ -36,7 +36,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
   create() {
     audio_enigme2 = this.sound.add("Abdellah3");
     audio_enigme2.play();
-    audio_enigme2.setVolume(0.5);
+    audio_enigme2.setVolume(2.3);
 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
@@ -175,6 +175,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
       console.log("arret audio1");
       var bravo = this.sound.add("bravo");
       bravo.play();
+      bravo.setVolume(2.5);
       this.add.image(400, 325, 'livre2').setDepth(8);
       this.add.text(80, 80, "BRAVO!!! \n Tu peux à présent passer au mini-jeu.\n\n Le but est de viser le ballon contenant \n la bonne réponse à l'aide de la touche *A*. n\ Tu peux déplacer le canon à l'aide des flèches *up* et *down* de ton clavier. ", {
         fontSize: '25px',

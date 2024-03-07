@@ -39,6 +39,7 @@ export default class niveauAbdellah extends Phaser.Scene {
   create() {
     audio_explication = this.sound.add('Abdellah1');
     audio_explication.play();
+    audio_explication.setVolume(2.5);
     console.log("ajout son1");
 
     //chargement de la carte et des jeux de tuiles 
@@ -188,6 +189,7 @@ export default class niveauAbdellah extends Phaser.Scene {
 
       var bravo = this.sound.add("bravo");
       bravo.play();
+      bravo.setVolume(2.5);
       this.add.image(400, 325, 'livre2').setDepth(9);
       this.add.text(80, 80, "BRAVO!!! \n\n\n\n Passons à la 2ème enigme...", {
         fontSize: '25px',

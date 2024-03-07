@@ -26,7 +26,6 @@ export default class selection extends Phaser.Scene {
     //création du son : explications de jousset  
     jousset1 = this.sound.add('jousset1');
     jousset1.play();
-    jousset1.setVolume(0.5);
     //ajout de l'image de fond 
     this.add.image(400, 300, SKY_IMAGE_KEY);
     //ajout du livre par dessous 

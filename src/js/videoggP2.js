@@ -35,6 +35,8 @@ export default class videoggP2 extends Phaser.Scene {
      // ajout du son de jousset 
      var jousset3 = this.sound.add('jousset3');
      jousset3.play();
+     jousset3.setVolume(4.5);
+
   }
 
   update() {
