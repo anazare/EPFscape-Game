@@ -24,11 +24,11 @@ var button3;
 var button4;
 var bouton_restart;
 var consignes;
-
+var reglementText; 
 export default class MiniJeuDarties extends Phaser.Scene {
 
   constructor() {
-    super({ key: "MiniJeuDarties" }); 
+    super({ key: "MiniJeuDarties" });
     this.player;// mettre le meme nom que le nom de la classe
   }
 
@@ -88,6 +88,22 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
     this.add.image(400, 300, "img_ciele").setScale(0.45, 0.5555);
+    reglementText = this.add.text(150, 200, "Règlement du jeu : \n\n1. Utilisez les touches fléchées pour vous déplacer.\n2. Appuyez sur la touche A pour tirer.\n3. Détruisez toutes les cibles pour résoudre l'énigme.\n\nBonne chance !", {
+      fontSize: '20px',
+      fill: '#ffffff', // Couleur du texte (blanc ici)
+      fontFamily: "Arial", // Police du texte
+      backgroundColor: '#000000', // Couleur de fond du texte (noir ici)
+      padding: {
+        x: 10,
+        y: 10
+      },
+      wordWrap: { width: 1500, useAdvancedWrap: true }, // Définissez la largeur maximale ici
+      align: 'left'
+    }).setDepth(2);
+
+    setTimeout(() => {
+      reglementText.destroy();
+    }, 7000);
 
     // la création d'un groupes permet de gérer simultanément les éléments d'une meme famille
     //  Le groupe groupe_plateformes contiendra le sol et deux platesformes sur lesquelles sauter
@@ -99,28 +115,28 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // l'image img_plateforme fait 400x32. On en met 2 à coté pour faire le sol
     // la méthode create permet de créer et d'ajouter automatiquement des objets à un groupe
     // on précise 2 parametres : chaque coordonnées et la texture de l'objet, et "voila!"
-    var x = 1; 
-    var y = 1; 
-    groupe_plateformes.create(200, 584, "img_plateforme").setScale(x,y);
-    groupe_plateformes.create(600, 584, "img_plateforme").setScale(x,y);
+    var x = 1;
+    var y = 1;
+    groupe_plateformes.create(200, 584, "img_plateforme").setScale(x, y);
+    groupe_plateformes.create(600, 584, "img_plateforme").setScale(x, y);
 
     //  on ajoute 3 platesformes flottantes
-    groupe_plateformes.create(680, 450, "img_plateforme").setScale(x,y);
-    groupe_plateformes.create(50, 300, "img_plateforme").setScale(x,y);
-    groupe_plateformes.create(780, 270, "img_plateforme").setScale(x,y);
+    groupe_plateformes.create(680, 450, "img_plateforme").setScale(x, y);
+    groupe_plateformes.create(50, 300, "img_plateforme").setScale(x, y);
+    groupe_plateformes.create(780, 270, "img_plateforme").setScale(x, y);
 
     // création d'un groupe d'éléments vide
     groupeBullets = this.physics.add.group();
-    
+
 
     // ajout de 8 cibles espacées de 110 pixels
     groupeCibles = this.physics.add.group({
       key: 'cible',
       repeat: 7,
       setXY: { x: 24, y: 0, stepX: 107 },
-      setScale: { x: 0.15, y: 0.15} 
+      setScale: { x: 0.15, y: 0.15 }
     });
-    
+
     // modification des cibles créées
     groupeCibles.children.iterate(function (cibleTrouvee) {
       // définition de points de vie
@@ -129,7 +145,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
       cibleTrouvee.y = Phaser.Math.Between(10, 250);
       // modification du coefficient de rebond
       cibleTrouvee.setBounce(1);
-      
+
     });
 
     // ajout du modèle de collision entre cibles et plate-formes
@@ -204,7 +220,12 @@ export default class MiniJeuDarties extends Phaser.Scene {
         objet.destroy();
       }
     });
+
+
     this.enigmeVisible = false;
+
+
+
   }
 
   /***********************************************************************/
@@ -248,8 +269,8 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // on crée la balle a coté du joueur
     var bullet = groupeBullets.create(this.player.x + (25 * coefDir), this.player.y - 4, 'bullet1');
 
-// Réduire la taille de l'image à 20 pixels de largeur et 20 pixels de hauteur
-bullet.setDisplaySize(30, 30);
+    // Réduire la taille de l'image à 20 pixels de largeur et 20 pixels de hauteur
+    bullet.setDisplaySize(30, 30);
 
     // parametres physiques de la balle.
     bullet.setCollideWorldBounds(true);
@@ -332,7 +353,7 @@ bullet.setDisplaySize(30, 30);
         monArrayList.push(nbB);
       }
     }
-    
+
     console.log("ArrayList après remplissage:", monArrayList);
     //génération de positions random et rangement dans une list 
     while (ListParcoursAleatoire.length < 4) {
