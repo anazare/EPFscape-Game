@@ -45,7 +45,7 @@ var config = {
   },
 
 
-  scene: [pagedelancement,End,selection,restartJeu, niveauAbdellah,minijeuAbdellah,chargementP1,MiniJeuDarties,videoggP1, niveauMeyer,videoggP,videoggP2,chargementP,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
+  scene: [pagedelancement,selection, niveauAbdellah,minijeuAbdellah,chargementP1,MiniJeuDarties,videoggP1, niveauMeyer,videoggP,videoggP2,chargementP,End,restartJeu,chargement1, chargement2, chargement3,puzzle,enigme2Abdellah , principal, niveauDarties]
 };
 
 // création et lancement du jeu
