@@ -24,7 +24,6 @@ var button3;
 var button4;
 var bouton_restart;
 var consignes;
-var reglementText; 
 export default class MiniJeuDarties extends Phaser.Scene {
 
   constructor() {
@@ -88,22 +87,7 @@ export default class MiniJeuDarties extends Phaser.Scene {
     // On ajoute une simple image de fond, le ciel, au centre de la zone affichée (400, 300)
     // Par défaut le point d'ancrage d'une image est le centre de cette derniere
     this.add.image(400, 300, "img_ciele").setScale(0.45, 0.5555);
-    reglementText = this.add.text(150, 200, "Règlement du jeu : \n\n1. Utilisez les touches fléchées pour vous déplacer.\n2. Appuyez sur la touche A pour tirer.\n3. Détruisez toutes les cibles pour résoudre l'énigme.\n\nBonne chance !", {
-      fontSize: '20px',
-      fill: '#ffffff', // Couleur du texte (blanc ici)
-      fontFamily: "Arial", // Police du texte
-      backgroundColor: '#000000', // Couleur de fond du texte (noir ici)
-      padding: {
-        x: 10,
-        y: 10
-      },
-      wordWrap: { width: 1500, useAdvancedWrap: true }, // Définissez la largeur maximale ici
-      align: 'left'
-    }).setDepth(2);
-
-    setTimeout(() => {
-      reglementText.destroy();
-    }, 7000);
+    
 
     // la création d'un groupes permet de gérer simultanément les éléments d'une meme famille
     //  Le groupe groupe_plateformes contiendra le sol et deux platesformes sur lesquelles sauter
@@ -439,6 +423,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
       } else {
         this.ajout_bouton_restart();
+        button1.disableInteractive();
+        button2.disableInteractive(); 
+        button3.disableInteractive(); 
+        button4.disableInteractive(); 
       }
     });
 
@@ -465,6 +453,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
 
       } else {
         this.ajout_bouton_restart();
+        button1.disableInteractive();
+        button2.disableInteractive(); 
+        button3.disableInteractive(); 
+        button4.disableInteractive(); 
       }
     });
 
@@ -488,6 +480,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
         this.scene.switch("videoggP1");
       } else {
         this.ajout_bouton_restart();
+        button1.disableInteractive();
+        button2.disableInteractive(); 
+        button3.disableInteractive(); 
+        button4.disableInteractive(); 
       }
     });
 
@@ -511,6 +507,10 @@ export default class MiniJeuDarties extends Phaser.Scene {
         this.scene.switch("videoggP1");
       } else {
         this.ajout_bouton_restart();
+        button1.disableInteractive();
+        button2.disableInteractive(); 
+        button3.disableInteractive(); 
+        button4.disableInteractive(); 
       }
     });
   }
