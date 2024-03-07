@@ -14,7 +14,7 @@ export default class End extends Phaser.Scene {
 
     // Create a video element dynamically
     this.videoElement1 = document.createElement('video');
-    this.videoElement1.src = 'src/assets/ending.mp4';
+    this.videoElement1.src = 'src/assets/VIDfinale.mp4';
     this.videoElement1.width = 1200; // Set the width according to your needs
     this.videoElement1.height = 900; // Set the height according to your needs
 
