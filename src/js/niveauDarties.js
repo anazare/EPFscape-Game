@@ -21,6 +21,7 @@ export default class niveauDarties extends Phaser.Scene {
     this.load.tilemapTiledJSON("classe", "src/assets/MapSalleCours.json");
     this.load.image("continuer", "src/assets/fleche.png");
     this.load.audio("consignes", "src/assets/Darties.mp3");
+
   }
 
   create() {
@@ -117,7 +118,11 @@ export default class niveauDarties extends Phaser.Scene {
       console.log("musique finie");
       this.scene.switch("MiniJeuDarties"); 
     });
+
+    
   }
+
+
   displayDynamicText() {
     const text = "Bonjour Redouane, je te lance un défi ! \nSi tu réussis le mini-jeu ainsi que l'enigme qui suivra je te donne tes 3 crédits restants.";
     const x = 100; // Position X du texte
