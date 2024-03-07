@@ -15,7 +15,7 @@ export default class Puzzle extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(IMAGE_KEY, "src/assets/fondtableau.jpg");
+    this.load.image(IMAGE_KEY, "src/assets/fondtableauc.png");
     this.load.image("image1", "src/assets/image1.png");
     this.load.image("image2", "src/assets/image2.png");
     this.load.image("image3", "src/assets/image3.png");
@@ -28,8 +28,8 @@ export default class Puzzle extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, IMAGE_KEY).setScale(1.5)
-    this.add.image(405, 310, "image5").setScale(1.75).setAlpha(0.2);
+    this.add.image(400, 300, IMAGE_KEY).setScale(0.5,0.63);
+    this.add.image(405, 310, "image5").setScale(1.75).setAlpha(0.4);
     this.puzzleImages.push(this.add.image(600, 200, "image1").setDisplaySize(300, 200));
     this.puzzleImages.push(this.add.image(200, 200, "image2").setDisplaySize(300, 200));
     this.puzzleImages.push(this.add.image(400, 500, "image3").setDisplaySize(300, 200));

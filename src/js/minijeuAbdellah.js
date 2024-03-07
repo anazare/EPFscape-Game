@@ -39,7 +39,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
   create() {
     this.enigmeVisible = false;
     this.resetVariables();
-    this.add.image(400, 300, SKY_IMAGE_KEY).setScale(0.5, 0.7);
+    this.add.image(400, 300, SKY_IMAGE_KEY).setScale(0.5, 0.63);
     // Création du canon
     cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.04);
     cannon.setCollideWorldBounds(true);
