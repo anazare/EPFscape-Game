@@ -38,6 +38,7 @@ export default class End extends Phaser.Scene {
     // ajout du son de jousset 
     var jousset5 = this.sound.add('jousset4');
     jousset5.play();
+    jousset5.setVolume(3); 
 
 
   }
@@ -47,6 +48,7 @@ export default class End extends Phaser.Scene {
   }
 
   onVideoEnded() {
-      this.scene.switch("restartJeu");   
+      this.scene.switch("restartJeu"); 
+      console.log('passage a restartJeu');
   }
 }
