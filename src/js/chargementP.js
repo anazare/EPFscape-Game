@@ -38,10 +38,10 @@ export default class chargementP extends Phaser.Scene {
 
   onVideoEnded() {
     if (g == 4){
-      this.scene.stop("chargementP");
-      window.close();
+      this.scene.switch("End");   
     }else{
-
+      g+=1;
+console.log("nombre:" + g);
     // Transition to the next scene
     this.scene.switch("principal");
     this.videoElement.parentNode.removeChild(this.videoElement); 

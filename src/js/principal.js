@@ -114,9 +114,6 @@ this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6
   }
 
   update() {
-    if (score == 8 && Abd.minijeuAbd_termine==true && Drt.minijeuDrt_termine==true && Pzl.isPuzzleSolved==true){
-      this.scene.stop("End");
-      window.close();    }
     this.initializeTextBubble();
     this.player.setVelocity(0);
 
