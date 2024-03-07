@@ -1,6 +1,6 @@
 import * as fct from "/src/js/fonctions.js";
 
-const SKY_IMAGE_KEY = "fondmaths";
+const SKY_IMAGE_KEY = "sky";
 var groupeBullets;
 var cannon;
 var balloonData;
@@ -26,7 +26,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(SKY_IMAGE_KEY, "src/assets/fondmaths.jpg");
+    this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
     this.load.image('cannon', 'src/assets/cannon.png');
     this.load.image('bullet', 'src/assets/balle.png');
     this.load.image('balloon', 'src/assets/balloon.png');
@@ -39,9 +39,9 @@ export default class minijeuAbdellah extends Phaser.Scene {
   create() {
     this.enigmeVisible = false;
     this.resetVariables();
-    this.add.image(400, 300, SKY_IMAGE_KEY).setScale(2.1);
+    this.add.image(400, 300, SKY_IMAGE_KEY).setScale(0.5, 0.7);
     // Création du canon
-    cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.02);
+    cannon = this.physics.add.sprite(100, 300, 'cannon').setScale(0.04);
     cannon.setCollideWorldBounds(true);
     cannon.body.allowGravity = false;
 
@@ -61,7 +61,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
     this.genererMultiplication();
 
     // Afficher la question à l'écran
-    questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#000000', fontFamily: 'Caveat' }).setOrigin(0.5);
+    questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#000000', fontFamily: 'Chalkboard' }).setOrigin(0.5);
 
     // Création du groupe de ballons
     groupeBalloon = this.physics.add.staticGroup();
@@ -188,7 +188,7 @@ export default class minijeuAbdellah extends Phaser.Scene {
 
       groupeBalloon.add(balloonText);
 
-      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.08);
+      let balloon = this.add.image(data.x, data.y, 'balloon').setScale(0.2);
       balloon.pointsVie =1;
       balloon.chiffreAssocie =balloonText;
       groupeBalloon.add(balloon, true);
@@ -229,9 +229,10 @@ export default class minijeuAbdellah extends Phaser.Scene {
     bullet.setCollideWorldBounds(true);
     bullet.body.onWorldBounds = true;
     bullet.body.allowGravity = true;
+    bullet.setTint(0xff0000);
     bullet.setVelocity(400 * coefDir, -300);
     bullet.setGravity(100);
-    bullet.setScale(0.05);
+    bullet.setScale(0.02);
   }
 
   // Fonction déclenchée lorsqu'une balle touche un ballon
@@ -250,12 +251,12 @@ export default class minijeuAbdellah extends Phaser.Scene {
         this.scene.switch("videoggP");
       }
       else {
-        questionText = this.add.text(400, 100, `${multiplicateur} x ${multiplicande} = ?`, { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
         monArrayList = [];
         ListParcoursAleatoire = [];
         multiplicateur = Phaser.Math.Between(12, 23);
         multiplicande = Phaser.Math.Between(8, 16);
         monArrayList.push(multiplicateur * multiplicande);
+        boutonFeu = this.input.keyboard.addKey('P');
         this.ajout_bouton_restart();
       }
     }
