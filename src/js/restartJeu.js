@@ -25,6 +25,7 @@ export default class restartJeu extends Phaser.Scene {
 
     btn_close.on("pointerover", () => {
       btn_close.setTint(0xC0C0C0);
+    
     });
 
     btn_close.on("pointerout", () => {
