@@ -57,8 +57,7 @@ export default class restartJeu extends Phaser.Scene {
 
     btn_restart.on("pointerup", () => {
       btn_restart.setAlpha(0.1);
-      this.scene.stop("index"); 
-      this.scene.start("index"); 
+      location.reload();
     });
   }
 }
