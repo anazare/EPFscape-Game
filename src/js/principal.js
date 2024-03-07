@@ -8,6 +8,10 @@ import * as Pzl from "/src/js/puzzle.js";
 /***********************************************************************/
 
 var cursors; // pour la gestion du clavier
+var calque_background2; 
+var voiture;
+var chien;
+var jousset;
 var calque_background2;
 var score;
 let textBubble;
@@ -38,6 +42,9 @@ export default class principal extends Phaser.Scene {
     this.load.image('img_porte1', 'src/assets/door1.png');
     this.load.image('img_porte2', 'src/assets/door2.png');
     this.load.image('img_porte3', 'src/assets/door3.png');
+    this.load.image('voiture', 'src/assets/voitures.png');
+    this.load.image('chien','src/assets/chien.png');
+    this.load.image('jousset','src/assets/jousset.png');
   }
 
   create() {
@@ -72,13 +79,21 @@ export default class principal extends Phaser.Scene {
     // définition des tuiles de plateformes qui sont solides
     // utilisation de la propriété estSolide
     calque_background2.setCollisionByProperty({ estSolide: true });
+    
 
     // création du personnage de jeu et positionnement
     this.player = this.physics.add.image(2656, 6240, "dude1").setScale(1);
     this.player.setBounce(0.2);
     this.physics.add.collider(this.player, calque_background2);
     // animation pour tourner à gauche
+    this.voiture = this.add.image(1225, 3700, "voiture").setScale(1);
+    this.physics.add.collider(this.player, voiture);
 
+    this.chien = this.add.image(1300, 6000, "chien").setScale(0.2);
+    this.physics.add.collider(this.player, chien);
+
+    this.jousset = this.add.image(1600, 5600, "jousset").setScale(9);
+    this.physics.add.collider(this.player, jousset);
 
     // création d'un écouteur sur le clavier
     cursors = this.input.keyboard.createCursorKeys();
