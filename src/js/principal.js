@@ -2,6 +2,17 @@
 import * as Abd from "/src/js/minijeuAbdellah.js";
 import * as Drt from "/src/js/MiniJeuDarties.js";
 import * as Pzl from "/src/js/puzzle.js";
+import * as fct from "/src/js/fonctions.js";
+// Déclaration d'une classe pour gérer les données du jeu
+class GameData {
+  constructor() {
+      this.p = 1;
+  }
+}
+
+// Création d'une instance de GameData pour stocker les données du jeu
+const gameData = new GameData();
+
 
 /***********************************************************************/
 /** VARIABLES GLOBALES 
@@ -116,8 +127,8 @@ export default class principal extends Phaser.Scene {
   }
 
   update() {
-    if (scoreVisible == false) {
-      scoreVisible = true;
+    if (gameData.p == 1){
+      gameData.p *= -1;
       this.initializeTextBubble();
     }
 
@@ -153,18 +164,25 @@ export default class principal extends Phaser.Scene {
         this.porte2.destroy();
         score += 3;
         console.log("score : " + score);
+        gameData.p = 1;
+
       }
       if (this.physics.overlap(this.player, this.porte1)) {
         this.scene.switch("niveauAbdellah");
         score += 3;
         console.log("score : " + score);
         this.porte1.destroy();
+        gameData.p = 1;
+
+
       }
       if (this.physics.overlap(this.player, this.porte3)) {
         score += 2;
         console.log("score : " + score);
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
+        gameData.p = 1;
+
 
       }
     }
@@ -179,7 +197,8 @@ export default class principal extends Phaser.Scene {
   initializeTextBubble() {
     textBubble = this.add.text(1000, 5000, 'Crédits acquis : ' + this.somme(22, score) + "\nCrédits manquants : " + this.somme(8, -1 * score), {
       fontSize: '16px',
-      fill: '#000000',
+      backgroundColor: "#000000",
+      fill: '#ffffff',
       padding: {
         x: 10,
         y: 10
