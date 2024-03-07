@@ -8,13 +8,14 @@ import * as Pzl from "/src/js/puzzle.js";
 /***********************************************************************/
 
 var cursors; // pour la gestion du clavier
-var calque_background2; 
+var calque_background2;
 var voiture;
 var chien;
 var jousset;
 var calque_background2;
 var score;
 let textBubble;
+var scoreVisible; 
 
 
 export default class principal extends Phaser.Scene {
@@ -25,9 +26,9 @@ export default class principal extends Phaser.Scene {
     });
     this.player;// Initialize score variable
   }
-  
+
   preload() {
-    
+
     // ajout perso
     this.load.image("dude1", "src/assets/tetered.png");
 
@@ -43,15 +44,16 @@ export default class principal extends Phaser.Scene {
     this.load.image('img_porte2', 'src/assets/door2.png');
     this.load.image('img_porte3', 'src/assets/door3.png');
     this.load.image('voiture', 'src/assets/voitures.png');
-    this.load.image('chien','src/assets/chien.png');
-    this.load.image('jousset','src/assets/jousset.png');
+    this.load.image('chien', 'src/assets/chien.png');
+    this.load.image('jousset', 'src/assets/jousset.png');
   }
 
   create() {
+    
     score = 0;
-    console.log("maths : " + Abd.minijeuAbd_terminé); 
-    console.log("cpo : " + Drt.minijeuDrt_terminé); 
-    console.log("chimie : " + Pzl.isPuzzleSolved); 
+    console.log("maths : " + Abd.minijeuAbd_terminé);
+    console.log("cpo : " + Drt.minijeuDrt_terminé);
+    console.log("chimie : " + Pzl.isPuzzleSolved);
     // Calculate the center position of the screen
     const centerX = this.cameras.main.width / 2;
     const centerY = this.cameras.main.height / 2;
@@ -79,7 +81,7 @@ export default class principal extends Phaser.Scene {
     // définition des tuiles de plateformes qui sont solides
     // utilisation de la propriété estSolide
     calque_background2.setCollisionByProperty({ estSolide: true });
-    
+
 
     // création du personnage de jeu et positionnement
     this.player = this.physics.add.image(2656, 6240, "dude1").setScale(1);
@@ -108,90 +110,84 @@ export default class principal extends Phaser.Scene {
 
     // ajout du modèle de collision entre le personnage et le monde
     this.player.setCollideWorldBounds(true);
-this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
-this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
-this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
+    this.porte1 = this.physics.add.staticSprite(3456, 4256, "img_porte1").setScale(6);
+    this.porte2 = this.physics.add.staticSprite(3456, 2880, "img_porte2").setScale(6);
+    this.porte3 = this.physics.add.staticSprite(3456, 1984, "img_porte3").setScale(6);
   }
 
   update() {
-    this.initializeTextBubble();
+    if (scoreVisible == false) {
+      scoreVisible = true;
+      this.initializeTextBubble();
+    }
+
+    //vitesse joueur
     this.player.setVelocity(0);
 
     if (cursors.up.isDown) {
       this.player.setVelocityY(-400);
       // à droite
     } else if (cursors.down.isDown) {
-
       this.player.setVelocityY(400);
-
     }
 
     // a gauche
     if (cursors.left.isDown) {
-
       this.player.setVelocityX(-400);
-
-      //player.anims.play("left", true);
-
-
-
+      
       // à droite
     } else if (cursors.right.isDown) {
-
       this.player.setVelocityX(400);
-
-      //player.anims.play("right", true);
     }
 
     // immoobile
     else {
-
       this.player.setVelocityX(0);
-
-      //player.anims.play("turn");
       this.player.setGravity(0); // Remove gravity from the player
-
     }
     this.physics.world.collide(this.player, calque_background2);
 
-    if (cursors.right.isDown)  {
-      if (this.physics.overlap(this.player, this.porte2)){
+    if (cursors.right.isDown) {
+      if (this.physics.overlap(this.player, this.porte2)) {
         this.scene.switch("niveauDarties");
         this.porte2.destroy();
-        score+=3; 
-        console.log("score : "+score); 
+        score += 3;
+        console.log("score : " + score);
       }
       if (this.physics.overlap(this.player, this.porte1)) {
         this.scene.switch("niveauAbdellah");
-        score+=3; 
-        console.log("score : "+score); 
+        score += 3;
+        console.log("score : " + score);
         this.porte1.destroy();
       }
       if (this.physics.overlap(this.player, this.porte3)) {
-      score+=2; 
-        console.log("score : "+score); 
+        score += 2;
+        console.log("score : " + score);
         this.scene.switch("niveauMeyer");
         this.porte3.destroy();
-        
+
       }
     }
-    
+
 
   }
 
+  somme(a, b) {
+    return a + b;
+  }
+
   initializeTextBubble() {
-    textBubble = this.add.text(this.player.x, this.player.y - 200, 'Score : ' + score, {
+    textBubble = this.add.text(1000, 5000, 'Crédits acquis : ' + this.somme(22, score) + "\nCrédits manquants : " + this.somme(8, -1 * score), {
       fontSize: '16px',
-      fill: '#ffffff',
-      backgroundColor: '#000000',
+      fill: '#000000',
       padding: {
         x: 10,
         y: 10
       },
       //borderRadius: 6,
       visible: false
-    }).setOrigin(0.5).setDepth(10).setScale(3);
-    console.log("ajout text bubble"); 
+    }).setOrigin(0.5).setDepth(10).setScale(5);
+    console.log("ajout text bubble");
   }
-  
+
 }
