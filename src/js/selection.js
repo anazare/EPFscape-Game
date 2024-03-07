@@ -18,7 +18,6 @@ export default class selection extends Phaser.Scene {
     this.load.image(SKY_IMAGE_KEY, "src/assets/sky.png");
     this.load.image(BOOK_IMAGE_KEY, "src/assets/book.png");
     this.load.image("Start", "src/assets/bouton-start.png");
-    
     this.load.audio('jousset1', 'src/assets/jousset1.mp3');
   }
 
@@ -50,8 +49,7 @@ export default class selection extends Phaser.Scene {
     // Ajout de la fonctionnalité d'affichage lettre par lettre
     this.time.delayedCall(50, this.afficherTexteLettreParLettre, [], this);
 
-    // Ajouter le bouton "Start" et l'image du campus avec un délai de 18 secondes
-    this.time.delayedCall(15000, this.afficherCampusEtBouton, [], this);
+    this.afficherCampusEtBouton(); 
   }
 
   update() {
@@ -85,6 +83,7 @@ export default class selection extends Phaser.Scene {
 
     bouton_play.on("pointerout", () => {
       bouton_play.clearTint();
+      jousset1.stop(); 
     });
 
     bouton_play.on("pointerup", () => {

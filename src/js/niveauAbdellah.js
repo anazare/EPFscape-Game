@@ -3,7 +3,6 @@ import * as fct from "/src/js/fonctions.js";
 
 var cursors;
 var bouton_restart;
-var audio_enigme;
 var audio_explication;
 
 export default class niveauAbdellah extends Phaser.Scene {
@@ -34,23 +33,13 @@ export default class niveauAbdellah extends Phaser.Scene {
 
     //ajout audio enigme 1
     this.load.audio('Abdellah1', "src/assets/Abdellah1.mp3");
-    this.load.audio('Abdellah2', "src/assets/Abdellah2.mp3");
     this.load.audio('bravo', 'src/assets/Bravo.mp3');
   }
 
   create() {
     audio_explication = this.sound.add('Abdellah1');
-    audio_enigme = this.sound.add('Abdellah2');
     audio_explication.play();
     console.log("ajout son1");
-
-    // Création du timer pour l'énigme 2
-    var timerRestart = this.time.delayedCall(11000, () => {
-      audio_enigme.play();
-      console.log("ajout son2");
-    }, [], this);
-
-    
 
     //chargement de la carte et des jeux de tuiles 
     const CarteDeLaClasse = this.add.tilemap("classe");
@@ -128,12 +117,12 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
   displayDynamicText() {
 
-    const text = "Bonjour à toi, \nMalgré tes bavardages je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 64.\nQui suis-je?";
+    const text = "Bonjour à toi, \nMalgré tes bavardages, je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 64.\nQui suis-je?";
     const x = 100; // Position X du texte
     const y = 77; // Position Y du texte
     const fontSize = '25px'; // Taille de la police
     const fill = '#fff'; // Couleur du texte
-    const delay = 50; // Délai entre chaque caractère en ms
+    const delay = 55; // Délai entre chaque caractère en ms
 
     let dynamicText = this.add.text(x, y, '', {
       fontSize: fontSize,
@@ -195,11 +184,7 @@ export default class niveauAbdellah extends Phaser.Scene {
     //Cas ou la souris clique sur le bouton play :
     button1.on("pointerup", () => {
       audio_explication.stop(); // Arrête la musique en cours
-      console.log("arret audio1");
-      var timerRestart1 = this.time.delayedCall(11000, () => {
-        audio_enigme.stop();
-        console.log("arret son2");
-      }, [], this);
+      console.log("arret audio1 BTN1");
 
       var bravo = this.sound.add("bravo");
       bravo.play();
@@ -245,6 +230,8 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button2.on("pointerup", () => {
+      audio_explication.stop(); // Arrête la musique en cours
+      console.log("arret audio1 BTN2");
       this.add.image(400, 325, 'livre').setDepth(9);
       this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
         fontSize: '25px',
@@ -269,6 +256,8 @@ export default class niveauAbdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button3.on("pointerup", () => {
+      audio_explication.stop(); // Arrête la musique en cours
+      console.log("arret audio1");
       this.add.image(400, 325, 'livre').setDepth(9);
       this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
         fontSize: '25px',

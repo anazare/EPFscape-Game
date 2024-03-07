@@ -2,6 +2,7 @@ import * as fct from "/src/js/fonctions.js";
 
 var cursors;
 var bouton_restart;
+var audio_enigme2; 
 
 export default class enigme2Abdellah extends Phaser.Scene {
   // constructeur de la classe
@@ -33,7 +34,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
   }
 
   create() {
-    var audio_enigme2 = this.sound.add("Abdellah3");
+    audio_enigme2 = this.sound.add("Abdellah3");
     audio_enigme2.play();
     audio_enigme2.setVolume(0.5);
 
@@ -170,6 +171,8 @@ export default class enigme2Abdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button1.on("pointerup", () => {
+      audio_enigme2.stop(); // Arrête la musique en cours
+      console.log("arret audio1");
       var bravo = this.sound.add("bravo");
       bravo.play();
       this.add.image(400, 325, 'livre2').setDepth(8);
@@ -192,6 +195,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
       });
       //Cas ou la souris clique sur le bouton play :
       fleche.on("pointerup", () => {
+        bravo.stop(); 
         this.scene.start("minijeuAbdellah"); // Démarre la scène du niveau principal
 
       });
@@ -211,6 +215,8 @@ export default class enigme2Abdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button2.on("pointerup", () => {
+      audio_enigme2.stop(); // Arrête la musique en cours
+      console.log("arret audio1");
       this.add.image(400, 325, 'livre').setDepth(8);
       this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
         fontSize: '25px',
@@ -235,6 +241,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
     });
     //Cas ou la souris clique sur le bouton play :
     button3.on("pointerup", () => {
+      audio_enigme2.stop(); 
       this.add.image(400, 325, 'livre').setDepth(8);
       this.add.text(80, 80, "MAUVAISE REPONSE :( \n Je t'invite à cliquer sur la flèche\n et recommencer ce niveau.", {
         fontSize: '25px',
