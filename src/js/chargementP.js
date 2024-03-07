@@ -3,6 +3,7 @@ import * as fct from "/src/js/fonctions.js";
 class GameData {
   constructor() {
       this.g = 0;
+      this.p = 1;
   }
 }
 
