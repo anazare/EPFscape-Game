@@ -118,7 +118,7 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
   displayDynamicText() {
 
-    const text = "Bonjour à toi, \nMalgré tes bavardages, je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 64.\nQui suis-je?";
+    const text = "Bonjour à toi, \nMalgré tes bavardages, je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 36.\nQui suis-je?";
     const x = 100; // Position X du texte
     const y = 77; // Position Y du texte
     const fontSize = '25px'; // Taille de la police
