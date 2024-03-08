@@ -35,7 +35,8 @@ export default class chargement1 extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    // Transition to the next scene
+    console.log("passage de principal à niveauAbdellah"); 
     this.scene.switch("niveauAbdellah");
-    this.videoElement.parentNode.removeChild(this.videoElement);  }
+    this.videoElement.parentNode.removeChild(this.videoElement);  
+  }
 }

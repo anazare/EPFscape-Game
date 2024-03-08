@@ -36,6 +36,7 @@ export default class chargementP1 extends Phaser.Scene {
 
   onVideoEnded() {
     // Transition to the next scene
+    console.log('passage de pagedelancement à selection')
     this.scene.switch("selection");
     this.videoElement.parentNode.removeChild(this.videoElement); 
     this.scene.stop();  }

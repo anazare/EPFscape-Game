@@ -2,8 +2,8 @@ import * as fct from "/src/js/fonctions.js";
 // Déclaration d'une classe pour gérer les données du jeu
 class GameData {
   constructor() {
-      this.g = 0;
-      this.p = 1;
+    this.g = 0;
+    this.p = 1;
   }
 }
 
@@ -46,17 +46,18 @@ export default class chargementP extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    if (gameData.g == 1){
-        this.scene.switch("End");   
-        this.scene.stop();
-        console.log("arret scene et switch vers end"); 
+    if (gameData.g == 1) {
+      this.videoElement.parentNode.removeChild(this.videoElement);
+      this.scene.switch("End");
+      this.scene.stop();
+      console.log("arret chargementP et switch vers End");
     } else {
-        gameData.g += 1;
-        console.log("nombre:" + gameData.g);
-        // Transition to the next scene
-        this.scene.switch("principal");
-        this.videoElement.parentNode.removeChild(this.videoElement); 
-        this.scene.stop();
+      gameData.g += 1;
+      console.log("nombre:" + gameData.g);
+      // Transition to the next scene
+      this.scene.switch("principal");
+      this.videoElement.parentNode.removeChild(this.videoElement);
+      this.scene.stop();
     }
-}
+  }
 }

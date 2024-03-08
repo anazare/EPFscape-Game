@@ -36,6 +36,7 @@ export default class chargement2 extends Phaser.Scene {
 
   onVideoEnded() {
     // Transition to the next scene
+    console.log("passage principal à niveauDarties"); 
     this.scene.switch("niveauDarties");
     this.videoElement.parentNode.removeChild(this.videoElement);  }
 }

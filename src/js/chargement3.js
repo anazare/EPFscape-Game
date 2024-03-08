@@ -36,6 +36,7 @@ export default class chargement3 extends Phaser.Scene {
 
   onVideoEnded() {
     // Transition to the next scene
+    console.log("passage de principal niveau Meyer"); 
     this.scene.switch("niveauMeyer");
     this.videoElement.parentNode.removeChild(this.videoElement);  }
 }
