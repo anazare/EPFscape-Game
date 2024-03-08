@@ -12,7 +12,7 @@ export default class RestartJeu extends Phaser.Scene {
   }
 
   create() {
-    console.log("restart");
+    console.log("lecture de restartJeu en cours");
     // Ajouter l'image de fond
     this.add.image(400, 300, "EPF1").setScale(0.45, 0.5555);
 
@@ -49,6 +49,7 @@ export default class RestartJeu extends Phaser.Scene {
 
     btnRestart.on("pointerup", () => {
       btnRestart.setAlpha(0.1);
+      window.location.reload("pagedelancement");
       this.scene.start("pagedelancement");
     });
   }

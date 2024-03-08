@@ -15,7 +15,7 @@ export default class pagedelancement extends Phaser.Scene {
   }
 
   create() {
-    //window.location.reload();
+    
     //création de la musique de fond et mise en boucle 
     musique_de_fond = this.sound.add('background', { loop: true });
     musique_de_fond.play();

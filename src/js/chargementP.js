@@ -46,7 +46,7 @@ export default class chargementP extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    if (gameData.g == 1) {
+    if (gameData.g == 3) {
       this.videoElement.parentNode.removeChild(this.videoElement);
       this.scene.switch("End");
       this.scene.stop();
