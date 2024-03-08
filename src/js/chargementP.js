@@ -46,7 +46,7 @@ export default class chargementP extends Phaser.Scene {
   }
 
   onVideoEnded() {
-    if (gameData.g == 3){
+    if (gameData.g == 1){
         this.scene.switch("End");   
         this.scene.stop();
         console.log("arret scene et switch vers end"); 

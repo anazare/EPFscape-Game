@@ -49,7 +49,8 @@ export default class End extends Phaser.Scene {
 
   onVideoEnded1() {
     console.log('passage a restartJeu');
-    
+    this.videoElement1.parentNode.removeChild(this.videoElement1); 
+
     // Fermer la vidéo en détruisant l'élément vidéo
     if (this.videoElemeSnt1) {
       this.videoElement1.pause();

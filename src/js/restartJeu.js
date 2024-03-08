@@ -6,14 +6,15 @@ export default class RestartJeu extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("EPF", "src/assets/fond_restart.png");
-    this.load.image("Start1", "src/assets/boutonstart1.png");
+    this.load.image("EPF1", "src/assets/fond_restart.png");
+    this.load.image("Start2", "src/assets/boutonstart1.png");
     this.load.image("Exit", "src/assets/exitjeu.png");
   }
 
   create() {
+    console.log("restart");
     // Ajouter l'image de fond
-    this.add.image(400, 300, "EPF").setScale(0.45, 0.5555);
+    this.add.image(400, 300, "EPF1").setScale(0.45, 0.5555);
 
     // Ajouter le bouton de sortie
     var btnClose = this.add.image(750, 50, "Exit").setScale(0.1).setDepth(10);
