@@ -184,6 +184,7 @@ export default class enigme2Abdellah extends Phaser.Scene {
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(9);
+      button1.disableInteractive();
       var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(9);
       fleche.setInteractive();
 

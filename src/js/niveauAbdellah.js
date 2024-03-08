@@ -72,7 +72,7 @@ export default class niveauAbdellah extends Phaser.Scene {
 
     this.anims.create({
       key: "left",
-    frames: this.anims.generateFrameNumbers("alldude", { start: 27, end: 30 }),
+      frames: this.anims.generateFrameNumbers("alldude", { start: 27, end: 30 }),
       frameRate: 10,
       repeat: -1
     });
@@ -198,6 +198,7 @@ export default class niveauAbdellah extends Phaser.Scene {
         wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
         align: 'center'
       }).setDepth(10);
+      button1.disableInteractive();
 
 
       var fleche = this.add.image(700, 500, 'fleche').setScale(0.1).setDepth(10);

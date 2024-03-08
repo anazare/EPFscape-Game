@@ -8,15 +8,16 @@ export default class End extends Phaser.Scene {
   }
   preload() {
     this.load.audio("jousset4", "src/assets/jousset4.mp3");
-
+    this.load.image("blanc", "src/assets/PageBlanche.png"); 
   }
   create() {
+    this.add.image(400, 300, "blanc").setScale(0.45, 0.5555);
 
     // Create a video element dynamically
     this.videoElement1 = document.createElement('video');
     this.videoElement1.src = 'src/assets/VIDfinale.mp4';
-    this.videoElement1.width = 1200; // Set the width according to your needs
-    this.videoElement1.height = 900; // Set the height according to your needs
+    this.videoElement1.width = 900; // Set the width according to your needs
+    this.videoElement1.height = 675; // Set the height according to your needs
 
     // Add styles to position the video at the center of the screen
     this.videoElement1.style.position = 'fixed';
@@ -31,7 +32,7 @@ export default class End extends Phaser.Scene {
 
     // Add the video to your document
     document.body.appendChild(this.videoElement1);
-
+    
     // Start playing the video
     this.videoElement1.play();
 
