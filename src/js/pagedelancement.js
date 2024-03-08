@@ -1,21 +1,21 @@
 import * as fct from "/src/js/fonctions.js";
 var musique_de_fond;
-export default class Pagedelancement extends Phaser.Scene {
+export default class pagedelancement extends Phaser.Scene {
   constructor() {
     super({
-      key: "lancement"
+      key: "pagedelancement"
     });
   }
 
   preload() {
     this.load.image("EPF", "src/assets/play.jpg");
-    this.load.image("img_plateforme", "src/assets/platform.png");
     this.load.image("Start1", "src/assets/boutonstart1.png");
     this.load.image("Exit", "src/assets/exitjeu.png");
     this.load.audio('background', 'src/assets/sonambiance.mp3');
   }
 
   create() {
+    //window.location.reload();
     //création de la musique de fond et mise en boucle 
     musique_de_fond = this.sound.add('background', { loop: true });
     musique_de_fond.play();

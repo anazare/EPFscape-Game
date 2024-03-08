@@ -1,7 +1,4 @@
-import * as fct from "/src/js/fonctions.js";
-var btn_close; 
-
-export default class restartJeu extends Phaser.Scene {
+export default class RestartJeu extends Phaser.Scene {
   constructor() {
     super({
       key: "restartJeu"
@@ -10,55 +7,50 @@ export default class restartJeu extends Phaser.Scene {
 
   preload() {
     this.load.image("EPF", "src/assets/fond_restart.png");
-    this.load.image("img_plateforme", "src/assets/Nplatform.png");
     this.load.image("Start1", "src/assets/boutonstart1.png");
     this.load.image("Exit", "src/assets/exitjeu.png");
   }
 
   create() {
-    
     // Ajouter l'image de fond
     this.add.image(400, 300, "EPF").setScale(0.45, 0.5555);
 
-    btn_close = this.add.image(750, 50, "Exit").setScale(0.1); // Réglez la valeur selon vos besoins
-    btn_close.setInteractive();
+    // Ajouter le bouton de sortie
+    var btnClose = this.add.image(750, 50, "Exit").setScale(0.1).setDepth(10);
+    btnClose.setInteractive();
 
-    btn_close.on("pointerover", () => {
-      btn_close.setTint(0xC0C0C0);
-    
+    btnClose.on("pointerover", () => {
+      btnClose.setTint(0xC0C0C0);
     });
 
-    btn_close.on("pointerout", () => {
-      btn_close.clearTint();
+    btnClose.on("pointerout", () => {
+      btnClose.clearTint();
     });
 
-    btn_close.on("pointerup", () => {
+    btnClose.on("pointerup", () => {
       this.scene.stop("restartJeu");
       window.close();
     });
-    // Appeler la méthode pour afficher le bouton
-    this.afficherBouton();
+
+    // Ajouter le bouton de redémarrage
+    var btnRestart = this.add.image(400, 490, "Start1").setScale(0.3);
+    btnRestart.setInteractive();
+
+    btnRestart.on("pointerover", () => {
+      btnRestart.setTint(0xC0C0C0);
+      btnRestart.setAlpha(0.1);
+      console.log('Passage sur bouton restart');
+    });
+
+    btnRestart.on("pointerout", () => {
+      btnRestart.clearTint();
+    });
+
+    btnRestart.on("pointerup", () => {
+      btnRestart.setAlpha(0.1);
+      this.scene.start("pagedelancement");
+    });
   }
 
   update() { }
-
-  afficherBouton() {
-    // Déclarer la variable bouton_play
-    var btn_restart = this.add.image(400, 490, "Start1").setScale(0.3); // Réglez la valeur selon vos besoins
-    btn_restart.setInteractive();
-
-    btn_restart.on("pointerover", () => {
-      btn_restart.setTint(0xC0C0C0);
-      btn_restart.setAlpha(0.1);
-    });
-
-    btn_restart.on("pointerout", () => {
-      btn_restart.clearTint();
-    });
-
-    btn_restart.on("pointerup", () => {
-      btn_restart.setAlpha(0.1);
-      location.reload();
-    });
-  }
 }

@@ -118,7 +118,7 @@ export default class niveauAbdellah extends Phaser.Scene {
   }
   displayDynamicText() {
 
-    const text = "Bonjour à toi, \nMalgré tes bavardages, je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 36.\nQui suis-je?";
+    const text = "Bonjour à toi, \nMalgré tes bavardages, je te laisse une  dernière chance pour te rattraper. Si tu réponds correctement à ces 2 énigmes et que tu réussis le mini-jeu, tu pourras récuperer tes 3 crédits. \n\nLa première énigme est la suivante : \nJe suis un nombre entier positif. Si tu multiplies mon carré par 5, puis ajoutes le double de mon cube, tu obtiendras 64.\nQui suis-je?";
     const x = 100; // Position X du texte
     const y = 77; // Position Y du texte
     const fontSize = '25px'; // Taille de la police
@@ -146,21 +146,21 @@ export default class niveauAbdellah extends Phaser.Scene {
 
     // Lancement de la fonction pour afficher le texte progressivement
     typeWriter(text, 0);
-    this.add.text(592, 485, '2', {
+    this.add.text(575, 485, '2.5', {
       fontSize: '25px',
       fill: '#000000', //noir 
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
       align: 'center'
     }).setDepth(6);
 
-    this.add.text(192, 485, '4', {
+    this.add.text(175, 485, '4.3', {
       fontSize: '25px',
       fill: '#000000', //noir 
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)
       align: 'center'
     }).setDepth(6);
 
-    this.add.text(392, 485, '7', {
+    this.add.text(375, 485, '2.2', {
       fontSize: '25px',
       fill: '#000000', //noir 
       wordWrap: { width: 300, useAdvancedWrap: true }, // Définissez la largeur maximale ici (300 pixels dans cet exemple)

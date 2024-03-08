@@ -49,6 +49,34 @@ export default class End extends Phaser.Scene {
 
   onVideoEnded1() {
     console.log('passage a restartJeu');
-      this.scene.switch("restartJeu"); 
+    
+    // Fermer la vidéo en détruisant l'élément vidéo
+    if (this.videoElemeSnt1) {
+      this.videoElement1.pause();
+      this.videoElement1.removeAttribute('src');
+      this.videoElement1.load();
+      this.videoElement1.parentNode.removeChild(this.videoElement1);
+      this.videoElement1 = null;
+    }
+
+    // this.scene.stop("niveauAbdellah"); 
+    // this.scene.stop("selection"); 
+    // this.scene.stop("chargementP1"); 
+    // //this.scene.close(principal); 
+    // this.scene.stop("chargement1"); 
+    // this.scene.stop("minijeuAbdellah"); 
+    // this.scene.stop("videoggP"); 
+    // this.scene.stop("chargementP"); 
+    // this.scene.stop("chargement2"); 
+    // this.scene.stop("niveauDarties"); 
+    // this.scene.stop("MiniJeuDarties"); 
+    // this.scene.stop("videoggP1"); 
+    // this.scene.stop("chargement3"); 
+    // this.scene.stop("niveauMeyer"); 
+    // this.scene.stop("puzzle"); 
+    // this.scene.stop("videoggP2");
+    // Démarrer la nouvelle scène
+    this.scene.start("restartJeu");
   }
+  
 }
